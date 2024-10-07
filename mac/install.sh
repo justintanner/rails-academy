@@ -79,8 +79,14 @@ xattr -dr com.apple.quarantine "/Applications/flameshot.app"
 echo "Trusting Alacritty..."
 xattr -dr com.apple.quarantine "/Applications/Alacritty.app"
 
+echo "Trusting 1Password..."
+xattr -dr com.apple.quarantine "/Applications/1Password.app"
+
 echo "Trusting VS Code..."
 xattr -dr com.apple.quarantine "/Applications/Visual Studio Code.app"
+
+echo "Trusting RubyMine..."
+xattr -dr com.apple.quarantine "/Applications/RubyMine.app"
 
 if command -v mise >/dev/null 2>&1; then
   echo "Mise already installed. Skipping..."

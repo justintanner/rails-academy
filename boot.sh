@@ -2,7 +2,8 @@
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Detected a Mac..."
-  eval "$(wget -qO- https://raw.githubusercontent.com/justintanner/rails-academy/stable/mac/install.sh)"
+  INSTALL_URL="https://raw.githubusercontent.com/justintanner/rails-academy/stable/mac/install.sh"
+  eval "bash <(curl -fsSL ${INSTALL_URL} || wget -qO- $(INSTALL_URL))"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   if grep -q "microsoft" /proc/version; then
     echo "Detected Windows Subsystem for Linux..."
