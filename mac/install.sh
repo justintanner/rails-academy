@@ -28,7 +28,7 @@ echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
 git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
 if [[ $RAILS_ACADEMY_REF != "master" ]]; then
-  cd ~/.local/share/RAILS_ACADEMY
+  cd ~/.local/share/rails-academy
   git fetch origin "${RAILS_ACADEMY_REF:-stable}" && git checkout "${RAILS_ACADEMY_REF:-stable}"
   cd -
 fi
@@ -53,8 +53,16 @@ for package in "${packages[@]}"; do
   fi
 done
 
+if command -v terraform >/dev/null 2>&1; then
+  echo "Terraform already installed. Skipping..."
+else
+  echo "Installing Terraform..."
+  brew tap hashicorp/tap
+  brew install hashicorp/tap/terraform
+fi
+
 echo "Installing cask apps..."
-casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver)
+casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver flameshot alacritty 1password rubymine visual-studio-code)
 
 for cask in "${casks[@]}"; do
   if brew list --cask -1 | grep -q "^${cask}\$"; then
@@ -65,27 +73,14 @@ for cask in "${casks[@]}"; do
   fi
 done
 
-if command -v terraform >/dev/null 2>&1; then
-  echo "Terraform already installed. Skipping..."
-else
-  echo "Installing Terraform..."
-  brew tap hashicorp/tap
-  brew install hashicorp/tap/terraform
-fi
+echo "Trusting flameshot..."
+xattr -dr com.apple.quarantine "/Applications/flameshot.app"
 
-if command -v code >/dev/null 2>&1; then
-  echo "VS Code already installed. Skipping..."
-else
-  echo "Installing VS Code..."
-  brew install --cask visual-studio-code
-fi
+echo "Trusting Alacritty..."
+xattr -dr com.apple.quarantine "/Applications/Alacritty.app"
 
-if [ -d /Applications/Alacritty.app ]; then
-  echo "Alacritty already installed. Skipping..."
-else
-  echo "Installing Alacritty..."
-  brew install --cask alacritty
-fi
+echo "Trusting VS Code..."
+xattr -dr com.apple.quarantine "/Applications/Visual Studio Code.app"
 
 if command -v mise >/dev/null 2>&1; then
   echo "Mise already installed. Skipping..."
@@ -93,8 +88,6 @@ else
   echo "Installing Mise..."
   curl https://mise.run | sh
 fi
-
-echo "Installing config files..."
 
 backup_file() {
   local file=$1
@@ -121,10 +114,15 @@ install_config() {
   cp $source $dest
 }
 
-install_config ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
-install_config ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
-install_config ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
-install_config ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
+read -p "Overwrite bash config files (Y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ || -z $REPLY ]]; then
+  echo "Installing config files..."
+  install_config ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
+  install_config ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
+  install_config ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
+  install_config ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
+fi
 
 if [ -f /usr/local/bin/rubymine ]; then
   echo "Rubymine shell script already installed. Skipping..."
