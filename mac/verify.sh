@@ -57,7 +57,7 @@ else
 fi
 
 # Check for required Homebrew packages
-packages=(fzf ripgrep bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client)
+packages=(fzf ripgrep bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
 
 for package in "${packages[@]}"; do
   if brew list -1 | grep -q "^${package}\$"; then

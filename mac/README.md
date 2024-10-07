@@ -19,11 +19,24 @@ We will use Docker to deploy our rails app's and run databases locally.
 3. Open the setting by clicking the gear icon in the top right corner
 4. Check "Start Docker Desktop when you sign in to your computer"
 
-## Google Chrome
+## RubyMine
 
-The [most popular browser](https://gs.statcounter.com/browser-market-share) in the world to test our web apps.
+We'll use RubyMine to write our Ruby code.
 
-1. Download and install [Google Chrome](https://www.google.com/chrome/)
+1. Download and install [RubyMine](https://www.jetbrains.com/ruby/download/)
+2. Open RubyMine from your Applications folder
+3. Sign in with your JetBrains account (or create one if you don't have one)
+
+## 1Password
+
+We'll use 1Password to securely authenticate to our servers.
+
+1. Download and install [1Password](https://1password.com/)
+2. Open 1Password from your Applications folder
+3. Sign up for a free account (or login if you already have one)
+4. Open 1Password and goto the Settings
+5. Select "Use the SSH Agent"
+6. And "Integrate with 1Password CLI"
 
 ## Alacritty
 

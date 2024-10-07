@@ -9,7 +9,7 @@ else
 fi
 
 if command -v brew >/dev/null 2>&1; then
-  echo "Homebrew..."
+  echo "Homebrew already installed. Updating..."
   brew update
 else
   echo "Homebrew not installed. Installing..."
@@ -24,28 +24,25 @@ else
   brew install git
 fi
 
+echo "Cloning Rails Academy..."
+rm -rf ~/.local/share/rails-academy
+git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
+if [[ $RAILS_ACADEMY_REF != "master" ]]; then
+  cd ~/.local/share/RAILS_ACADEMY
+  git fetch origin "${RAILS_ACADEMY_REF:-stable}" && git checkout "${RAILS_ACADEMY_REF:-stable}"
+  cd -
+fi
+
 echo "Setting git defaults..."
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.st status
 git config --global pull.rebase true
-
-if [ -d ~/.local/rails-academy ]; then
-  echo "Cloning Rails Academy repository..."
-  mkdir -p ~/.local
-  mkdir -p ~/.local/share
-  git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy
-else
-  echo "Updating Rails Academy repository..."
-  cd ~/.local/share/rails-academy || exit
-  git fetch origin
-  git reset --hard origin/main
-  cd - || exit
-fi
+git config --global push.autoSetupRemote true
 
 echo "Installing command line utils..."
-packages=(fzf ripgrep bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client)
+packages=(fzf ripgrep bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
 
 for package in "${packages[@]}"; do
   if brew list -1 | grep -q "^${package}\$"; then
