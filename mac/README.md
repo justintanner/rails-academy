@@ -35,7 +35,7 @@ xcode-select --install
 Finally we can install all the other tools we need by running:
 
 ```bash
-wget -o0- rails.academy/install | bash
+bash <(curl -fsSL https://rails.academy/install || wget -qO- https://rails.academy/install)
 ```
 
 ## Your Mac is ready :tada:
