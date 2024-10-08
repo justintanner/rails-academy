@@ -1,10 +1,11 @@
 #!/bin/bash
 
 if xcode-select -p >/dev/null 2>&1; then
-  echo "Xcode CLI is installed."
+  echo "Xcode Command Line Tools are installed."
 else
-  echo "Installing the Xcode Command Line Tools..."
-  xcode-select --install
+  echo "Xcode Command Line Tools are NOT installed. Please follow these instructions:"
+  echo "https://github.com/justintanner/rails-academy/blob/main/mac/README.md"
+  exit 1
 fi
 
 if command -v brew >/dev/null 2>&1; then
