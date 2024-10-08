@@ -2,7 +2,7 @@
 export PS1='$ '
 
 # Make bash our default shell
-export SHELL=/bin/bash
+export SHELL=/opt/homebrew/bin/bash
 
 # History control
 shopt -s histappend

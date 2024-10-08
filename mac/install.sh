@@ -69,7 +69,7 @@ git config --global pull.rebase true
 git config --global push.autoSetupRemote true
 
 echo "Installing command line utils..."
-packages=(fzf ripgrep bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
+packages=(fzf ripgrep bash bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
 
 for package in "${packages[@]}"; do
   if brew list -1 | grep -q "^${package}\$"; then
@@ -188,7 +188,7 @@ install_only_if_missing() {
 }
 
 echo -e "\nInstalling config files..."
-install_and_backup_old_file ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
+install_and_backup_old_file ~/.local/share/rails-academy/mac/.alacritty.toml ~/.alacritty.toml
 install_only_if_missing ~/.local/share/rails-academy/mac/.bash_aliases ~/.bash_aliases
 install_only_if_missing ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
 install_only_if_missing ~/.local/share/rails-academy/mac/.bash_op ~/.bash_op
@@ -197,8 +197,8 @@ install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
 
 echo -e "\nSetting bash as the default terminal..."
-chsh -s /bin/bash
-defaults write com.apple.Terminal Shell -string "/bin/bash"
+chsh -s /opt/homebrew/bin/bash
+defaults write com.apple.Terminal Shell -string "/opt/homebrew/bin/bash"
 
 echo "Setting fonts in Terminal..."
 osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
