@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Allow homebrew to run in interactive mode
+# Allows homebrew to run in interactive mode
 exec < /dev/tty
 
 if xcode-select -p >/dev/null 2>&1; then
