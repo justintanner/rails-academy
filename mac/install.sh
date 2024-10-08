@@ -159,4 +159,20 @@ install_config ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
 install_config ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
 install_config ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
 
+
+echo "Setting bash as the default terminal..."
+chsh -s /bin/bash
+defaults write com.apple.Terminal Shell -string "/bin/bash"
+
+echo "Setting fonts in Terminal..."
+osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
+osascript -e 'tell application "Terminal" to set font size of settings set "Basic" to 14'
+
+echo "Install a global ruby with mise..."
+mise use --global ruby@3.3
+mise x ruby -- gem install rails --no-document
+
+echo "Install a global node with mise..."
+mise use --global node@lts
+
 echo -e "\nAll Done!\n\n !! Please restart your terminal to see the changes !!"

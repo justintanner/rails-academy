@@ -16,7 +16,7 @@ We need [Xcode](https://developer.apple.com/xcode/) to help install Homebrew.
 
 #### 2. Copy and paste into the following into the Terminal window
 ```bash
-bash <(curl -fsSL https://rails.academy/install || wget -qO- https://rails.academy/install)
+curl -fsSL https://rails.academy/install | bash
 ```
 
 #### 3. Press Enter
