@@ -33,7 +33,8 @@ bad() {
 if xcode-select -p >/dev/null 2>&1; then
   good "Xcode Command Line Tools are installed."
 else
-  bad "Xcode Command Line Tools are NOT installed. Instructions: " "https://github.com/justintanner/rails-academy/blob/main/mac/README.md" 1
+  INSTRUCTIONS_URL="https://github.com/justintanner/rails-academy/blob/main/mac/README.md"
+  bad "Xcode Command Line Tools are NOT installed. Instructions: " $INSTRUCTIONS_URL 1
 fi
 
 if ! command -v brew >/dev/null 2>&1; then
@@ -87,7 +88,7 @@ else
   brew install hashicorp/tap/terraform
 fi
 
-echo "Installing cask libraries..."
+echo -e "\nInstalling cask libraries..."
 casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver)
 
 for cask in "${casks[@]}"; do
@@ -99,7 +100,6 @@ for cask in "${casks[@]}"; do
   fi
 done
 
-# "apps" and "app_names must" be in the same order.
 apps=(
   docker
   flameshot
@@ -111,20 +111,9 @@ apps=(
   google-chrome
 )
 
-app_names=(
-  Docker
-  Flameshot
-  Alacritty
-  1Password
-  "Visual Studio Code"
-  RubyMine
-  LoadSend
-  "Google Chrome"
-)
-
-for i in "${!apps[@]}"; do
-  app="${apps[$i]}"
-  app_name="${app_names[$i]}"
+for app in "${apps[@]}"; do
+  # Convert app name to title case, for example "visual-studio-code" to "Visual Studio Code"
+  app_name=$(echo "$app" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
   if [ -f "/Applications/${app_name}.app" ]; then
     good "${app_name} is installed."
   else
