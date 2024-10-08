@@ -126,7 +126,7 @@ app_names=(
 for i in "${!apps[@]}"; do
   app="${apps[$i]}"
   app_name="${app_names[$i]}"
-  if [ -f "/Applications/${app_name}.app" ]; then
+  if [ -e "/Applications/${app_name}.app" ]; then
     good "${app_name} is installed."
   else
     echo "${app_name} is not installed. Installing..."
