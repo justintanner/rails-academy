@@ -4,10 +4,7 @@ if xcode-select -p >/dev/null 2>&1; then
   echo "Xcode CLI is installed."
 else
   echo "Installing the Xcode Command Line Tools..."
-  xcode-select --install || { echo "Failed to install Xcode Command Line Tools, is Xcode installed?"; exit 1; }
-
-  # Install rosetta2 for flameshot
-  softwareupdate --install-rosetta --agree-to-license
+  xcode-select --install
 fi
 
 if command -v brew >/dev/null 2>&1; then
