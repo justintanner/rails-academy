@@ -1,25 +1,50 @@
 #!/bin/bash
 
-exec < /dev/tty
+if command -v tput &>/dev/null && tput setaf 1 &>/dev/null; then
+  GREEN_CHECK="\e[32m✅\e[0m"
+  RED_X="\e[31m❌\e[0m"
+else
+  GREEN_CHECK="✓"
+  RED_X="✗"
+fi
+
+good() {
+  echo -e "${GREEN_CHECK} $1"
+}
+
+bad() {
+  local message="$1"
+  local additional_message="$2"
+  local exit_code="${3:-0}"
+
+  echo -e "\n${RED_X} ${message}"
+
+  # Print additional message if provided
+  if [[ -n "$additional_message" ]]; then
+    echo -e "   $additional_message"
+  fi
+
+  # Exit only if exit_code is 1
+  if [[ "$exit_code" -eq 1 ]]; then
+    exit 1
+  fi
+}
 
 if xcode-select -p >/dev/null 2>&1; then
-  echo "Xcode Command Line Tools are installed."
+  good "Xcode Command Line Tools are installed."
 else
-  echo "Xcode Command Line Tools are NOT installed. Please follow these instructions:"
-  echo "https://github.com/justintanner/rails-academy/blob/main/mac/README.md"
-  exit 1
+  bad "Xcode Command Line Tools are NOT installed. Instructions: " "https://github.com/justintanner/rails-academy/blob/main/mac/README.md" 1
 fi
 
 if ! command -v brew >/dev/null 2>&1; then
-  echo -e "\nError: Homebrew is not installed."
-  echo "Please install by following the instructions at: https://brew.sh"
-  exit 1
+  bad "Error: Homebrew is not installed. Instructions: " "https://brew.sh" 1
 else
+  good "Homebrew is installed."
   export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
 fi
 
 if command -v git >/dev/null 2>&1; then
-  echo "Git installed. Skipping..."
+  good "Git is installed."
 else
   echo "Git not installed. Installing..."
   brew install git
@@ -47,7 +72,7 @@ packages=(fzf ripgrep bat eza zoxide btop httpd fd tldr ruby-build bash-completi
 
 for package in "${packages[@]}"; do
   if brew list -1 | grep -q "^${package}\$"; then
-    echo "${package} is already installed. Skipping..."
+    good "${package} is already installed."
   else
     echo "Installing ${package}..."
     brew install "${package}"
@@ -55,7 +80,7 @@ for package in "${packages[@]}"; do
 done
 
 if command -v terraform >/dev/null 2>&1; then
-  echo "Terraform already installed. Skipping..."
+  good "Terraform already installed."
 else
   echo "Installing Terraform..."
   brew tap hashicorp/tap
@@ -67,7 +92,7 @@ casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver)
 
 for cask in "${casks[@]}"; do
   if brew list --cask -1 | grep -q "^${cask}\$"; then
-    echo "${cask} is already installed. Skipping..."
+    good "Homebrew cask ${cask} is already installed."
   else
     echo "Installing ${cask}..."
     brew install --cask "${cask}"
@@ -101,23 +126,23 @@ for i in "${!apps[@]}"; do
   app="${apps[$i]}"
   app_name="${app_names[$i]}"
   if [ ! -f "/Applications/${app_name}.app" ]; then
-    echo "${app_name} is installed. Skipping..."
+    good "App ${app_name} is installed."
   else
-    echo "${app_name} is not installed. Installing..."
+    echo "App ${app_name} is not installed. Installing..."
     brew install --cask "${app}"
     xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
   fi
 done
 
 if command -v mise >/dev/null 2>&1; then
-  echo "Mise already installed. Skipping..."
+  good "Mise is installed."
 else
   echo "Installing Mise..."
   curl https://mise.run | sh
 fi
 
 if [ -f /usr/local/bin/rubymine ]; then
-  echo "Rubymine shell script already installed. Skipping..."
+  good "Rubymine shell script installed."
 else
   echo "Installing \"rubymine\" shell script..."
   sudo cp ~/.local/share/rails-academy/mac/rubymine /usr/local/bin/rubymine
@@ -184,4 +209,5 @@ mise use --global ruby@3.3
 echo "Installing rails8..."
 mise x ruby -- gem install rails --no-document -v ">= 8.0.0beta1"
 
-echo -e "\nAll Done!\n\n !! Please restart your terminal to see the changes !!"
+good "\nSuccessfully installed Rails Academy\n"
+echo "Please restart your terminal to apply the changes."
