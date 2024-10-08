@@ -1,8 +1,10 @@
 #!/bin/bash
 
+echo -e "Installing Rails Academy...\n"
+
 if command -v tput &>/dev/null && tput setaf 1 &>/dev/null; then
-  GREEN_CHECK="\e[32m✅\e[0m"
-  RED_X="\e[31m❌\e[0m"
+  GREEN_CHECK="✅"
+  RED_X="❌"
 else
   GREEN_CHECK="✓"
   RED_X="✗"
@@ -19,12 +21,10 @@ bad() {
 
   echo -e "\n${RED_X} ${message}"
 
-  # Print additional message if provided
   if [[ -n "$additional_message" ]]; then
-    echo -e "   $additional_message"
+    echo -e $additional_message
   fi
 
-  # Exit only if exit_code is 1
   if [[ "$exit_code" -eq 1 ]]; then
     exit 1
   fi
@@ -72,7 +72,7 @@ packages=(fzf ripgrep bat eza zoxide btop httpd fd tldr ruby-build bash-completi
 
 for package in "${packages[@]}"; do
   if brew list -1 | grep -q "^${package}\$"; then
-    good "${package} is already installed."
+    good "Homebrew package ${package} is installed."
   else
     echo "Installing ${package}..."
     brew install "${package}"
@@ -80,7 +80,7 @@ for package in "${packages[@]}"; do
 done
 
 if command -v terraform >/dev/null 2>&1; then
-  good "Terraform already installed."
+  good "Terraform is installed."
 else
   echo "Installing Terraform..."
   brew tap hashicorp/tap
@@ -92,7 +92,7 @@ casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver)
 
 for cask in "${casks[@]}"; do
   if brew list --cask -1 | grep -q "^${cask}\$"; then
-    good "Homebrew cask ${cask} is already installed."
+    good "Homebrew cask ${cask} is installed."
   else
     echo "Installing ${cask}..."
     brew install --cask "${cask}"
@@ -119,7 +119,7 @@ app_names=(
   "Visual Studio Code"
   RubyMine
   LoadSend
-  Google Chrome
+  "Google Chrome"
 )
 
 for i in "${!apps[@]}"; do
@@ -172,6 +172,7 @@ install_and_backup_old_file() {
   fi
 
   cp $source $dest
+  good "Installed config: $dest."
 }
 
 install_only_if_missing() {
@@ -180,6 +181,8 @@ install_only_if_missing() {
 
   if [ ! -f $dest ]; then
     cp $source $dest
+  else
+    good "Skipped installing config $dest"
   fi
 }
 
@@ -209,5 +212,6 @@ mise use --global ruby@3.3
 echo "Installing rails8..."
 mise x ruby -- gem install rails --no-document -v ">= 8.0.0beta1"
 
-good "\nSuccessfully installed Rails Academy\n"
+echo -e "\n"
+good "Successfully installed Rails Academy!\n"
 echo "Please restart your terminal to apply the changes."
