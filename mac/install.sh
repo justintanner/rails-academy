@@ -138,26 +138,35 @@ backup_file() {
   mv $file $backup
 }
 
-install_config() {
+install_and_backup_old_file() {
   local source=$1
   local dest=$2
 
   if [ -f $dest ] && ! cmp -s $dest $source; then
     backup_file $dest
-    echo "Backed up old config file. old: $dest, new: $dest.bak"
+    echo "Backed up old config file to $dest.bak"
   fi
 
   cp $source $dest
 }
 
+install_only_if_missing() {
+  local source=$1
+  local dest=$2
+
+  if [ ! -f $dest ]; then
+    cp $source $dest
+  fi
+}
+
 echo "Installing config files..."
-install_config ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
-install_config ~/.local/share/rails-academy/mac/.bash_aliases ~/.bash_aliases
-install_config ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
-install_config ~/.local/share/rails-academy/mac/.bash_op ~/.bash_op
-install_config ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
-install_config ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
-install_config ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
+install_and_backup_old_file ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
+install_only_if_missing ~/.local/share/rails-academy/mac/.bash_aliases ~/.bash_aliases
+install_only_if_missing ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
+install_only_if_missing ~/.local/share/rails-academy/mac/.bash_op ~/.bash_op
+install_and_backup_old_file ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
+install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
+install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
 
 echo "Setting bash as the default terminal..."
 chsh -s /bin/bash
@@ -167,10 +176,10 @@ echo "Setting fonts in Terminal..."
 osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
 osascript -e 'tell application "Terminal" to set font size of settings set "Basic" to 14'
 
-echo "Install a global node..."
+echo "Install the latest node as the default..."
 mise use --global node@lts
 
-echo "Installing a global ruby..."
+echo "Installing ruby 3.3 as the default..."
 mise use --global ruby@3.3
 
 echo "Installing rails8..."

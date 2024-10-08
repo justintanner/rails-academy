@@ -14,8 +14,6 @@ Get your computer ready for rails development.
 
 #### [:arrow_right: Windows](windows/README.md)
 
-#### [:arrow_right: Ubuntu](ubuntu/README.md)
-
 ## Setup already? 
 
 Verify you have everything you need, so you don't get stuck later.
