@@ -100,6 +100,7 @@ for cask in "${casks[@]}"; do
   fi
 done
 
+# "apps" and "app_names must" be in the same order.
 apps=(
   docker
   flameshot
@@ -111,9 +112,20 @@ apps=(
   google-chrome
 )
 
-for app in "${apps[@]}"; do
-  # Convert app name to title case, for example "visual-studio-code" to "Visual Studio Code"
-  app_name=$(echo "$app" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
+app_names=(
+  Docker
+  flameshot
+  Alacritty
+  1Password
+  "Visual Studio Code"
+  RubyMine
+  LocalSend
+  "Google Chrome"
+)
+
+for i in "${!apps[@]}"; do
+  app="${apps[$i]}"
+  app_name="${app_names[$i]}"
   if [ -f "/Applications/${app_name}.app" ]; then
     good "${app_name} is installed."
   else
