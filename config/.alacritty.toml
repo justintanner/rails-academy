@@ -2,6 +2,10 @@
 x = 4
 y = 0
 
+[shell]
+program = "/bin/bash"
+args = ["-l"]
+
 [window]
 option_as_alt = "OnlyLeft"
 

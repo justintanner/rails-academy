@@ -10,33 +10,18 @@ We need [Xcode](https://developer.apple.com/xcode/) to help install Homebrew.
 4. Open Xcode from your Applications folder
 5. Accept the license agreement
 
-## Docker
+## Rails Academy Installer
 
-We will use Docker to deploy our rails app's and run databases locally.
+#### 1. Open Terminal from your Applications folder
 
-1. Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop)
-2. Open Docker Desktop from your Applications folder
-3. Open the setting by clicking the gear icon in the top right corner
-4. Check "Start Docker Desktop when you sign in to your computer"
-
-## Command Line Tools
-
-1. Open Alacritty by pressing `Cmd + Space` and typing `Alacritty`
-2. Install the [Xcode Command Line Tools](https://mac.install.guide/commandlinetools/)
-
-By running:
-
-```bash
-xcode-select --install
-```
-
-## All the other tools
-
-Finally we can install all the other tools we need by running:
-
+#### 2. Copy and paste into the following into the Terminal window
 ```bash
 bash <(curl -fsSL https://rails.academy/install || wget -qO- https://rails.academy/install)
 ```
+
+#### 3. Press Enter
+
+#### 4. Close the Terminal and open Alacritty from your Applications folder
 
 ## Your Mac is ready :tada:
 

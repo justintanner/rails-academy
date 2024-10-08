@@ -3,9 +3,11 @@
 if xcode-select -p >/dev/null 2>&1; then
   echo "Xcode CLI is installed."
 else
-  echo "Error: Xcode Command Line Tools are not installed. Instructions:"
-  echo "https://github.com/justintanner/mac/README.md#xcode"
-  exit 1
+  echo "Installing the Xcode Command Line Tools..."
+  xcode-select --install || { echo "Failed to install Xcode Command Line Tools, is Xcode installed?"; exit 1; }
+
+  # Install rosetta2 for flameshot
+  softwareupdate --install-rosetta --agree-to-license
 fi
 
 if command -v brew >/dev/null 2>&1; then
@@ -61,8 +63,8 @@ else
   brew install hashicorp/tap/terraform
 fi
 
-echo "Installing cask apps..."
-casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver flameshot alacritty 1password rubymine visual-studio-code)
+echo "Installing cask libraries..."
+casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver)
 
 for cask in "${casks[@]}"; do
   if brew list --cask -1 | grep -q "^${cask}\$"; then
@@ -73,26 +75,54 @@ for cask in "${casks[@]}"; do
   fi
 done
 
-echo "Trusting flameshot..."
-xattr -dr com.apple.quarantine "/Applications/flameshot.app"
+# "apps" and "app_names must" be in the same order.
+apps=(
+  docker
+  flameshot
+  alacritty
+  1password
+  visual-studio-code
+  rubymine
+  localsend
+  google-chrome
+)
 
-echo "Trusting Alacritty..."
-xattr -dr com.apple.quarantine "/Applications/Alacritty.app"
+app_names=(
+  Docker
+  Flameshot
+  Alacritty
+  1Password
+  "Visual Studio Code"
+  RubyMine
+  LoadSend
+  Google Chrome
+)
 
-echo "Trusting 1Password..."
-xattr -dr com.apple.quarantine "/Applications/1Password.app"
-
-echo "Trusting VS Code..."
-xattr -dr com.apple.quarantine "/Applications/Visual Studio Code.app"
-
-echo "Trusting RubyMine..."
-xattr -dr com.apple.quarantine "/Applications/RubyMine.app"
+for i in "${!apps[@]}"; do
+  app="${apps[$i]}"
+  app_name="${app_names[$i]}"
+  if [ ! -f "/Applications/${app_name}.app" ]; then
+    echo "${app_name} is installed. Skipping..."
+  else
+    echo "${app_name} is not installed. Installing..."
+    brew install --cask "${app}"
+    xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
+  fi
+done
 
 if command -v mise >/dev/null 2>&1; then
   echo "Mise already installed. Skipping..."
 else
   echo "Installing Mise..."
   curl https://mise.run | sh
+fi
+
+if [ -f /usr/local/bin/rubymine ]; then
+  echo "Rubymine shell script already installed. Skipping..."
+else
+  echo "Installing \"rubymine\" shell script..."
+  sudo cp ~/.local/share/rails-academy/mac/rubymine /usr/local/bin/rubymine
+  sudo chmod +x /usr/local/bin/rubymine
 fi
 
 backup_file() {
@@ -120,22 +150,13 @@ install_config() {
   cp $source $dest
 }
 
-read -p "Overwrite bash config files (Y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ || -z $REPLY ]]; then
-  echo "Installing config files..."
-  install_config ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
-  install_config ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
-  install_config ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
-  install_config ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
-fi
+echo "Installing config files..."
+install_config ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
+install_config ~/.local/share/rails-academy/mac/.bash_aliases ~/.bash_aliases
+install_config ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
+install_config ~/.local/share/rails-academy/mac/.bash_op ~/.bash_op
+install_config ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
+install_config ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
+install_config ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
 
-if [ -f /usr/local/bin/rubymine ]; then
-  echo "Rubymine shell script already installed. Skipping..."
-else
-  echo "Installing \"rubymine\" shell script..."
-  sudo cp ~/.local/share/rails-academy/mac/rubymine /usr/local/bin/rubymine
-  sudo chmod +x /usr/local/bin/rubymine
-fi
-
-echo -e "\n\nAll Done.\n\n !! Please restart your terminal to see the changes !!"
+echo -e "\nAll Done!\n\n !! Please restart your terminal to see the changes !!"

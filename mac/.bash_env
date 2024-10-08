@@ -1,3 +1,42 @@
-# Loads environment variables from 1Password into the current env
-# Usage: source ~/.bash_env
-# export OPENAI_API_KEY="$(op read op://Local/Env/OPENAI_API_KEY)"
+# Default prompt get overridden by git-prompt.sh
+export PS1='$ '
+
+# Make bash our default shell
+export SHELL=/bin/bash
+
+# History control
+shopt -s histappend
+export HISTCONTROL=ignoreboth
+export HISTSIZE=32768
+export HISTFILESIZE="${HISTSIZE}"
+
+# Make sure Homebrew is in the PATH
+export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+# Allows bundler to build against the mysql-client
+if [ -d "/opt/homebrew/opt/mysql-client" ]; then
+  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib $LDFLAGS"
+  export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include $CPPFLAGS"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig:$PKG_CONFIG_PATH"
+fi
+
+# Allows bundler to build against the libpq
+if [ -d "/opt/homebrew/opt/libpq" ]; then
+  export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/libpq/lib $LDFLAGS"
+  export CPPFLAGS="-I/opt/homebrew/opt/libpq/include $CPPFLAGS"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/libpq/lib/pkgconfig:$PKG_CONFIG_PATH"
+fi
+
+# Default editor (possible values: nano, emacs, nvim, and more)
+export EDITOR=nano
+export SUDO_EDITOR=${EDITOR}
+
+# Suppress the zsh warning message.
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Tell Mise to automatically load the .env when you enter that directory.
+export MISE_ENV_FILE=.env
+
+
