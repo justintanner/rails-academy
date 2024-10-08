@@ -126,9 +126,9 @@ for i in "${!apps[@]}"; do
   app="${apps[$i]}"
   app_name="${app_names[$i]}"
   if [ ! -f "/Applications/${app_name}.app" ]; then
-    good "App ${app_name} is installed."
+    good "${app_name} is installed."
   else
-    echo "App ${app_name} is not installed. Installing..."
+    echo "${app_name} is not installed. Installing..."
     brew install --cask "${app}"
     xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
   fi
@@ -186,7 +186,7 @@ install_only_if_missing() {
   fi
 }
 
-echo "Installing config files..."
+echo -e "\nInstalling config files..."
 install_and_backup_old_file ~/.local/share/rails-academy/config/.alacritty.toml ~/.alacritty.toml
 install_only_if_missing ~/.local/share/rails-academy/mac/.bash_aliases ~/.bash_aliases
 install_only_if_missing ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
@@ -195,7 +195,7 @@ install_and_backup_old_file ~/.local/share/rails-academy/mac/.bash_profile ~/.ba
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
 
-echo "Setting bash as the default terminal..."
+echo -e "\nSetting bash as the default terminal..."
 chsh -s /bin/bash
 defaults write com.apple.Terminal Shell -string "/bin/bash"
 
