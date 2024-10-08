@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Allows homebrew to run in interactive mode
 exec < /dev/tty
 
 if xcode-select -p >/dev/null 2>&1; then
@@ -16,7 +15,7 @@ if command -v brew >/dev/null 2>&1; then
   brew update
 else
   echo "Homebrew not installed. Installing..."
-  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
 fi
 
