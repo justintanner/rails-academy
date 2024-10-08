@@ -10,19 +10,12 @@ else
   exit 1
 fi
 
-if command -v brew >/dev/null 2>&1; then
-  echo "Homebrew already installed. Updating..."
-  brew update
-else
-  echo "Homebrew not installed. Installing..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
-fi
-
 if ! command -v brew >/dev/null 2>&1; then
-  echo -e "\nError: Failed to install Homebrew."
+  echo -e "\nError: Homebrew is not installed."
   echo "Please install by following the instructions at: https://brew.sh"
   exit 1
+else
+  export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
 fi
 
 if command -v git >/dev/null 2>&1; then
