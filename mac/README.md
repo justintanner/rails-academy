@@ -32,31 +32,61 @@ xcode-select --install
 
 ## Rails Academy
 
-#### 1. In the same Terminal window copy and paste into the following:
+In the same Terminal window copy and paste into the following, and press Enter:
 
 ```bash
 curl -fsSL https://rails.academy/install | bash -i
 ```
-#### 3. Press Enter
 
-**NOTE: You will be prompted multiple times to enter your password. This is the same password you use to login to your Mac.**
-
-#### 4. Quit the Terminal
+**NOTE: You will be prompted multiple times to enter your mac password.**
 
 ## Security
 
-To build rails app we'll need to authenticate with GitHub using SSH keys for the best security.
+To build rails apps we'll need to authenticate with GitHub using SSH keys.
 
-#### 1. Open 1Password from your Applications folder
-#### 2. Start a free trial (or login if you already have an account)
-#### 3. Cick 
+### Setup 1Password
 
-#### 3. Visit [GitHub](https://github.com)
-#### 2. Create an account (or login if you already have one)
+1. Open 1Password from your Applications folder
+2. Start a free trial (or login if you already have an account)
+3. Select `1Password` from the menu bar and choose `Settings`
+4. Navigate to the `Developer` tab and enable the following:
 
-#### 3. Add your SSH key to GitHub
+- :check: `Use the SSH agent`
+- :check: `Integrate with 1Password CLI`
+
+### Generate an SSH Key
+
+1. Still in 1Password click "+ New Item"
+2. Choose "SSH Key"
+3. Enter the title "GitHub SSH Key"
+4. Click "+ Add Private Key" -> "Generate a New Key"
+5. Leave the default of "Ed25519" and click "Generate"
+6. Click "Save"
+
+### Add your SSH Key to GitHub
+
+1. Visit [GitHub](https://github.com)
+2. Create an account (or login if you already have one)
+3. Login and click your profile in the top right
+4. Choose "Settings" -> "SSH and GPG keys" -> "New SSH Key"
+5. In 1Password find "GitHub SSH Key" and copy the **public key**
+6. Paste the public key into the GitHub form and click "Add SSH Key"
+7. Give it a title "1password SSH Key" and click "Add SSH Key"
+
+Finally, test your SSH key by running the following in Alacritty:
+
+```bash
+ssh -T git@github.com
+```
+
+If that worked you should see:
+
+```
+Hi yourname! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+And if you made it this far, congratulations!
+
+### Your Mac is ready :tada:
 
 
-## Your Mac is ready :tada:
-
-Close Alacritty and open it again and you should be ready to start building.
