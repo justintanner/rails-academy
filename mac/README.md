@@ -10,11 +10,20 @@ We need [Xcode](https://developer.apple.com/xcode/) to help install Homebrew.
 4. Open Xcode from your Applications folder
 5. Accept the license agreement
 
+## Install XCode Command Line Tools
+
+1. Open Terminal from your Applications folder
+2. Copy and paste the following into the Terminal window
+
+```bash
+xcode-select --install
+```
+
+3. Follow the prompts to install the command line tools
+
 ## Install Rails Academy
 
-#### 1. Open Terminal from your Applications folder
-
-#### 2. Copy and paste into the following into the Terminal window
+#### 1. In the same Terminal window copy and paste into the following:
 
 ```bash
 curl -fsSL https://rails.academy/install | bash -i
@@ -23,7 +32,7 @@ curl -fsSL https://rails.academy/install | bash -i
 
 **NOTE: You will be prompted to enter your password. This is the same password you use to login to your Mac.**
 
-#### 4. Close the Terminal and open Alacritty from your Applications folder
+#### 4. Quit the Terminal
 
 ## Github
 

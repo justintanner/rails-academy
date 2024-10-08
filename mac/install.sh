@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Allow homebrew to run in interactive mode
+exec < /dev/tty
+
 if xcode-select -p >/dev/null 2>&1; then
   echo "Xcode Command Line Tools are installed."
 else
@@ -13,8 +16,14 @@ if command -v brew >/dev/null 2>&1; then
   brew update
 else
   echo "Homebrew not installed. Installing..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
   export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo -e "\nError: Failed to install Homebrew."
+  echo "Please install by following the instructions at: https://brew.sh"
+  exit 1
 fi
 
 if command -v git >/dev/null 2>&1; then
