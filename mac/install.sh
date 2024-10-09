@@ -38,7 +38,7 @@ else
 fi
 
 if ! command -v brew >/dev/null 2>&1; then
-  # Homebrew might not in path yet, so we need to add it to keep the script rolling.
+  # Homebrew might not be in path yet, inject it.
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -105,32 +105,18 @@ for cask in "${casks[@]}"; do
   fi
 done
 
-# "apps" and "app_names must" be in the same order.
+# Format: "cask:App Name" (App Name matches the name in /Applications)
 apps=(
-  docker
-  flameshot
-  alacritty
-  1password
-  visual-studio-code
-  rubymine
-  localsend
-  google-chrome
+  "docker:Docker"
+  "alacritty:Alacritty"
+  "1password:1Password"
+  "rubymine:RubyMine"
+  "google-chrome:Google Chrome"
 )
 
-app_names=(
-  Docker
-  flameshot
-  Alacritty
-  1Password
-  "Visual Studio Code"
-  RubyMine
-  LocalSend
-  "Google Chrome"
-)
-
-for i in "${!apps[@]}"; do
-  app="${apps[$i]}"
-  app_name="${app_names[$i]}"
+for app_pair in "${apps[@]}"; do
+  app="${app_pair%%:*}"
+  app_name="${app_pair##*:}"
   if [ -e "/Applications/${app_name}.app" ]; then
     good "${app_name} is installed."
   else
@@ -140,7 +126,7 @@ for i in "${!apps[@]}"; do
   fi
 done
 
-# Just in case mise needs these in the path
+# Just in case Mise needs these in the path to build ruby
 if [ -d "/opt/homebrew/opt/mysql-client" ]; then
   export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
   export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/mysql-client/lib"
@@ -160,7 +146,7 @@ if command -v mise >/dev/null 2>&1; then
 else
   echo "Installing Mise..."
   curl https://mise.run | sh
-  PATH=$PATH:~/.local/bin
+  PATH=$PATH:$HOME/.local/bin
   mise activate
 fi
 
@@ -204,6 +190,7 @@ install_only_if_missing() {
 
   if [ ! -f $dest ]; then
     cp $source $dest
+    good "Installed config $dest."
   else
     good "Skipped installing config $dest"
   fi
@@ -211,9 +198,7 @@ install_only_if_missing() {
 
 echo -e "\nInstalling config files..."
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.alacritty.toml ~/.alacritty.toml
-install_only_if_missing ~/.local/share/rails-academy/mac/.bash_aliases ~/.bash_aliases
-install_only_if_missing ~/.local/share/rails-academy/mac/.bash_env ~/.bash_env
-install_only_if_missing ~/.local/share/rails-academy/mac/.bash_op ~/.bash_op
+install_only_if_missing ~/.local/share/rails-academy/mac/.op_load_env ~/.op_load_env
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc

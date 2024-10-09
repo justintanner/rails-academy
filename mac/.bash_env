@@ -30,8 +30,10 @@ if [ -d "/opt/homebrew/opt/libpq" ]; then
 fi
 
 # Default editor (possible values: nano, emacs, nvim, and more)
-export EDITOR=nano
-export SUDO_EDITOR=${EDITOR}
+if [ -z "$EDITOR" ]; then
+  export EDITOR=nano
+  export SUDO_EDITOR=${EDITOR}
+fi
 
 # Suppress the zsh warning message.
 export BASH_SILENCE_DEPRECATION_WARNING=1
