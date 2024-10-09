@@ -38,6 +38,11 @@ else
 fi
 
 if ! command -v brew >/dev/null 2>&1; then
+  # Homebrew might not in path yet, so we need to add it to keep the script rolling.
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
   bad "Error: Homebrew is not installed. Instructions: " "https://brew.sh" 1
 else
   good "Homebrew is installed."
@@ -140,6 +145,8 @@ if command -v mise >/dev/null 2>&1; then
 else
   echo "Installing Mise..."
   curl https://mise.run | sh
+  PATH=$PATH:~/.local/bin
+  mise activate
 fi
 
 if [ -f /usr/local/bin/rubymine ]; then
@@ -203,9 +210,6 @@ defaults write com.apple.Terminal Shell -string "/opt/homebrew/bin/bash"
 echo "Setting fonts in Terminal..."
 osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
 osascript -e 'tell application "Terminal" to set font size of settings set "Basic" to 14'
-
-echo "Install the latest node as the default..."
-mise use --global node@lts
 
 echo "Installing ruby 3.3 as the default..."
 mise use --global ruby@3.3

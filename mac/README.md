@@ -73,7 +73,7 @@ To build rails apps we'll need to authenticate with GitHub using SSH keys.
 6. Paste the public key into the GitHub form and click "Add SSH Key"
 7. Give it a title "1password SSH Key" and click "Add SSH Key"
 
-Finally, test your SSH key by running the following in Alacritty:
+Test your SSH key by running the following in Alacritty:
 
 ```bash
 ssh -T git@github.com
@@ -84,6 +84,27 @@ If that worked you should see:
 ```
 Hi yourname! You've successfully authenticated, but GitHub does not provide shell access.
 ```
+
+## Docker
+
+Almost there! We need two last things to get you up and running.
+
+### Set docker to auto start
+
+1. Open Docker from your Applications folder (or menu bar)
+2. Click the gear icon in the top right and choose "Preferences"
+3. Click "General" and check "Start Docker Desktop when you log in"
+
+### Docker Hub
+
+1. Visit [Docker Hub](https://hub.docker.com)
+2. Create an account (or login if you already have one)
+3. Click your profile in the top right and choose "Account Settings"
+4. Click "Security" and create a new access token
+5. Open 1Password and create a new item with the title "Docker Hub Token"
+6. Copy the token and paste it into the "Password" field
+7. Click "Save"
+
 
 And if you made it this far, congratulations!
 
