@@ -202,6 +202,7 @@ install_only_if_missing ~/.local/share/rails-academy/mac/.op_load_env ~/.op_load
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
+install_and_backup_old_file ~/.local/share/rails-academy/mac/bash/inputrc ~/.inputrc
 
 echo -e "\nSetting bash as the default terminal..."
 chsh -s /opt/homebrew/bin/bash
