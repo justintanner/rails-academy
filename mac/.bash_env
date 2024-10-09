@@ -10,8 +10,8 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=32768
 export HISTFILESIZE="${HISTSIZE}"
 
-# Make sure Homebrew is in the PATH
-export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
+# Make sure Homebrew and Mise are in the PATH
+export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.local/bin"
 
 # Allows bundler to build against the mysql-client
 if [ -d "/opt/homebrew/opt/mysql-client" ]; then

@@ -140,6 +140,21 @@ for i in "${!apps[@]}"; do
   fi
 done
 
+# Just in case mise needs these in the path
+if [ -d "/opt/homebrew/opt/mysql-client" ]; then
+  export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
+  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/mysql-client/lib"
+  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/mysql-client/include"
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/mysql-client/lib/pkgconfig"
+fi
+
+if [ -d "/opt/homebrew/opt/libpq" ]; then
+  export PATH="$PATH:/opt/homebrew/opt/libpq/bin"
+  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/libpq/lib"
+  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/libpq/include"
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/libpq/lib/pkgconfig"
+fi
+
 if command -v mise >/dev/null 2>&1; then
   good "Mise is installed."
 else
