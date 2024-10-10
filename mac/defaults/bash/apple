@@ -34,5 +34,3 @@ fi
 if command -v terraform &> /dev/null; then
    complete -C /opt/homebrew/bin/terraform terraform
 fi
-
-export PS1="$ "
