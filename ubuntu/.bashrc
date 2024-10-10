@@ -1,4 +1,4 @@
-source ~/.local/share/rails-academy/ubuntu/bash/rc
+source ~/.local/share/rails-academy/ubuntu/defaults/bash/rc
 
 # Editor used by CLI
 export EDITOR="nvim"
