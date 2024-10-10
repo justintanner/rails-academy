@@ -1,8 +1,5 @@
 #!/bin/bash
 
-SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OMAKUB_SUB_PATH="$SCRIPT_PATH/vendor/omakub"
-
 echo -e "Installing Rails Academy...\n"
 
 echo "Updating package lists..."
@@ -25,6 +22,7 @@ if [[ $RAILS_ACADEMY_REF != "master" ]]; then
 fi
 cd -
 
+OMAKUB_SUB_PATH="$HOME/.local/rails-academy/vendor/omakub"
 RA_PATH=$HOME/.local/share/rails-academy
 
 echo "Loading bash helpers..."
