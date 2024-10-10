@@ -57,7 +57,7 @@ wsl --set-default-version 2
 
 # Check if Ubuntu is installed in WSL
 $wslInstalledList = wsl --list
-if ($wslInstalledList -notmatch 'Ubuntu-24.04') {
+if ($wslInstalledList -notmatch 'Ubuntu') {
     Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
     wsl --install Ubuntu-24.04
 } else {
