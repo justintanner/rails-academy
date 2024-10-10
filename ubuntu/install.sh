@@ -5,7 +5,7 @@ echo -e "Installing Rails Academy...\n"
 echo "Updating package lists..."
 sudo apt update -y
 
-if command -v git >/dev/null 2>&1; then
+if command -v git &> /dev/null; then
   good "Git is installed."
 else
   echo "Git not installed. Installing..."
@@ -30,7 +30,7 @@ source "$RA_PATH/common/install_helpers.sh"
 
 scripts=(
   "terminal/set-git"
-  "terminal/app-terminal"
+  "terminal/apps-terminal"
   "terminal/libraries"
 )
 
@@ -39,7 +39,7 @@ for script in "${scripts[@]}"; do
 done
 
 # Don't want to rerun mise installs
-if command -v mise 2> /dev/null; then
+if command -v mise &> /dev/null; then
   good "Mise is installed."
 else
   echo "Installing Mise..."
@@ -64,7 +64,7 @@ if [ -n "$XDG_CURRENT_DESKTOP" ]; then
   for script_app in "${script_apps[@]}"; do
     script="${script_app%%:*}"
     app="${script_app##*:}"
-    if command -v $app 2> /dev/null; then
+    if command -v $app &> /dev/null; then
       good "$app is installed."
     else
       echo "Installing $app..."
@@ -78,7 +78,7 @@ else
   echo "Skipping desktop apps..."
 fi
 
-if command -v terraform >/dev/null 2>&1; then
+if command -v terraform &> /dev/null; then
   good "Terraform is installed."
 else
   echo "Installing Terraform..."

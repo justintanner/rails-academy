@@ -1,3 +1,6 @@
+# Tell Mise to automatically load the .env when you enter that directory.
+export MISE_ENV_FILE=.env
+
 export RAILS_ACADEMY_PATH="/home/$USER/.local/share/rails-academy"
 
 # Add rails academy to the path

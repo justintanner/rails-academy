@@ -2,12 +2,12 @@
 
 echo -e "Installing Rails Academy...\n"
 
-if ! command -v brew >/dev/null 2>&1; then
+if ! command -v brew &> /dev/null; then
   # Homebrew might not be in path yet try to inject it.
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-if ! command -v brew >/dev/null 2>&1; then
+if ! command -v brew &> /dev/null; then
   echo "Error: Homebrew is not installed. Instructions at: https://brew.sh"
   exit 1
 else
@@ -19,7 +19,7 @@ fi
 echo "Updating updating Homebrew package..."
 brew update
 
-if command -v git >/dev/null 2>&1; then
+if command -v git &> /dev/null; then
   echo "Git is installed."
 else
   echo "Git not installed. Installing..."
@@ -43,7 +43,7 @@ echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
 
-if xcode-select -p >/dev/null 2>&1; then
+if xcode-select -p &> /dev/null; then
   good "Xcode Command Line Tools are installed."
 else
   INSTRUCTIONS_URL="https://github.com/justintanner/rails-academy/blob/stable/mac/README.md"
@@ -59,7 +59,7 @@ brew install \
   ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client sqlite3 1password-cli \
   font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver
 
-if command -v terraform >/dev/null 2>&1; then
+if command -v terraform &> /dev/null; then
   good "Terraform is installed."
 else
   echo "Installing Terraform..."
@@ -89,7 +89,7 @@ for app_pair in "${apps[@]}"; do
   fi
 done
 
-if command -v mise >/dev/null 2>&1; then
+if command -v mise &> /dev/null; then
   good "Mise is installed."
 else
   echo "Installing Mise..."

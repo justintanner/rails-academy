@@ -8,13 +8,13 @@ fail() {
   exit 1
 }
 
-if xcode-select -p >/dev/null 2>&1; then
+if xcode-select -p &> /dev/null; then
   echo "Xcode CLI is installed."
 else
   fail "Xcode CLI" "https://github.com/justintanner/mac/README.md#xcode"
 fi
 
-if docker info >/dev/null 2>&1; then
+if docker info &> /dev/null; then
   echo "Docker is running."
 else
   fail "Docker" "https://github.com/justintanner/mac/README.md#docker"
@@ -26,13 +26,13 @@ else
   fail "Alacritty" "https://github.com/justintanner/mac/README.md#alacritty"
 fi
 
-if command -v brew >/dev/null 2>&1; then
+if command -v brew &> /dev/null; then
   echo "Homebrew is installed."
 else
   fail "Homebrew"
 fi
 
-if command -v git >/dev/null 2>&1; then
+if command -v git &> /dev/null; then
   echo "Git is installed."
 else
   fail "Git"
@@ -44,13 +44,13 @@ else
   fail "Rails Academy Repository"
 fi
 
-if command -v mise >/dev/null 2>&1; then
+if command -v mise &> /dev/null; then
   echo "Mise is installed."
 else
   fail "Mise"
 fi
 
-if command -v terraform >/dev/null 2>&1; then
+if command -v terraform &> /dev/null; then
   echo "Terraform is installed."
 else
   fail "Terraform"
