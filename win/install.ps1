@@ -34,7 +34,7 @@ $apps = @(
 )
 
 # Get the list of installed applications
-$installedApps = choco list -l
+$installedApps = choco list
 
 foreach ($app in $apps) {
     if ($installedApps -notmatch "^$app$") {
@@ -76,7 +76,7 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
 wsl --set-default-version 2
 
 # Check if Ubuntu is installed in WSL
-$wslInstalledList = wsl --list --verbose
+$wslInstalledList = wsl --list --online
 if ($wslInstalledList -notmatch 'Ubuntu') {
     Write-Host "Ubuntu is not installed. Installing Ubuntu..."
     Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile $env:TEMP\Ubuntu.appx -UseBasicParsing
