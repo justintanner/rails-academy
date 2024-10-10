@@ -19,7 +19,6 @@ if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     [System.Net.ServicePointManager]::SecurityProtocol = 'Tls12'
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
     Refreshenv
-    Write-Good "Chocolatey is installed."
 } else {
     Write-Good "Chocolatey is installed."
 }
@@ -190,20 +189,8 @@ if (!(Test-Path $alacrittyConfigPath)) {
 } else {
     Write-Good "Alacritty configuration is already set."
 }
-
-# Plant a fake .bashrc into the home directory of the current user in Ubuntu
-$autoStartScript = @"
-#!/bin/bash
-echo "Continuing to install Rails Academy..."
-> ~/.bashrc  # Wipe .bashrc so that this script runs only once.
-wget -q0- https://rails.academy/install.sh | bash
-"@
-
-wsl echo $autoStartScript > /home/$env:USERNAME/.bashrc
-
-# TODO: We can move this to the coniditionals above.
-Write-Good "Part one of the installation is complete."
-Write-Good "Restart your computer to apply changes."
+Write-Good "Rails Academy (part one) successfully installed."
+Write-Host "\r\nRestart your computer to continue."
 exit
 
 
