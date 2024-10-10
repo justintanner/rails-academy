@@ -30,7 +30,7 @@ else
 fi
 
 echo "Setting git defaults..."
-source "$OMAKUB_SUB_PATH/vendor/omakub/install/terminal"
+source "$OMAKUB_SUB_PATH/install/terminal"
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
