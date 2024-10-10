@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OMAKUB_SUB_PATH="$SCRIPT_DIR/vendor/omakub"
+OMAKUB_SUB_PATH="$SCRIPT_PATH/vendor/omakub"
 
 echo -e "Installing Rails Academy...\n"
 
