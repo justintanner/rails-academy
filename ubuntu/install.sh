@@ -28,38 +28,54 @@ RA_PATH=$HOME/.local/share/rails-academy
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
-server_apps=(
+scripts=(
   "terminal/set-git"
   "terminal/app-terminal"
-  "terminal/app-mise"
   "terminal/libraries"
-  "terminal/mise"
 )
 
-for app in "${server_apps[@]}"; do
-  source "$OMAKUB_SUB_PATH/install/$app.sh"
+for script in "${scripts[@]}"; do
+  source "$OMAKUB_SUB_PATH/install/$script.sh"
 done
 
-desktop_apps=(
-  "terminal/docker"
-  "terminal/app-fastfetch"
-  "terminal/app-lazydocker"
-  "terminal/app-lazygit"
-  "terminal/app-github-cli"
-  "desktop/app-chrome"
-  "desktop/optional/app-1password"
-  "desktop/optional/app-rubymine"
-  "desktop/optional/app-zoom"
+# Don't want to rerun mise installs
+if command -v mise 2> /dev/null; then
+  good "Mise is installed."
+else
+  echo "Installing Mise..."
+  source "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
+fi
+
+# Format script_path:terminal_name
+script_apps=(
+  "terminal/docker:docker"
+  "terminal/app-fastfetch:fastfetch"
+  "terminal/app-lazydocker:lazydocker"
+  "terminal/app-lazygit:lazygit"
+  "terminal/app-github-cli:gh"
+  "desktop/app-chrome:chrome"
+  "desktop/optional/app-1password:1password"
+  "desktop/optional/app-rubymine:rubymine"
+  "desktop/optional/app-zoom:zoom"
 )
 
 if [ -n "$XDG_CURRENT_DESKTOP" ]; then
   echo "Install desktop apps..."
-  for app in "${desktop_apps[@]}"; do
-    source "$OMAKUB_SUB_PATH/install/$app.sh"
+  for script_app in "${script_apps[@]}"; do
+    script="${script_app%%:*}"
+    app="${script_app##*:}"
+    if command -v app 2> /dev/null; then
+      good "$app is installed."
+    else
+      echo "Installing $app..."
+      source "$OMAKUB_SUB_PATH/install/$app.sh"
+    fi
   done
 
   echo "Installing alacritty..."
   apt-get install y alacritty
+else
+  echo "Skipping desktop apps..."
 fi
 
 if command -v terraform >/dev/null 2>&1; then
