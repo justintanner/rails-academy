@@ -2,6 +2,11 @@ alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 # fd is covered by the homebrew package fd, no alias needed, unsetting omkaub alias
 unalias fd
 
+# If for some reason zoxide is not installed, then unset the cd alias
+if ! command -v zoxide &> /dev/null; then
+  unalias cd
+fi
+
 # Tels mac terminal to supress the convert to zsh warning message.
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
@@ -37,7 +42,10 @@ export MISE_ENV_FILE=.env
 
 type fzf &>/dev/null && eval "$(fzf --bash)"
 
-if [ -z "$OMAKUB_PATH" ] && [ "$TERM_PROGRAM" = "alacritty" ] && [ ! -z "$ZELLIJ" ]; then
+# Check if $HOME/.alacritty.yml exists and contains the word zellij
+ALACRITTY_IN_ZELLIJ=$(grep -q zellij $HOME/.alacritty.yml && echo "true")
+
+if [ "$TERM_PROGRAM" = "alacritty" ] && [ ! $ALACRITTY_IN_ZELLIJ ]; then
   if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     __GIT_PROMPT_DIR=$(brew --prefix)/opt/bash-git-prompt/share
     GIT_PROMPT_THEME=Solarized_Ubuntu
@@ -48,3 +56,4 @@ fi
 if command -v terraform >/dev/null 2>&1; then
    complete -C /opt/homebrew/bin/terraform terraform
 fi
+
