@@ -22,7 +22,7 @@ if [[ $RAILS_ACADEMY_REF != "master" ]]; then
 fi
 cd -
 
-OMAKUB_SUB_PATH="$HOME/.local/rails-academy/vendor/omakub"
+OMAKUB_SUB_PATH="$HOME/.local/share/rails-academy/vendor/omakub"
 RA_PATH=$HOME/.local/share/rails-academy
 
 echo "Loading bash helpers..."
