@@ -107,6 +107,7 @@ else
   sudo chmod +x /usr/local/bin/rubymine
 fi
 
+echo "Installing gitstatus..."
 source "$RA_PATH/common/install/terminal/gitstatus.sh"
 
 echo -e "\nInstalling config files..."

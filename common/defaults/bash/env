@@ -9,7 +9,7 @@ set +h
 
 export RA_COLOR_MODE="light"
 
-if [ -d "$HOME/.local/share/gitstatus" ]; then
+if [ -f "$HOME/.local/share/gitstatus/gitstatus.plugin.sh" ]; then
   source ~/.local/share/gitstatus/gitstatus.plugin.sh
 
   function my_set_prompt() {

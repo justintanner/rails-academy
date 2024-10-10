@@ -1,8 +1,0 @@
-if [ -f "$HOME/.local/share/bash-git-prompt/gitprompt.sh" ]; then
-  if [ "$RA_COLOR_MODE" = "light" ]; then
-    GIT_PROMPT_THEME=Solarized_Ubuntu
-  else
-    GIT_PROMPT_THEME=Solarized_Ubuntu_Dark
-  fi
-  source "$HOME/.local/share/bash-git-prompt/gitprompt.sh"
-fi

@@ -7,4 +7,3 @@ source "$OMAKUB_SUB_PATH/defaults/bash/prompt"
 source "$OMAKUB_SUB_PATH/defaults/bash/init"
 
 source "$RA_PATH/common/defaults/bash/env"
-source "$RA_PATH/ubuntu/defaults/bash/ubuntu"
