@@ -12,19 +12,15 @@ Get your computer ready for rails development.
 
 #### [:arrow_right: Mac](mac/README.md)
 
+#### [:arrow_right: Ubuntu](ubuntu/README.md)
+
 #### [:arrow_right: Windows](win/README.md)
 
-## Setup already? 
+## Start Here
 
-Verify you have everything you need, so you don't get stuck later.
+Learn how to build a rails app.
 
-#### [:white_check_mark: Verify your Setup](verify/README.md)
-
-## Build a Rails App
-
-Learn how to build a rails app from scratch in three steps.
-
-#### [:green_book: 1. Foundational Tools (Shell, Git, Code Editors)]()
+#### [:green_book: 1. Deploy a Hello World app]()
 
 #### [:orange_book: 2. Modern CSS and HTML]()
 
