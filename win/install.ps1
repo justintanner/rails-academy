@@ -127,17 +127,15 @@ $wslInstalledList = wsl --list
 if ($wslInstalledList -notmatch 'Ubuntu') {
     Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
     wsl --install -d Ubuntu-24.04
+    wsl --set-version Ubuntu-24.04
 } else {
     Write-Host "Ubuntu is already installed."
 }
 
 $alacrittyConfig = @"
-[window.padding]
-x = 4
-y = 0
-
 [shell]
 program = "wsl"
+args = ["--cd", "~"]
 
 [window]
 option_as_alt = "OnlyLeft"
@@ -146,7 +144,7 @@ option_as_alt = "OnlyLeft"
 save_to_clipboard = true
 
 [font]
-size = 14
+size = 12
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
@@ -181,9 +179,9 @@ cyan = '#00AACB'
 white = '#FFFFFF'
 "@
 
-$alacrittyConfigPath = "$env:APPDATA\alacritty\alacritty.toml"
+$alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
 if (!(Test-Path $alacrittyConfigPath)) {
-    New-Item -ItemType Directory -Force -Path "$env:APPDATA\alacritty"
+    New-Item -ItemType Directory -Force -Path "$env:APPDATA\Roaming\alacritty"
     Set-Content -Path $alacrittyConfigPath -Value $alacrittyConfig
     Write-Good "Alacritty configuration is set."
 } else {
