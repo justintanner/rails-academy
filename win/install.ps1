@@ -82,6 +82,16 @@ if (!(wsl --list --online | Select-String -Pattern 'Ubuntu')) {
     Write-Good "Ubuntu is already installed."
 }
 
+# Plant a fake .bashrc into the home directory of the current user in Ubuntu
+$autoStartScript = @"
+#!/bin/bash
+echo "Continuing to install Rails Academy..."
+> ~/.bashrc  # Wipe .bashrc so that this script runs only once.
+wget -q0- https://rails.academy/install.sh | bash
+"@
+
+wsl echo $autoStartScript > /home/$env:USERNAME/.bashrc
+
 # Restart is required after enabling WSL and Virtual Machine Platform
 Write-Good "Part one of the installation is complete."
 Write-Good "Restart your computer to apply changes."
