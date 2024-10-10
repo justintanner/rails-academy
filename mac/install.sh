@@ -51,7 +51,7 @@ else
 fi
 
 echo "Setting git defaults..."
-source "$OMAKUB_SUB_PATH/install/terminal"
+source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
 
 echo "Installing command line utils..."
 packages=(fzf ripgrep bash bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)

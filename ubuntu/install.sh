@@ -29,7 +29,7 @@ echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
 echo "Setting git defaults..."
-source "$OMAKUB_SUB_PATH/install/terminal"
+source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
 
 echo "Installing command line utils..."
 sudo apt install -y fzf ripgrep bat eza zoxide plocate btop apache2-utils fd-find tldr
