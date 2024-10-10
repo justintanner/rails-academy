@@ -53,7 +53,7 @@ script_apps=(
   "terminal/app-lazydocker:lazydocker"
   "terminal/app-lazygit:lazygit"
   "terminal/app-github-cli:gh"
-  "desktop/app-chrome:chrome"
+  "desktop/app-chrome:google-chrome"
   "desktop/optional/app-1password:1password"
   "desktop/optional/app-rubymine:rubymine"
   "desktop/optional/app-zoom:zoom"
@@ -73,7 +73,7 @@ if [ -n "$XDG_CURRENT_DESKTOP" ]; then
   done
 
   echo "Installing alacritty..."
-  apt-get install y alacritty
+  sudo apt-get install -y alacritty
 else
   echo "Skipping desktop apps..."
 fi
@@ -82,7 +82,7 @@ if command -v terraform >/dev/null 2>&1; then
   good "Terraform is installed."
 else
   echo "Installing Terraform..."
-  source "$RA_PATH/install/terminal/terraform.sh"
+  source "$RA_PATH/ubuntu/install/terminal/terraform.sh"
 fi
 
 echo -e "\nInstalling config files..."
