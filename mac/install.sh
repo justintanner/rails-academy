@@ -1,34 +1,22 @@
 #!/bin/bash
 
+SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OMAKUB_SUB_PATH="$SCRIPT_PATH/vendor/omakub"
+
 echo -e "Installing Rails Academy...\n"
 
-if command -v tput &>/dev/null && tput setaf 1 &>/dev/null; then
-  GREEN_CHECK="✅"
-  RED_X="❌"
-else
-  GREEN_CHECK="✓"
-  RED_X="✗"
+echo "Cloning Rails Academy..."
+rm -rf ~/.local/share/rails-academy
+git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
+cd ~/.local/share/rails-academy
+if [[ $RAILS_ACADEMY_REF != "master" ]]; then
+  git checkout "${RAILS_ACADEMY_REF:-stable}"
+  git submodule update --init --recursive
 fi
+cd -
 
-good() {
-  echo -e "${GREEN_CHECK} $1"
-}
-
-bad() {
-  local message="$1"
-  local additional_message="$2"
-  local exit_code="${3:-0}"
-
-  echo -e "\n${RED_X} ${message}"
-
-  if [[ -n "$additional_message" ]]; then
-    echo -e $additional_message
-  fi
-
-  if [[ "$exit_code" -eq 1 ]]; then
-    exit 1
-  fi
-}
+RA_PATH=$HOME/.local/share/rails-academy
+RA_PATH/common/install_helpers.sh
 
 if xcode-select -p >/dev/null 2>&1; then
   good "Xcode Command Line Tools are installed."
