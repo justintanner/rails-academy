@@ -28,11 +28,40 @@ RA_PATH=$HOME/.local/share/rails-academy
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
-echo "Setting git defaults..."
-source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
+scripts=(
+  "set-git",
+  "app-terminal",
+  "app-mise",
+  "app-fastfetch",
+  "app-lazydocker",
+  "app-lazygit",
+  "app-github-cli",
+  "docker",
+  "libraries"
+  "mise"
+)
 
-echo "Installing command line utils..."
-sudo apt install -y fzf ripgrep bat eza zoxide plocate btop apache2-utils fd-find tldr
+for script in "${scripts[@]}"; do
+  source "$OMAKUB_SUB_PATH/install/terminal/$script.sh"
+done
+
+apps=(
+  "app-chrome"
+  "optional/app-1password"
+  "optional/app-rubymine"
+  "optional/app-zoom"
+)
+
+for app in "${apps[@]}"; do
+  if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+   source "$OMAKUB_SUB_PATH/install/desktop/$script.sh"
+ fi
+done
+
+if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+  echo "Installing alacritty..."
+  apt-get install y alacritty
+fi
 
 if command -v terraform >/dev/null 2>&1; then
   good "Terraform is installed."
@@ -40,21 +69,6 @@ else
   echo "Installing Terraform..."
   source "$RA_PATH/install/terminal/terraform.sh"
 fi
-
-if command -v mise >/dev/null 2>&1; then
-  good "Mise is installed."
-else
-  echo "Installing Mise..."
-  source "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
-fi
-
-echo "Installing LazyDocker...."
-source "$OMAKUB_SUB_PATH/install/terminal/app-lazydocker.sh"
-
-echo "Installing LazyGit...."
-source "$OMAKUB_SUB_PATH/install/terminal/app-lazygit.sh"
-
-
 
 echo -e "\nInstalling config files..."
 install_only_if_missing ~/.local/share/rails-academy/mac/.alacritty.toml ~/.alacritty.toml

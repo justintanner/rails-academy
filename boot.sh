@@ -2,14 +2,14 @@
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Detected a Mac..."
-  eval "bash <(curl -fsSL https://raw.githubusercontent.com/justintanner/rails-academy/stable/mac/install.sh || wget -qO- https://raw.githubusercontent.com/justintanner/rails-academy/stable/mac/install.sh)"
+  eval "curl -fsSL https://raw.githubusercontent.com/justintanner/rails-academy/stable/mac/install.sh | bash -i"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   if grep -q "microsoft" /proc/version; then
-    echo "Detected Windows Subsystem for Linux..."
-    echo "Install script coming soon"
+    echo "Detected WSL on Windows..."
+    eval "wget -qO- https://raw.githubusercontent.com/justintanner/rails-academy/stable/ubuntu/install.sh | bash -i"
   else
-    echo "Detected a Linux..."
-    echo "Install script coming soon"
+    echo "Detected Linux..."
+    eval "wget -qO- https://raw.githubusercontent.com/justintanner/rails-academy/stable/ubuntu/install.sh | bash -i"
   fi
 else
   echo "Unsupported OS: $OSTYPE"

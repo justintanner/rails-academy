@@ -54,16 +54,9 @@ echo "Setting git defaults..."
 source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
 
 echo "Installing command line utils..."
-packages=(fzf ripgrep bash bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
-
-for package in "${packages[@]}"; do
-  if brew list -1 | grep -q "^${package}\$"; then
-    good "Homebrew package ${package} is installed."
-  else
-    echo "Installing ${package}..."
-    brew install "${package}"
-  fi
-done
+brew install \
+  fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr \
+  ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client sqlite3 1password-cli zoom
 
 if command -v terraform >/dev/null 2>&1; then
   good "Terraform is installed."
@@ -74,16 +67,7 @@ else
 fi
 
 echo -e "\nInstalling cask libraries..."
-casks=(font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver)
-
-for cask in "${casks[@]}"; do
-  if brew list --cask -1 | grep -q "^${cask}\$"; then
-    good "Homebrew cask ${cask} is installed."
-  else
-    echo "Installing ${cask}..."
-    brew install --cask "${cask}"
-  fi
-done
+brew install font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver
 
 # Format: "cask:App Name" (App Name matches the name in /Applications)
 apps=(
