@@ -16,9 +16,9 @@ Get your computer ready for rails development.
 
 #### [:arrow_right: Windows](win/README.md)
 
-## Start Here
+## Learn by Building
 
-Learn how to build a rails app.
+Learn how to build a rails app from scratch.
 
 #### [:green_book: Start Here](docs/START.md)
 

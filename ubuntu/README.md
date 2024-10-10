@@ -2,7 +2,7 @@
 
 ## Install Omakub (optional)
 
-Rails Academy is Omakub compatible, visit (Omakub)[https://omakub.org] and copy and paste their install command.
+Rails Academy is Omakub compatible, visit (https://omakub.org)[https://omakub.org] and follow the instructions.
 
 Notes:
 
