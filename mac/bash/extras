@@ -48,6 +48,5 @@ if command -v terraform &> /dev/null; then
 fi
 
 if command -v mise &> /dev/null; then
-  echo "Re-activating mise..."
   eval "$(mise activate bash)"
 fi
