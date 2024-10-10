@@ -29,9 +29,6 @@ else
   brew install git
 fi
 
-echo "Setting git defaults..."
-source "$OMAKUB_SUB_PATH/install/terminal"
-
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
 git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
@@ -47,12 +44,16 @@ RA_PATH=$HOME/.local/share/rails-academy
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
+
 if xcode-select -p >/dev/null 2>&1; then
   good "Xcode Command Line Tools are installed."
 else
   INSTRUCTIONS_URL="https://github.com/justintanner/rails-academy/blob/main/mac/README.md"
   bad "Xcode Command Line Tools are NOT installed. Instructions: " $INSTRUCTIONS_URL 1
 fi
+
+echo "Setting git defaults..."
+source "$OMAKUB_SUB_PATH/install/terminal"
 
 echo "Installing command line utils..."
 packages=(fzf ripgrep bash bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
