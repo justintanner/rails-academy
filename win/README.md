@@ -27,6 +27,8 @@ Almost there, one more thing.
 1. Press the Windows key
 2. Type `Docker Desktop`
 3. Click `Docker Desktop` to open it
+4. Click the gear icon in the top right and choose `Settings`
+5. Click `General` and check `Start Docker Desktop when you log in`
 
 ### Your Windows PC is ready :tada:
 
