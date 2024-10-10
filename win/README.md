@@ -6,7 +6,7 @@
 2. Type `PowerShell`
 3. Right-click on `Windows PowerShell` and choose `Run as administrator`
 
-## Rails Academy
+## Install (part one)
 
 In the same PowerShell copy and paste this command to allow Rails Academy to install:
 
@@ -18,6 +18,19 @@ Then copy and paste this command to install Rails Academy:
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/justintanner/rails-academy/stable/win/install.ps1'))
+```
+
+After the installation is complete, **restart your PC**.
+
+## Installing (part two)
+
+1. Press the Windows key
+2. Type `Alacritty`
+3. Paste in the following to complete the install
+
+
+```bash
+wget -qO- https://rails.academy/install | bash
 ```
 
 ## Docker
