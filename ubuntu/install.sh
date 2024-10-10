@@ -15,12 +15,12 @@ fi
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
 git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
-cd ~/.local/share/rails-academy
+cd ~/.local/share/rails-academy || exit 1
 if [[ $RAILS_ACADEMY_REF != "master" ]]; then
   git checkout "${RAILS_ACADEMY_REF:-stable}"
   git submodule update --init --recursive
 fi
-cd -
+cd - || exit 1
 
 OMAKUB_SUB_PATH="$HOME/.local/share/rails-academy/vendor/omakub"
 RA_PATH=$HOME/.local/share/rails-academy
@@ -28,37 +28,36 @@ RA_PATH=$HOME/.local/share/rails-academy
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
-scripts=(
-  "set-git",
-  "app-terminal",
-  "app-mise",
-  "app-fastfetch",
-  "app-lazydocker",
-  "app-lazygit",
-  "app-github-cli",
-  "docker",
-  "libraries"
-  "mise"
+server_apps=(
+  "terminal/set-git"
+  "terminal/app-terminal"
+  "terminal/app-mise"
+  "terminal/libraries"
+  "terminal/mise"
 )
 
-for script in "${scripts[@]}"; do
-  source "$OMAKUB_SUB_PATH/install/terminal/$script.sh"
+for app in "${server_apps[@]}"; do
+  source "$OMAKUB_SUB_PATH/install/$app.sh"
 done
 
-apps=(
-  "app-chrome"
-  "optional/app-1password"
-  "optional/app-rubymine"
-  "optional/app-zoom"
+desktop_apps=(
+  "terminal/docker"
+  "terminal/app-fastfetch"
+  "terminal/app-lazydocker"
+  "terminal/app-lazygit"
+  "terminal/app-github-cli"
+  "desktop/app-chrome"
+  "desktop/optional/app-1password"
+  "desktop/optional/app-rubymine"
+  "desktop/optional/app-zoom"
 )
-
-for app in "${apps[@]}"; do
-  if [ -n "$XDG_CURRENT_DESKTOP" ]; then
-   source "$OMAKUB_SUB_PATH/install/desktop/$script.sh"
- fi
-done
 
 if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+  echo "Install desktop apps..."
+  for app in "${desktop_apps[@]}"; do
+    source "$OMAKUB_SUB_PATH/install/$app.sh"
+  done
+
   echo "Installing alacritty..."
   apt-get install y alacritty
 fi
