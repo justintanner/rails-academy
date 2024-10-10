@@ -1,0 +1,50 @@
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+# fd is covered by the homebrew package fd, no alias needed, unsetting omkaub alias
+unalias fd
+
+# Tels mac terminal to supress the convert to zsh warning message.
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+export RAILS_ACADEMY_PATH="/home/$USER/.local/share/rails-academy"
+
+# Add homebrew to the path
+export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
+
+# Set complete path
+export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/rails-academy/bin:$PATH"
+
+# Allows bundler to build against the mysql-client
+if [ -d "/opt/homebrew/opt/mysql-client" ]; then
+  export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
+  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/mysql-client/lib"
+  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/mysql-client/include"
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/mysql-client/lib/pkgconfig"
+fi
+
+# Allows bundler to build against the libpq
+if [ -d "/opt/homebrew/opt/libpq" ]; then
+  export PATH="$PATH:/opt/homebrew/opt/libpq/bin"
+  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/libpq/lib"
+  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/libpq/include"
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/libpq/lib/pkgconfig"
+fi
+
+# Update the PATH for the current shell session.
+set +h
+
+# Tell Mise to automatically load the .env when you enter that directory.
+export MISE_ENV_FILE=.env
+
+type fzf &>/dev/null && eval "$(fzf --bash)"
+
+if [ -z "$OMAKUB_PATH" ] && [ "$TERM_PROGRAM" = "alacritty" ] && [ ! -z "$ZELLIJ" ]; then
+  if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    __GIT_PROMPT_DIR=$(brew --prefix)/opt/bash-git-prompt/share
+    GIT_PROMPT_THEME=Solarized_Ubuntu
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+  fi
+fi
+
+if command -v terraform >/dev/null 2>&1; then
+   complete -C /opt/homebrew/bin/terraform terraform
+fi

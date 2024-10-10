@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OMAKUB_SUB_PATH="$SCRIPT_DIR/vendor/omakub"
+
 echo -e "Installing Rails Academy...\n"
 
 if command -v tput &>/dev/null && tput setaf 1 &>/dev/null; then
@@ -35,12 +38,13 @@ sudo apt-get install -y git >/dev/null
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
-git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
+git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
+cd ~/.local/share/rails-academy
 if [[ $RAILS_ACADEMY_REF != "master" ]]; then
-  cd ~/.local/share/rails-academy
-  git fetch origin "${RAILS_ACADEMY_REF:-stable}" && git checkout "${RAILS_ACADEMY_REF:-stable}"
-  cd -
+  git checkout "${RAILS_ACADEMY_REF:-stable}"
+  git submodule update --init --recursive
 fi
+cd -
 
 echo "Setting git defaults..."
 git config --global alias.co checkout

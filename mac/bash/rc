@@ -1,4 +1,9 @@
-source ~/.local/share/rails-academy/mac/bash/shell
-source ~/.local/share/rails-academy/mac/bash/aliases
-source ~/.local/share/rails-academy/mac/bash/prompt
-source ~/.local/share/rails-academy/mac/bash/init
+OMAKUB_SUB_PATH = ~/.local/share/rails-academy/vendor/omakub
+RA_PATH = ~/.local/share/rails-academy
+
+source $RA_DIR/mac/bash/shell
+source $OMAKUB_SUB_PATH/bash/aliases
+source $OMAKUB_SUB_PATH/bash/prompt
+source $OMAKUB_SUB_PATH/bash/init
+
+source $RA_PATH/mac/bash/overrides_and_extra

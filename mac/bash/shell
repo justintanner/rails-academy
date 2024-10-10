@@ -4,33 +4,14 @@ HISTCONTROL=ignoreboth
 HISTSIZE=32768
 HISTFILESIZE="${HISTSIZE}"
 
-# Add homebrew to the path
-export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
+# Autocompletion
+# [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # Set complete path
-export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/rails-academy/bin:$PATH"
-set +h
+if [ -d "$HOME/.local/share/omakub" ]; then
+  export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/omakub/bin:$PATH"
+  set +h
 
-export RAILS_ACADEMY_PATH="/home/$USER/.local/share/rails-academy"
-
-# Allows bundler to build against the mysql-client
-if [ -d "/opt/homebrew/opt/mysql-client" ]; then
-  export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/mysql-client/lib"
-  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/mysql-client/include"
-  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/mysql-client/lib/pkgconfig"
+  export OMAKUB_PATH="/home/$USER/.local/share/omakub"
 fi
 
-# Allows bundler to build against the libpq
-if [ -d "/opt/homebrew/opt/libpq" ]; then
-  export PATH="$PATH:/opt/homebrew/opt/libpq/bin"
-  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/libpq/lib"
-  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/libpq/include"
-  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/libpq/lib/pkgconfig"
-fi
-
-# Suppress the zsh warning message.
-export BASH_SILENCE_DEPRECATION_WARNING=1
-
-# Tell Mise to automatically load the .env when you enter that directory.
-export MISE_ENV_FILE=.env

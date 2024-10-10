@@ -58,12 +58,13 @@ fi
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
-git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
+git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
+cd ~/.local/share/rails-academy
 if [[ $RAILS_ACADEMY_REF != "master" ]]; then
-  cd ~/.local/share/rails-academy
-  git fetch origin "${RAILS_ACADEMY_REF:-stable}" && git checkout "${RAILS_ACADEMY_REF:-stable}"
-  cd -
+  git checkout "${RAILS_ACADEMY_REF:-stable}"
+  git submodule update --init --recursive
 fi
+cd -
 
 echo "Setting git defaults..."
 git config --global alias.co checkout
@@ -195,13 +196,17 @@ install_only_if_missing() {
   fi
 }
 
+
+OMAKUB_SUB_PATH=$HOME:/.local/share/rails-academy/vendor/omakub
+RA_PATH=$HOME:/.local/share/rails-academy
+
 echo -e "\nInstalling config files..."
-install_and_backup_old_file ~/.local/share/rails-academy/mac/.alacritty.toml ~/.alacritty.toml
-install_only_if_missing ~/.local/share/rails-academy/mac/.op_load_env ~/.op_load_env
-install_and_backup_old_file ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
-install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
-install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
-install_and_backup_old_file ~/.local/share/rails-academy/mac/bash/inputrc ~/.inputrc
+install_and_backup_old_file $RA_PATH:/mac/.alacritty.toml ~/.alacritty.toml
+install_only_if_missing $RA_PATH/mac/.op_load_env ~/.op_load_env
+install_and_backup_old_file $RA_PATH/mac/.bash_profile ~/.bash_profile
+install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
+install_and_backup_old_file $RA_PATH/mac/.zshrc ~/.zshrc
+install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
 
 echo -e "\nSetting bash as the default terminal..."
 chsh -s /opt/homebrew/bin/bash
