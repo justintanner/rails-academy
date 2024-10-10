@@ -43,7 +43,7 @@ export MISE_ENV_FILE=.env
 type fzf &>/dev/null && eval "$(fzf --bash)"
 
 # Check if $HOME/.alacritty.yml exists and contains the word zellij
-ALACRITTY_IN_ZELLIJ=$(awk '/zellij/ {found=1} END {if (found) print "true"}' $HOME/.alacritty.yml)
+ALACRITTY_IN_ZELLIJ=$( [ -f "$HOME/.alacritty.yml" ] && awk '/zellij/ {found=1} END {if (found) print "true"}' "$HOME/.alacritty.yml" || echo "" )
 
 if [ "$TERM_PROGRAM" = "alacritty" ] && [ ! $ALACRITTY_IN_ZELLIJ ]; then
   if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
