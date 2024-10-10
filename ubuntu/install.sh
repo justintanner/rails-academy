@@ -16,7 +16,7 @@ fi
 cd -
 
 RA_PATH=$HOME/.local/share/rails-academy
-RA_PATH/common/install_helpers.sh
+$RA_PATH/common/install_helpers.sh
 
 if command -v git >/dev/null 2>&1; then
   good "Git is installed."
