@@ -5,6 +5,19 @@ OMAKUB_SUB_PATH="$SCRIPT_PATH/vendor/omakub"
 
 echo -e "Installing Rails Academy...\n"
 
+echo "Updating package lists..."
+sudo apt update -y
+
+if command -v git >/dev/null 2>&1; then
+  good "Git is installed."
+else
+  echo "Git not installed. Installing..."
+  apt install -y git
+fi
+
+echo "Setting git defaults..."
+bash "$OMAKUB_SUB_PATH/vendor/omakub/install/terminal"
+
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
 git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
@@ -16,21 +29,9 @@ fi
 cd -
 
 RA_PATH=$HOME/.local/share/rails-academy
-$RA_PATH/common/install_helpers.sh
 
-if command -v git >/dev/null 2>&1; then
-  good "Git is installed."
-else
-  echo "Git not installed. Installing..."
-  apt install -y git
-fi
-
-echo "Setting git defaults..."
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global pull.rebase true
+echo "Loading bash helpers..."
+bash "$RA_PATH/common/install_helpers.sh"
 
 echo "Installing command line utils..."
 sudo apt install -y fzf ripgrep bat eza zoxide plocate btop apache2-utils fd-find tldr
@@ -39,14 +40,14 @@ if command -v terraform >/dev/null 2>&1; then
   good "Terraform is installed."
 else
   echo "Installing Terraform..."
-  $RA_PATH/install/terminal/terraform.sh
+  bash "$RA_PATH/install/terminal/terraform.sh"
 fi
 
 if command -v mise >/dev/null 2>&1; then
   good "Mise is installed."
 else
   echo "Installing Mise..."
-  $OMAKUB_SUB_PATH/install/terminal/mise.sh
+  bash "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
 fi
 
 echo -e "\nInstalling config files..."

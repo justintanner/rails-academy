@@ -5,6 +5,33 @@ OMAKUB_SUB_PATH="$SCRIPT_PATH/vendor/omakub"
 
 echo -e "Installing Rails Academy...\n"
 
+if ! command -v brew >/dev/null 2>&1; then
+  # Homebrew might not be in path yet try to inject it.
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Error: Homebrew is not installed. Instructions at: https://brew.sh"
+  exit 1
+else
+  echo "Homebrew is installed."
+  PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
+  set -h
+fi
+
+echo "Updating updating Homebrew package..."
+brew update
+
+if command -v git >/dev/null 2>&1; then
+  echo "Git is installed."
+else
+  echo "Git not installed. Installing..."
+  brew install git
+fi
+
+echo "Setting git defaults..."
+bash "$OMAKUB_SUB_PATH/vendor/omakub/install/terminal"
+
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
 git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
@@ -16,7 +43,9 @@ fi
 cd -
 
 RA_PATH=$HOME/.local/share/rails-academy
-$RA_PATH/common/install_helpers.sh
+
+echo "Loading bash helpers..."
+bash "$RA_PATH/common/install_helpers.sh"
 
 if xcode-select -p >/dev/null 2>&1; then
   good "Xcode Command Line Tools are installed."
@@ -24,42 +53,6 @@ else
   INSTRUCTIONS_URL="https://github.com/justintanner/rails-academy/blob/main/mac/README.md"
   bad "Xcode Command Line Tools are NOT installed. Instructions: " $INSTRUCTIONS_URL 1
 fi
-
-if ! command -v brew >/dev/null 2>&1; then
-  # Homebrew might not be in path yet, inject it.
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-if ! command -v brew >/dev/null 2>&1; then
-  bad "Error: Homebrew is not installed. Instructions: " "https://brew.sh" 1
-else
-  good "Homebrew is installed."
-  export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
-fi
-
-if command -v git >/dev/null 2>&1; then
-  good "Git is installed."
-else
-  echo "Git not installed. Installing..."
-  brew install git
-fi
-
-echo "Cloning Rails Academy..."
-rm -rf ~/.local/share/rails-academy
-git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
-cd ~/.local/share/rails-academy
-if [[ $RAILS_ACADEMY_REF != "master" ]]; then
-  git checkout "${RAILS_ACADEMY_REF:-stable}"
-  git submodule update --init --recursive
-fi
-cd -
-
-echo "Setting git defaults..."
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global pull.rebase true
 
 echo "Installing command line utils..."
 packages=(fzf ripgrep bash bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
