@@ -1,7 +1,3 @@
-version_lt() {
-  [ "$(printf '%s\n%s' "$1" "$2" | sort -V | head -n1)" = "$1" ] && [ "$1" != "$2" ]
-}
-
 ruby_version=$(ruby --version | awk '{print $2}')
 
 if version_lt "$ruby_version" "3.3.0"; then
@@ -11,11 +7,19 @@ else
   echo "Ruby 3.3 already installed."
 fi
 
-rails_version=$(rails --version | awk '{print $2}')
+if command -v ruby &>/dev/null; then
+  version_lt() {
+    ruby -e "v1 = Gem::Version.new('$1'); v2 = Gem::Version.new('$2'); exit(v1 < v2 ? 0 : 1)"
+  }
 
-if version_lt "$rails_version" "8.0.0beta1"; then
-  echo "Installing rails8..."
-  mise x ruby -- gem install rails --no-document -v ">= 8.0.0beta1"
-else
-  echo "Rails 8 already installed."
+  rails_version=$(rails --version | awk '{print $2}')
+
+  if version_lt "$rails_version" "8.0.0beta1"; then
+    echo "Installing rails8..."
+    mise x ruby -- gem install rails --no-document -v ">= 8.0.0beta1"
+  else
+    echo "Rails 8 already installed."
+ fi
 fi
+
+
