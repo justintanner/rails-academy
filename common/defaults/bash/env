@@ -1,5 +1,3 @@
-!#/bin/bash
-
 # Tell Mise to automatically load the .env when you enter that directory.
 export MISE_ENV_FILE=.env
 
