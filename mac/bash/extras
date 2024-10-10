@@ -47,6 +47,7 @@ if command -v terraform &> /dev/null; then
    complete -C /opt/homebrew/bin/terraform terraform
 fi
 
+# Mise for some reason is still not active on mac.
 if command -v mise &> /dev/null; then
   eval "$(mise activate bash)"
 fi
