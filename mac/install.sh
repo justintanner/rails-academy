@@ -30,7 +30,7 @@ else
 fi
 
 echo "Setting git defaults..."
-bash "$OMAKUB_SUB_PATH/vendor/omakub/install/terminal"
+source "$OMAKUB_SUB_PATH/vendor/omakub/install/terminal"
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
@@ -45,7 +45,7 @@ cd -
 RA_PATH=$HOME/.local/share/rails-academy
 
 echo "Loading bash helpers..."
-bash "$RA_PATH/common/install_helpers.sh"
+source "$RA_PATH/common/install_helpers.sh"
 
 if xcode-select -p >/dev/null 2>&1; then
   good "Xcode Command Line Tools are installed."

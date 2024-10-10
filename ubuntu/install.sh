@@ -16,7 +16,7 @@ else
 fi
 
 echo "Setting git defaults..."
-bash "$OMAKUB_SUB_PATH/vendor/omakub/install/terminal"
+source "$OMAKUB_SUB_PATH/vendor/omakub/install/terminal"
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
@@ -31,7 +31,7 @@ cd -
 RA_PATH=$HOME/.local/share/rails-academy
 
 echo "Loading bash helpers..."
-bash "$RA_PATH/common/install_helpers.sh"
+source "$RA_PATH/common/install_helpers.sh"
 
 echo "Installing command line utils..."
 sudo apt install -y fzf ripgrep bat eza zoxide plocate btop apache2-utils fd-find tldr
@@ -40,14 +40,14 @@ if command -v terraform >/dev/null 2>&1; then
   good "Terraform is installed."
 else
   echo "Installing Terraform..."
-  bash "$RA_PATH/install/terminal/terraform.sh"
+  source "$RA_PATH/install/terminal/terraform.sh"
 fi
 
 if command -v mise >/dev/null 2>&1; then
   good "Mise is installed."
 else
   echo "Installing Mise..."
-  bash "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
+  source "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
 fi
 
 echo -e "\nInstalling config files..."
