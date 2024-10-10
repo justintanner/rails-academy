@@ -107,6 +107,8 @@ else
   sudo chmod +x /usr/local/bin/rubymine
 fi
 
+source "$RA_PATH/common/install/terminal/gitstatus.sh"
+
 echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/mac/.alacritty.toml ~/.alacritty.toml
 install_only_if_missing $RA_PATH/common/.op_load_env ~/.op_load_env

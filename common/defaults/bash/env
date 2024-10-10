@@ -1,3 +1,5 @@
+!#/bin/bash
+
 # Tell Mise to automatically load the .env when you enter that directory.
 export MISE_ENV_FILE=.env
 
@@ -8,4 +10,32 @@ export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/rails-academy/bin:$PATH"
 set +h
 
 export RA_COLOR_MODE="light"
+
+if [ -d "$HOME/.local/share/gitstatus" ]; then
+  source ~/.local/share/gitstatus/gitstatus.plugin.sh
+
+  function my_set_prompt() {
+    PS1='\[\e[34m\]\w\[\e[0m\]'  # Set directory to blue
+
+    if gitstatus_query && [[ "$VCS_STATUS_RESULT" == ok-sync ]]; then
+      PS1+=" \[\e[33m\]["  # Start yellow color for status
+      if [[ -n "$VCS_STATUS_LOCAL_BRANCH" ]]; then
+        PS1+="${VCS_STATUS_LOCAL_BRANCH//\\/\\\\}"  # escape backslash
+      else
+        PS1+="@${VCS_STATUS_COMMIT//\\/\\\\}"       # escape backslash
+      fi
+      (( VCS_STATUS_HAS_STAGED    )) && PS1+='+'
+      (( VCS_STATUS_HAS_UNSTAGED  )) && PS1+='!'
+      (( VCS_STATUS_HAS_UNTRACKED )) && PS1+='?'
+      PS1+="]\[\e[0m\]"  # End yellow color
+    fi
+
+    PS1+='\n\$ '
+
+    shopt -u promptvars  # disable expansion of '$(...)' and the like
+  }
+
+  gitstatus_stop && gitstatus_start
+  PROMPT_COMMAND=my_set_prompt
+fi
 
