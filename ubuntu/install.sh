@@ -1,10 +1,11 @@
 #!/bin/bash
+set -e
 
 echo -e "Installing Rails Academy...\n"
 
 ARCH=$(uname -m)
 
-if [ "$ARCH" = "amd64" ]; then
+if [ "$ARCH" != "amd64" ]; then
   echo "This script only supports amd64 systems. Your architecture is ${ARCH}."
   exit 1
 fi
