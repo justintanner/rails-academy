@@ -33,13 +33,16 @@ $apps = @(
     'docker-desktop'
 )
 
+# Get the list of installed applications
+$installedApps = choco list -l
+
 foreach ($app in $apps) {
-    if (!(choco list --local-only | Select-String -Pattern "^$app\$")) {
+    if ($installedApps -notmatch "^$app$") {
         Write-Host "Installing $app..."
         choco install $app -y
-        Write-Good "$app is installed."
+        Write-Host "$app is installed."
     } else {
-        Write-Good "Application $app is already installed."
+        Write-Host "Application $app is already installed."
     }
 }
 
@@ -72,14 +75,15 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
 # Install WSL2
 wsl --set-default-version 2
 
-# Install Ubuntu from Microsoft Store if not installed
-if (!(wsl --list --online | Select-String -Pattern 'Ubuntu')) {
+# Check if Ubuntu is installed in WSL
+$wslInstalledList = wsl --list --verbose
+if ($wslInstalledList -notmatch 'Ubuntu') {
     Write-Host "Ubuntu is not installed. Installing Ubuntu..."
     Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile $env:TEMP\Ubuntu.appx -UseBasicParsing
     Add-AppxPackage -Path $env:TEMP\Ubuntu.appx
-    Write-Good "Ubuntu is installed."
+    Write-Host "Ubuntu is installed."
 } else {
-    Write-Good "Ubuntu is already installed."
+    Write-Host "Ubuntu is already installed."
 }
 
 # Plant a fake .bashrc into the home directory of the current user in Ubuntu
