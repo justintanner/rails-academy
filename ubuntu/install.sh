@@ -85,6 +85,13 @@ else
   source "$RA_PATH/ubuntu/install/terminal/terraform.sh"
 fi
 
+if [ ! -d "$HOME/.local/share/bash-git-prompt" ]; then
+  echo "Installing bash-git-prompt..."
+  source "$RA_PATH/ubuntu/install/terminal/bash_git_prompt.sh"
+else
+  good "bash-git-prompt is installed."
+fi
+
 echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/ubuntu/.alacritty.toml ~/.alacritty.toml
 install_only_if_missing $RA_PATH/common/.op_load_env ~/.op_load_env
