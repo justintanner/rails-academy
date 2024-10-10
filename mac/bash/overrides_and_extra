@@ -18,6 +18,8 @@ export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebre
 # Set complete path
 export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/rails-academy/bin:$PATH"
 
+export RA_COLOR_MODE="light"
+
 # Allows bundler to build against the mysql-client
 if [ -d "/opt/homebrew/opt/mysql-client" ]; then
   export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
@@ -48,12 +50,20 @@ ALACRITTY_IN_ZELLIJ=$( [ -f "$HOME/.alacritty.yml" ] && awk '/zellij/ {found=1} 
 if [ "$TERM" = "xterm-256color" ] && [ ! $ALACRITTY_IN_ZELLIJ ]; then
   if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     __GIT_PROMPT_DIR=$(brew --prefix)/opt/bash-git-prompt/share
-    GIT_PROMPT_THEME=Solarized_Ubuntu
+    if [ "$RA_COLOR_MODE" = "light" ]; then
+      GIT_PROMPT_THEME=Solarized_Ubuntu
+    else
+      GIT_PROMPT_THEME=Solarized_Ubuntu_Dark
+    fi
     source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
   fi
 fi
 
-if command -v terraform >/dev/null 2>&1; then
+if command -v terraform &> /dev/null; then
    complete -C /opt/homebrew/bin/terraform terraform
 fi
 
+if command -v mise &> /dev/null; then
+  echo Re-activating mise..."
+  eval "$(mise activate bash)"
+end
