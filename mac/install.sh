@@ -197,8 +197,8 @@ install_only_if_missing() {
 }
 
 
-OMAKUB_SUB_PATH=$HOME:/.local/share/rails-academy/vendor/omakub
-RA_PATH=$HOME:/.local/share/rails-academy
+OMAKUB_SUB_PATH=$HOME/.local/share/rails-academy/vendor/omakub
+RA_PATH=$HOME/.local/share/rails-academy
 
 echo -e "\nInstalling config files..."
 install_and_backup_old_file $RA_PATH:/mac/.alacritty.toml ~/.alacritty.toml
