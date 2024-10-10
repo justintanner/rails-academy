@@ -20,11 +20,13 @@ Get your computer ready for rails development.
 
 Learn how to build a rails app.
 
-#### [:green_book: 1. Deploy a Hello World app]()
+#### [:green_book: Start Here](docs/START.md)
 
-#### [:orange_book: 2. Modern CSS and HTML]()
+#### [:green_book: Build a marketing website (CSS, HTML)]()
 
-#### [:blue_book: 3. Build and Deploy (Rails, Kamal)]()
+#### [:green_book: Accept Payments (Stripe)]()
+
+#### [:green_book: Add Authentication (Email)]()
 
 ## Achieve Mastery
 
