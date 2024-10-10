@@ -78,12 +78,12 @@ else
 fi
 
 echo -e "\nInstalling config files..."
-install_only_if_missing ~/.local/share/rails-academy/mac/.alacritty.toml ~/.alacritty.toml
-install_only_if_missing ~/.local/share/rails-academy/mac/.op_load_env ~/.op_load_env
-install_and_backup_old_file ~/.local/share/rails-academy/mac/.bash_profile ~/.bash_profile
-install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
-install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
-install_and_backup_old_file ~/.local/share/rails-academy/mac/bash/inputrc ~/.inputrc
+install_only_if_missing $RA_PATH/ubuntu/.alacritty.toml ~/.alacritty.toml
+install_only_if_missing $RA_PATH/common/.op_load_env ~/.op_load_env
+install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
+install_and_backup_old_file $RA_PATH/ubuntu/.bashrc ~/.bashrc
+install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
+install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
 

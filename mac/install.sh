@@ -108,11 +108,11 @@ else
 fi
 
 echo -e "\nInstalling config files..."
-install_and_backup_old_file $RA_PATH/mac/.alacritty.toml ~/.alacritty.toml
-install_only_if_missing $RA_PATH/mac/.op_load_env ~/.op_load_env
-install_and_backup_old_file $RA_PATH/mac/.bash_profile ~/.bash_profile
+install_only_if_missing $RA_PATH/mac/.alacritty.toml ~/.alacritty.toml
+install_only_if_missing $RA_PATH/common/.op_load_env ~/.op_load_env
+install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
 install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
-install_and_backup_old_file $RA_PATH/mac/.zshrc ~/.zshrc
+install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
 install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
 
 echo -e "\nSetting bash as the default terminal..."
