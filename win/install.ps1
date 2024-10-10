@@ -72,26 +72,26 @@ git config --global pull.rebase true
 
 if (-not (Is-ProgramInstalled -programName "alacritty")) {
     Write-Output "Install alacritty.."
-    choco install -y alacritty
+    choco install alacritty -y
 }
 
 if (-not (Is-ProgramInstalled -programName "1password")) {
     Write-Output "Install 1password.."
-    choco install -y 1password
+    choco install 1password -y
 } else {
     Write-Good "1Password is already installed."
 }
 
-if (-not (Is-ProgramInstalled -programName "rubymine")) {
+if (-not (Is-ProgramInstalled -programName "RubyMine")) {
     Write-Output "Install rubymine.."
-    choco install -y rubymine
+    choco install rubymine -y
 } else {
     Write-Good "RubyMine is already installed."
 }
 
 if (-not (Is-ProgramInstalled -programName "Google Chrome")) {
     Write-Output "Install Google Chrome.."
-    choco install -y googlechrome
+    choco install googlechrome -y
 }
 else {
     Write-Good "Google Chrome is already installed."
