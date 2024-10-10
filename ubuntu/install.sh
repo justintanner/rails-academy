@@ -64,11 +64,11 @@ if [ -n "$XDG_CURRENT_DESKTOP" ]; then
   for script_app in "${script_apps[@]}"; do
     script="${script_app%%:*}"
     app="${script_app##*:}"
-    if command -v app 2> /dev/null; then
+    if command -v $app 2> /dev/null; then
       good "$app is installed."
     else
       echo "Installing $app..."
-      source "$OMAKUB_SUB_PATH/install/$app.sh"
+      source "$OMAKUB_SUB_PATH/install/$script.sh"
     fi
   done
 
