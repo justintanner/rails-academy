@@ -56,7 +56,7 @@ source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
 echo "Installing multiple Homebrew packages..."
 brew install \
   fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr \
-  ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client sqlite3 1password-cli \
+  ruby-build bash-completion imagemagick vips libpq mysql-client sqlite3 1password-cli \
   font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver
 
 if command -v terraform &> /dev/null; then
