@@ -1,0 +1,8 @@
+export RAILS_ACADEMY_PATH="/home/$USER/.local/share/rails-academy"
+
+# Add rails academy to the path
+export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/rails-academy/bin:$PATH"
+set +h
+
+export RA_COLOR_MODE="light"
+
