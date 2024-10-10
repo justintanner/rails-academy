@@ -24,27 +24,8 @@ if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     Write-Good "Chocolatey is installed."
 }
 
-$apps = @(
-    'git',
-    'alacritty',
-    '1password',
-    'rubymine',
-    'nerd-fonts-jetbrainsmono',
-    'docker-desktop'
-)
-
-# Get the list of installed applications
-$installedApps = choco list
-
-foreach ($app in $apps) {
-    if ($installedApps -notmatch "^$app$") {
-        Write-Host "Installing $app..."
-        choco install $app -y
-        Write-Host "$app is installed."
-    } else {
-        Write-Host "Application $app is already installed."
-    }
-}
+Write-Host "Installing required packages..."
+choco install git alacritty 1password rubymine nerd-fonts-jetbrainsmono docker-desktop -y
 
 # Set Git defaults
 git config --global alias.co checkout
@@ -55,7 +36,6 @@ git config --global pull.rebase true
 
 Write-Good "Git defaults are set."
 
-# Install WSL and Ubuntu
 if (!(Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') {
     Write-Host "WSL is not enabled. Enabling WSL..."
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
@@ -76,14 +56,12 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
 wsl --set-default-version 2
 
 # Check if Ubuntu is installed in WSL
-$wslInstalledList = wsl --list --online
-if ($wslInstalledList -notmatch 'Ubuntu') {
-    Write-Host "Ubuntu is not installed. Installing Ubuntu..."
-    Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile $env:TEMP\Ubuntu.appx -UseBasicParsing
-    Add-AppxPackage -Path $env:TEMP\Ubuntu.appx
-    Write-Host "Ubuntu is installed."
+$wslInstalledList = wsl --list
+if ($wslInstalledList -notmatch 'Ubuntu-24.04') {
+    Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
+    wsl --install Ubuntu-24.04
 } else {
-    Write-Host "Ubuntu is already installed."
+    Write-Host "Ubuntu 24.04 is already installed."
 }
 
 # Plant a fake .bashrc into the home directory of the current user in Ubuntu
