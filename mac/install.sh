@@ -46,7 +46,7 @@ source "$RA_PATH/common/install_helpers.sh"
 if xcode-select -p >/dev/null 2>&1; then
   good "Xcode Command Line Tools are installed."
 else
-  INSTRUCTIONS_URL="https://github.com/justintanner/rails-academy/blob/main/mac/README.md"
+  INSTRUCTIONS_URL="https://github.com/justintanner/rails-academy/blob/stable/mac/README.md"
   bad "Xcode Command Line Tools are NOT installed. Instructions: " $INSTRUCTIONS_URL 1
 fi
 
