@@ -3,7 +3,7 @@ alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 unalias fd
 
 # If for some reason zoxide is not installed, then unset the cd alias
-if ! command -v zoxide &> /dev/null; then
+if ! command -v z &> /dev/null; then
   unalias cd
 fi
 
