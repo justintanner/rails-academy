@@ -48,7 +48,13 @@ else
   source "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
 fi
 
-# TODO: Install apps, if gui.
+echo "Installing LazyDocker...."
+source "$OMAKUB_SUB_PATH/install/terminal/app-lazydocker.sh"
+
+echo "Installing LazyGit...."
+source "$OMAKUB_SUB_PATH/install/terminal/app-lazygit.sh"
+
+
 
 echo -e "\nInstalling config files..."
 install_only_if_missing ~/.local/share/rails-academy/mac/.alacritty.toml ~/.alacritty.toml

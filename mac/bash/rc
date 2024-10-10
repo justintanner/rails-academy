@@ -6,5 +6,5 @@ source $OMAKUB_SUB_PATH/defaults/bash/aliases
 source $OMAKUB_SUB_PATH/defaults/bash/prompt
 source $OMAKUB_SUB_PATH/defaults/bash/init
 
-source $RA_PATH/mac/bash/mysql_and_postgres
-source $RA_PATH/mac/bash/overrides_and_extra
+source $RA_PATH/mac/bash/deps
+source $RA_PATH/mac/bash/extras

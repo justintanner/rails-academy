@@ -110,7 +110,7 @@ if command -v mise >/dev/null 2>&1; then
   good "Mise is installed."
 else
   echo "Installing Mise..."
-  source "$RA_PATH/mac/bash/mysql_and_postgres"
+  source "$RA_PATH/mac/bash/deps"
   curl https://mise.run | sh
   PATH=$PATH:$HOME/.local/bin
   mise activate
