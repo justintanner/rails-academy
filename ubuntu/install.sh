@@ -30,31 +30,8 @@ bad() {
   fi
 }
 
-if xcode-select -p >/dev/null 2>&1; then
-  good "Xcode Command Line Tools are installed."
-else
-  INSTRUCTIONS_URL="https://github.com/justintanner/rails-academy/blob/main/mac/README.md"
-  bad "Xcode Command Line Tools are NOT installed. Instructions: " $INSTRUCTIONS_URL 1
-fi
-
-if ! command -v brew >/dev/null 2>&1; then
-  # Homebrew might not be in path yet, inject it.
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-if ! command -v brew >/dev/null 2>&1; then
-  bad "Error: Homebrew is not installed. Instructions: " "https://brew.sh" 1
-else
-  good "Homebrew is installed."
-  export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
-fi
-
-if command -v git >/dev/null 2>&1; then
-  good "Git is installed."
-else
-  echo "Git not installed. Installing..."
-  brew install git
-fi
+sudo apt-get update >/dev/null
+sudo apt-get install -y git >/dev/null
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
@@ -73,16 +50,7 @@ git config --global alias.st status
 git config --global pull.rebase true
 
 echo "Installing command line utils..."
-packages=(fzf ripgrep bash bat eza zoxide btop httpd fd tldr ruby-build bash-completion bash-git-prompt imagemagick vips libpq mysql-client 1password-cli)
-
-for package in "${packages[@]}"; do
-  if brew list -1 | grep -q "^${package}\$"; then
-    good "Homebrew package ${package} is installed."
-  else
-    echo "Installing ${package}..."
-    brew install "${package}"
-  fi
-done
+sudo apt install -y fzf ripgrep bat eza zoxide plocate btop apache2-utils fd-find tldr
 
 if command -v terraform >/dev/null 2>&1; then
   good "Terraform is installed."
@@ -149,14 +117,6 @@ else
   mise activate
 fi
 
-if [ -f /usr/local/bin/rubymine ]; then
-  good "Rubymine shell script installed."
-else
-  echo "Installing \"rubymine\" shell script..."
-  sudo cp ~/.local/share/rails-academy/mac/rubymine /usr/local/bin/rubymine
-  sudo chmod +x /usr/local/bin/rubymine
-fi
-
 backup_file() {
   local file=$1
   local backup=$file.bak
@@ -202,14 +162,6 @@ install_and_backup_old_file ~/.local/share/rails-academy/mac/.bash_profile ~/.ba
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.bashrc ~/.bashrc
 install_and_backup_old_file ~/.local/share/rails-academy/mac/.zshrc ~/.zshrc
 install_and_backup_old_file ~/.local/share/rails-academy/mac/bash/inputrc ~/.inputrc
-
-echo -e "\nSetting bash as the default terminal..."
-chsh -s /opt/homebrew/bin/bash
-defaults write com.apple.Terminal Shell -string "/opt/homebrew/bin/bash"
-
-echo "Setting fonts in Terminal..."
-osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
-osascript -e 'tell application "Terminal" to set font size of settings set "Basic" to 14'
 
 echo "Installing ruby 3.3 as the default..."
 mise use --global ruby@3.3

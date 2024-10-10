@@ -1,15 +1,13 @@
-# Install-RailsAcademy.ps1
-
 Write-Host "Installing Rails Academy on Windows..."
 
 function Write-Good {
     param([string]$Message)
-    Write-Host "✅ $Message" -ForegroundColor Green
+    Write-Host "$Message" -ForegroundColor Green
 }
 
 function Write-Bad {
     param([string]$Message, [int]$ExitCode = 0)
-    Write-Host "❌ $Message" -ForegroundColor Red
+    Write-Host "$Message" -ForegroundColor Red
     if ($ExitCode -ne 0) {
         exit $ExitCode
     }
@@ -28,12 +26,11 @@ if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
 
 $apps = @(
     'git',
-    'docker-desktop',
     'alacritty',
     '1password',
-    'googlechrome',
-    'rubymine'
-    'nerd-fonts-jetbrainsmono'
+    'rubymine',
+    'nerd-fonts-jetbrainsmono',
+    'docker-desktop'
 )
 
 foreach ($app in $apps) {
@@ -52,7 +49,6 @@ git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.st status
 git config --global pull.rebase true
-git config --global push.autoSetupRemote true
 
 Write-Good "Git defaults are set."
 

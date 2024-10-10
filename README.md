@@ -12,7 +12,7 @@ Get your computer ready for rails development.
 
 #### [:arrow_right: Mac](mac/README.md)
 
-#### [:arrow_right: Windows](windows/README.md)
+#### [:arrow_right: Windows](win/README.md)
 
 ## Setup already? 
 
