@@ -106,25 +106,11 @@ for app_pair in "${apps[@]}"; do
   fi
 done
 
-# Just in case Mise needs these in the path to build ruby
-if [ -d "/opt/homebrew/opt/mysql-client" ]; then
-  export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/mysql-client/lib"
-  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/mysql-client/include"
-  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/mysql-client/lib/pkgconfig"
-fi
-
-if [ -d "/opt/homebrew/opt/libpq" ]; then
-  export PATH="$PATH:/opt/homebrew/opt/libpq/bin"
-  export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/libpq/lib"
-  export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/libpq/include"
-  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/opt/homebrew/opt/libpq/lib/pkgconfig"
-fi
-
 if command -v mise >/dev/null 2>&1; then
   good "Mise is installed."
 else
   echo "Installing Mise..."
+  source "$RA_PATH/mac/bash/mysql_and_postgres"
   curl https://mise.run | sh
   PATH=$PATH:$HOME/.local/bin
   mise activate
@@ -137,44 +123,6 @@ else
   sudo cp ~/.local/share/rails-academy/mac/rubymine /usr/local/bin/rubymine
   sudo chmod +x /usr/local/bin/rubymine
 fi
-
-backup_file() {
-  local file=$1
-  local backup=$file.bak
-  local count=1
-
-  while [ -f $backup ]; do
-    backup=$file.bak$count
-    count=$((count + 1))
-  done
-
-  mv $file $backup
-}
-
-install_and_backup_old_file() {
-  local source=$1
-  local dest=$2
-
-  if [ -f $dest ] && ! cmp -s $dest $source; then
-    backup_file $dest
-    echo "Backed up old config file to $dest.bak"
-  fi
-
-  cp $source $dest
-  good "Installed config $dest."
-}
-
-install_only_if_missing() {
-  local source=$1
-  local dest=$2
-
-  if [ ! -f $dest ]; then
-    cp $source $dest
-    good "Installed config $dest."
-  else
-    good "Skipped installing config $dest"
-  fi
-}
 
 
 OMAKUB_SUB_PATH=$HOME/.local/share/rails-academy/vendor/omakub
@@ -196,11 +144,7 @@ echo "Setting fonts in Terminal..."
 osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
 osascript -e 'tell application "Terminal" to set font size of settings set "Basic" to 14'
 
-echo "Installing ruby 3.3 as the default..."
-mise use --global ruby@3.3
-
-echo "Installing rails8..."
-mise x ruby -- gem install rails --no-document -v ">= 8.0.0beta1"
+source "$RA_PATH/common/ruby3_and_rails8.sh"
 
 echo -e "\n"
 good "Successfully installed Rails Academy!\n"
