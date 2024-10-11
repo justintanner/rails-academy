@@ -10,6 +10,18 @@ function show_help() {
     echo "  skool @username     Register your skool username so that you can save you progress and more."
 }
 
+function update() {
+    echo "Updating Rails Academy..."
+
+    if [ -d "$RAILS_ACADEMY_PATH" ]; then
+        cd $RAILS_ACADEMY_PATH || exit 1
+        git pull
+    else
+        echo "Error: Rails Academy is not installed."
+        please_reinstall_message
+    fi
+}
+
 function please_reinstall_message() {
   echo "Please reinstall Rails Academy. Run the following command:"
   echo "curl -sSL https://rails.academy/install | bash"
@@ -32,6 +44,18 @@ function update_config() {
     set +h
 
     echo "Updated $variable to \"$value\" in $CONFIG_FILE."
+}
+
+function verify_skool_username() {
+  local username="$1"
+  response=$(curl -s -o /dev/null -w "%{http_code}" "https://api.rails.academy/query?skool=$username")
+  if [ "$response" -eq 200 ]; then
+    update_config "RA_SKOOL_USERNAME" "$username"
+    echo "Successfully registered $username"
+  else
+    echo "Error: Could not find user $username. Please try again later"
+    exit 1
+  fi
 }
 
 function verify() {
@@ -61,7 +85,7 @@ function skool() {
     fi
 
     echo "Launching skool for user $1..."
-    update_config "RA_SKOOL_USERNAME" "$1"
+    verify_skool_username "$1"
 }
 
 if [ $# -eq 0 ]; then
@@ -70,6 +94,9 @@ if [ $# -eq 0 ]; then
 fi
 
 case $1 in
+    update)
+        update
+        ;;
     verify)
         verify
         ;;
