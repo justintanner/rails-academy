@@ -26,7 +26,7 @@ if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
       PS1+="]\[\e[0m\]"  # End yellow color
     fi
 
-    if $VCS_STATUS_HAS_UNSTAGED && ($VCS_STATUS_LOCAL_BRANCH != $RAILS_ACADEMY_PATH); then
+    if $VCS_STATUS_HAS_UNSTAGED && ($VCS_STATUS_LOCAL_BRANCH != $RA_SKOOL); then
       PS1+=" \[\e[31m\]On the wrong branch?\[\e[0m\]"
     fi
     PS1+='\n\$ '
