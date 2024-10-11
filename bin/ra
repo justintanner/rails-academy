@@ -24,7 +24,7 @@ function update() {
 
 function please_reinstall_message() {
   echo "Please reinstall Rails Academy. Run the following command:"
-  echo "curl -sSL https://rails.academy/install | bash"
+  echo "curl -fsSL https://rails.academy/install | bash"
   exit 1
 }
 
