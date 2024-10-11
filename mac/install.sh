@@ -36,8 +36,8 @@ if [[ $RAILS_ACADEMY_REF != "master" ]]; then
 fi
 cd - || exit 1
 
-OMAKUB_SUB_PATH="$HOME/.local/share/rails-academy/vendor/omakub"
-RA_PATH=$HOME/.local/share/rails-academy
+OMAKUB_SUB_PATH=~/.local/share/rails-academy/vendor/omakub
+RA_PATH=~/.local/share/rails-academy
 
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
@@ -94,7 +94,7 @@ else
   echo "Installing Mise..."
   source "$RA_PATH/mac/bash/deps"
   curl https://mise.run | sh
-  PATH=$PATH:$HOME/.local/bin
+  PATH=$PATH:~/.local/bin
   mise activate
 fi
 

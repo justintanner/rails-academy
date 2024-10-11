@@ -8,8 +8,8 @@ HISTFILESIZE="${HISTSIZE}"
 # [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # Set complete path
-if [ -d "$HOME/.local/share/omakub" ]; then
-  export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/omakub/bin:$PATH"
+if [ -d ~/.local/share/omakub ]; then
+  export PATH="./bin:~/.local/bin:~/.local/share/omakub/bin:$PATH"
   set +h
 
   export OMAKUB_PATH="/home/$USER/.local/share/omakub"

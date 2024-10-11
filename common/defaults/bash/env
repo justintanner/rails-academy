@@ -4,10 +4,10 @@ export MISE_ENV_FILE=.env
 export RAILS_ACADEMY_PATH="/home/$USER/.local/share/rails-academy"
 
 # Add rails academy to the path
-export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/rails-academy/bin:$PATH"
+export PATH="./bin:~/.local/bin:~/.local/share/rails-academy/bin:$PATH"
 set +h
 
-if [ -f "$HOME/.local/share/gitstatus/gitstatus.plugin.sh" ]; then
+if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
   source ~/.local/share/gitstatus/gitstatus.plugin.sh
 
   function my_set_prompt() {
