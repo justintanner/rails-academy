@@ -112,10 +112,16 @@ source "$RA_PATH/common/install/terminal/gitstatus.sh"
 echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/mac/.alacritty.toml ~/.alacritty.toml
 install_only_if_missing $RA_PATH/common/.op_load_env ~/.op_load_env
+install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
 install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
 install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
 install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
 install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
+
+source "$RA_PATH/common/ruby3_and_rails8.sh"
+
+echo -e "\nInstalling the first Rails Academy lesson..."
+source "$RA_PATH/common/install_lessons.sh"
 
 echo -e "\nSetting bash as the default terminal..."
 chsh -s /opt/homebrew/bin/bash
@@ -125,8 +131,6 @@ echo "Setting fonts in Terminal..."
 osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
 osascript -e 'tell application "Terminal" to set font size of settings set "Basic" to 14'
 
-source "$RA_PATH/common/ruby3_and_rails8.sh"
-
 echo -e "\n"
 good "Successfully installed Rails Academy!\n"
-echo "Please restart your terminal to apply the changes."
+echo "Please restart your terminal."

@@ -1,5 +1,6 @@
 OMAKUB_SUB_PATH=$HOME/.local/share/rails-academy/vendor/omakub
 RA_PATH=$HOME/.local/share/rails-academy
+RA_CONFIG_PATH=$HOME/.config/rails-academy
 
 source "$OMAKUB_SUB_PATH/defaults/bash/shell"
 source "$OMAKUB_SUB_PATH/defaults/bash/aliases"
@@ -7,3 +8,4 @@ source "$OMAKUB_SUB_PATH/defaults/bash/prompt"
 source "$OMAKUB_SUB_PATH/defaults/bash/init"
 
 source "$RA_PATH/common/defaults/bash/env"
+source "$RA_CONFIG_PATH/variables"

@@ -48,6 +48,8 @@ install_and_backup_old_file() {
     echo "Backed up old config file to $dest.bak"
   fi
 
+  mkdir -p "$(dirname $dest)"
+
   cp $source $dest
   good "Installed config $dest."
 }
@@ -57,6 +59,7 @@ install_only_if_missing() {
   local dest=$2
 
   if [ ! -f $dest ]; then
+    mkdir -p "$(dirname $dest)"
     cp $source $dest
     good "Installed config $dest."
   else
