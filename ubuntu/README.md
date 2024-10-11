@@ -1,6 +1,6 @@
 # How to setup a Ubuntu for Rails
 
-## Install Omakub (optional)
+## Install Omakub (optional, but recommended)
 
 Rails Academy is Omakub compatible, to install visit:
 
@@ -8,13 +8,13 @@ Rails Academy is Omakub compatible, to install visit:
 
 Notes:
 
-1. Omakub requires a brand new installation of Ubuntu 24.04
+1. Omakub requires a brand new installation of [Ubuntu 24.04](https://ubuntu.com/download/desktop)
 2. If you have an existing installation or want to install Rails Academy only, skip this step.
 
 ## Rails Academy 
 
-1. Open Terminal from your Applications folder
-2. Copy and paste the following into the Terminal window
+1. Open Terminal app
+2. Copy and paste the following into the Terminal window:
 
 ```bash
 wget -qO- https://rails.academy/install | bash
@@ -22,6 +22,6 @@ wget -qO- https://rails.academy/install | bash
 
 **NOTE: You will be prompted multiple times to enter your ubuntu root password.**
 
-### Ubuntu is ready :tada:
+## Congratulations, Ubuntu is ready. :tada:
 
 

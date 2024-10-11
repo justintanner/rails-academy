@@ -35,7 +35,7 @@ xcode-select --install
 In the same Terminal window copy and paste into the following, and press Enter:
 
 ```bash
-curl -fsSL https://rails.academy/install | bash -i
+curl -fsSL https://rails.academy/install | bash
 ```
 
 **NOTE: You will be prompted multiple times to enter your mac password.**
@@ -48,6 +48,5 @@ Almost there, one more thing.
 2. Click the gear icon in the top right and choose "Preferences"
 3. Click "General" and check "Start Docker Desktop when you log in"
 
-### Your Mac is ready :tada:
-
+## Congratulations, your Mac is ready. :tada:
 

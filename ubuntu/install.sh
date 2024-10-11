@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Installing Rails Academy...\n"
+echo -e "Installing Rails Academy on Ubuntu...\n"
 
 echo "Updating package lists..."
 sudo apt update -y

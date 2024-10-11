@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Installing Rails Academy...\n"
+echo -e "Installing Rails Academy on a Mac...\n"
 
 if ! command -v brew &> /dev/null; then
   # Homebrew might not be in path yet try to inject it.
@@ -41,7 +41,6 @@ RA_PATH=$HOME/.local/share/rails-academy
 
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
-
 
 if xcode-select -p &> /dev/null; then
   good "Xcode Command Line Tools are installed."
