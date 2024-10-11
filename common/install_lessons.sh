@@ -10,6 +10,6 @@ fi
 if [ -d ~/ralessons/ra-101 ]; then
   echo "RA-101 already exists. Skipping..."
 else
-  git clone https://github.com/justintanner/ra-101 ~/ralessons
+  git clone https://github.com/justintanner/ra-101 ~/ralessons/ra-101
 fi
 
