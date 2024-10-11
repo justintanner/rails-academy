@@ -61,8 +61,6 @@ function verify_skool_username() {
 }
 
 function verify() {
-    echo "Verifying setup..."
-
     apps=("git" "gh" "mise" "kamal" "rails" "ruby" "docker" "grep")
 
     for app in "${apps[@]}"; do
@@ -123,6 +121,7 @@ case $1 in
         update
         ;;
     verify)
+        echo "Verifying setup..."
         verify
         ;;
     skool)
