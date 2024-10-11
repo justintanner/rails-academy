@@ -24,7 +24,7 @@ fi
 cd - || exit 1
 
 OMAKUB_SUB_PATH=~/.local/share/rails-academy/vendor/omakub
-RA_PATH=!/.local/share/rails-academy
+RA_PATH=~/.local/share/rails-academy
 
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
