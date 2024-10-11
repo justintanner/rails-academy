@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo -e "Installing Rails Academy on Ubuntu...\n"
 
@@ -6,7 +7,7 @@ echo "Updating package lists..."
 sudo apt update -y
 
 if command -v git &> /dev/null; then
-  good "Git is installed."
+  echo "Git is installed."
 else
   echo "Git not installed. Installing..."
   apt install -y git
