@@ -29,10 +29,12 @@ RA_PATH=~/.local/share/rails-academy
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
+echo "Install terminal apps and libraries..."
+source "$OMAKUB_SUB_PATH/install/terminal/apps-terminal.sh"
+source "$OMAKUB_SUB_PATH/install/terminal/libraries.sh"
+
 scripts=(
-  "terminal/set-git"
-  "terminal/apps-terminal"
-  "terminal/libraries"
+  "terminal/set-git:git"
   "terminal/app-github-cli:gh"
   "terminal/app-fastfetch:fastfetch"
   "terminal/app-lazydocker:lazydocker"
@@ -40,7 +42,14 @@ scripts=(
 )
 
 for script in "${scripts[@]}"; do
-  source "$OMAKUB_SUB_PATH/install/$script.sh"
+  script="${script_app%%:*}"
+  app="${script_app##*:}"
+  if command -v $app &> /dev/null; then
+    good "$app is installed."
+  else
+    echo "Installing $app..."
+    source "$OMAKUB_SUB_PATH/install/$script.sh"
+  fi
 done
 
 # Don't want to rerun mise installs
