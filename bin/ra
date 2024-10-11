@@ -101,9 +101,9 @@ function skool() {
 
 function details() {
     echo "Rails Academy Details:"
-    echo "  Version: $RAILS_ACADEMY_VERSION"
-    echo "  Path: $RAILS_ACADEMY_PATH"
+    echo "  Path:           $RAILS_ACADEMY_PATH"
     echo "  Skool Username: $RA_SKOOL"
+    verify
 }
 
 if [ $# -eq 0 ]; then
