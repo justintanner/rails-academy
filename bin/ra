@@ -50,7 +50,7 @@ function verify_skool_username() {
   local username="$1"
   response=$(curl -s -o /dev/null -w "%{http_code}" "https://api.rails.academy/query?skool=$username")
   if [ "$response" -eq 200 ]; then
-    update_config "RA_SKOOL_USERNAME" "$username"
+    update_config "RA_SKOOL" "$username"
     echo "Successfully registered $username"
   else
     echo "Error: Could not find user $username. Please try again later"
@@ -84,8 +84,17 @@ function skool() {
         exit 1
     fi
 
-    echo "Launching skool for user $1..."
-    verify_skool_username "$1"
+    username=$(echo "$1" | xargs)
+
+    if [[ "$username" != @* ]]; then
+        echo "Error: Username must start with '@'."
+        exit 1
+    fi
+
+    # For now just storing the username in the env.
+    update_config "RA_SKOOL" "$username"
+    #verify_skool_username "$1"
+    echo "Successfully registered $username"
 }
 
 if [ $# -eq 0 ]; then
