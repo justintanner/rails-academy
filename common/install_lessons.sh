@@ -1,4 +1,4 @@
-if [ -d ~/mnt/c/Users ]; then
+if [ -d /mnt/c/Users ]; then
   echo "Symlinking ralessons to the Windows home dir...."
   windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
   mkdir -p /mnt/c/Users/$windows_username/ralessons
