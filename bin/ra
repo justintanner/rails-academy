@@ -102,7 +102,8 @@ function skool() {
 function details() {
     echo "Rails Academy Details:"
     echo "  Path:           $RAILS_ACADEMY_PATH"
-    echo "  Skool Username: $RA_SKOOL"
+    echo "  Skool Username: ${RA_SKOOL:-Not Set! Run 'ra skool @username' to set it}"
+    echo -e "\n"
     verify
 }
 

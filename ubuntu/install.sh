@@ -33,6 +33,10 @@ scripts=(
   "terminal/set-git"
   "terminal/apps-terminal"
   "terminal/libraries"
+  "terminal/app-github-cli:gh"
+  "terminal/app-fastfetch:fastfetch"
+  "terminal/app-lazydocker:lazydocker"
+  "terminal/app-lazygit:lazygit"
 )
 
 for script in "${scripts[@]}"; do
@@ -50,10 +54,6 @@ fi
 # Format script_path:terminal_name
 script_apps=(
   "terminal/docker:docker"
-  "terminal/app-fastfetch:fastfetch"
-  "terminal/app-lazydocker:lazydocker"
-  "terminal/app-lazygit:lazygit"
-  "terminal/app-github-cli:gh"
   "desktop/app-chrome:google-chrome"
   "desktop/optional/app-1password:1password"
   "desktop/optional/app-rubymine:rubymine"
