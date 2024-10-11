@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo -e "Installing Rails Academy on a Mac...\n"
 

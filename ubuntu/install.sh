@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 echo -e "Installing Rails Academy on Ubuntu...\n"

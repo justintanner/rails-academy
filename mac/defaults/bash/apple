@@ -34,8 +34,3 @@ fi
 if command -v terraform &> /dev/null; then
    complete -C /opt/homebrew/bin/terraform terraform
 fi
-
-# Not sure why mise needs a second activate, init should handle it.
-if command -v mise &> /dev/null; then
-  eval "$(mise activate bash)"
-fi

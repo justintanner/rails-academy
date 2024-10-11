@@ -35,3 +35,7 @@ if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
   PROMPT_COMMAND=my_set_prompt
 fi
 
+# Not sure why a second mise activation is needed on both Mac and Windows.
+if command -v mise &> /dev/null; then
+  eval "$(mise activate bash)"
+fi
