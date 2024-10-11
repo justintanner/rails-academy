@@ -33,11 +33,18 @@ echo "Install terminal apps and libraries..."
 source "$OMAKUB_SUB_PATH/install/terminal/apps-terminal.sh"
 source "$OMAKUB_SUB_PATH/install/terminal/libraries.sh"
 
+if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+  if command -v fastfetch &> /dev/null; then
+    source "$OMAKUB_SUB_PATH/install/terminal/app-fastfetch.sh"
+  fi
+else
+  echo "Not installing fastfetch on WSL Linux..."
+fi
+
 # Format script_path:terminal_name
 terminals=(
   "terminal/set-git:git"
   "terminal/app-github-cli:gh"
-  "terminal/app-fastfetch:fastfetch"
   "terminal/app-lazydocker:lazydocker"
   "terminal/app-lazygit:lazygit"
 )
