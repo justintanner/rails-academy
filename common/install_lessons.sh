@@ -1,5 +1,5 @@
 if [ -d ~/mnt/c/Users ]; then
-  # Must be on WSL on Windows
+  echo "Symlinking ralessons to the Windows home dir...."
   windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
   mkdir -p /mnt/c/Users/$windows_username/ralessons
   ln -s /mnt/c/Users/$windows_username/ralessons ~/ralessons
