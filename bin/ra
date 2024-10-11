@@ -6,9 +6,10 @@ function show_help() {
     echo "Usage: ra [command] [arguments]"
     echo ""
     echo "Commands:"
-    echo "  verify              Verify your setup."
-    echo "  update              Update Rails Academy to the latest version."
+    echo "  details             Show details about current Rails Academy config."
     echo "  skool @username     Register your skool username so that you can save you progress and more."
+    echo "  update              Update Rails Academy to the latest version."
+    echo "  verify              Verify your setup."
 }
 
 function update() {
@@ -98,12 +99,22 @@ function skool() {
     echo "Successfully registered $username"
 }
 
+function details() {
+    echo "Rails Academy Details:"
+    echo "  Version: $RAILS_ACADEMY_VERSION"
+    echo "  Path: $RAILS_ACADEMY_PATH"
+    echo "  Skool Username: $RA_SKOOL"
+}
+
 if [ $# -eq 0 ]; then
     show_help
     exit 0
 fi
 
 case $1 in
+    detail)
+        details
+        ;;
     upgrade)
         update
         ;;
