@@ -48,5 +48,6 @@ Almost there, one more thing.
 2. Click the gear icon in the top right and choose "Preferences"
 3. Click "General" and check "Start Docker Desktop when you log in"
 
-## Congratulations, your Mac is ready. :tada:
+## :tada: Congratulations :tada:
 
+Your Mac is ready for Rails development! 🚀

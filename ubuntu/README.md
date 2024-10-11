@@ -22,6 +22,8 @@ wget -qO- https://rails.academy/install | bash
 
 **NOTE: You will be prompted multiple times to enter your ubuntu root password.**
 
-## Congratulations, Ubuntu is ready. :tada:
+## :tada: Congratulations :tada:
+
+Ubuntu is ready for Rails development! 🚀
 
 

@@ -44,6 +44,7 @@ Almost there, one more thing.
 
 **Note: If Docker warns about WSL2 not being installed, please try re-installing with [PowerShell](#powershell).**
 
-## Congratulations, your Windows PC is ready. :tada:
+## :tada: Congratulations :tada:
 
+Your Windows PC is ready for Rails development! 🚀
 
