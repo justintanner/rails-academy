@@ -27,7 +27,7 @@ if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
     fi
 
     NOT_ON_SKOOL=$([[ "$VCS_STATUS_LOCAL_BRANCH" != "$RA_SKOOL" ]])
-    echo "$NOT_ON_SKOOL $VCS_STATUS_LOCAL_BRANCH $RA_SKOOL"
+    PS1+="${NOT_ON_SKOOL} ${VCS_STATUS_LOCAL_BRANCH} ${RA_SKOOL}"
     if [[ $VCS_STATUS_HAS_UNSTAGED ]]; then
       PS1+=" \[\e[31m\]On the wrong branch?\[\e[0m\]"
     fi
