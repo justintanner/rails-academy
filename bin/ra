@@ -112,7 +112,7 @@ if [ $# -eq 0 ]; then
 fi
 
 case $1 in
-    detail)
+    details)
         details
         ;;
     upgrade)
