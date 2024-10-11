@@ -34,7 +34,7 @@ source "$OMAKUB_SUB_PATH/install/terminal/apps-terminal.sh"
 source "$OMAKUB_SUB_PATH/install/terminal/libraries.sh"
 
 # Format script_path:terminal_name
-scripts_apps=(
+terminals=(
   "terminal/set-git:git"
   "terminal/app-github-cli:gh"
   "terminal/app-fastfetch:fastfetch"
@@ -42,9 +42,9 @@ scripts_apps=(
   "terminal/app-lazygit:lazygit"
 )
 
-for script_app in "${scripts_apps[@]}"; do
-  script="${script_app%%:*}"
-  app="${script_app##*:}"
+for terminal in "${terminals[@]}"; do
+  script="${terminal%%:*}"
+  app="${terminal##*:}"
   if command -v $app &> /dev/null; then
     good "$app is installed."
   else
@@ -62,7 +62,7 @@ else
 fi
 
 # Format script_path:terminal_name
-scripts_apps=(
+desktops=(
   "terminal/docker:docker"
   "desktop/app-chrome:google-chrome"
   "desktop/optional/app-1password:1password"
@@ -72,9 +72,9 @@ scripts_apps=(
 
 if [ -n "$XDG_CURRENT_DESKTOP" ]; then
   echo "Install desktop apps..."
-  for script_app in "${scripts_apps[@]}"; do
-    script="${script_app%%:*}"
-    app="${script_app##*:}"
+  for desktop in "${desktops[@]}"; do
+    script="${desktop%%:*}"
+    app="${desktop##*:}"
     if command -v $app &> /dev/null; then
       good "$app is installed."
     else
