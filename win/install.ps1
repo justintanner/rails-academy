@@ -139,6 +139,7 @@ args = ["--cd", "~"]
 
 [window]
 option_as_alt = "OnlyLeft"
+startup_mode = "Maximized"
 
 [selection]
 save_to_clipboard = true
