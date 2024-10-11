@@ -32,6 +32,8 @@ function update_config() {
     local variable="$1"
     local value="$2"
 
+    CONFIG_FILE="$RA_CONFIG_PATH/variables"
+
     if grep -q "^export $variable=" "$CONFIG_FILE"; then
         # Update the variable if it exists
         sed -i '' "s|^export $variable=.*|export $variable=\"$value\"|" "$CONFIG_FILE"
