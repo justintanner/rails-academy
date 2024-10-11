@@ -7,6 +7,7 @@ function show_help() {
     echo ""
     echo "Commands:"
     echo "  verify              Verify your setup."
+    echo "  update              Update Rails Academy to the latest version."
     echo "  skool @username     Register your skool username so that you can save you progress and more."
 }
 
@@ -42,10 +43,8 @@ function update_config() {
         echo "export $variable=\"$value\"" >> "$CONFIG_FILE"
     fi
 
-    export $variable="$value"
-    set +h
-
-    echo "Updated $variable to \"$value\" in $CONFIG_FILE."
+    echo "Updated $variable to \"$value\""
+    source "$CONFIG_FILE"
 }
 
 function verify_skool_username() {
@@ -105,6 +104,9 @@ if [ $# -eq 0 ]; then
 fi
 
 case $1 in
+    upgrade)
+        update
+        ;;
     update)
         update
         ;;
