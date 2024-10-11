@@ -33,7 +33,8 @@ echo "Install terminal apps and libraries..."
 source "$OMAKUB_SUB_PATH/install/terminal/apps-terminal.sh"
 source "$OMAKUB_SUB_PATH/install/terminal/libraries.sh"
 
-scripts=(
+# Format script_path:terminal_name
+scripts_apps=(
   "terminal/set-git:git"
   "terminal/app-github-cli:gh"
   "terminal/app-fastfetch:fastfetch"
@@ -41,7 +42,7 @@ scripts=(
   "terminal/app-lazygit:lazygit"
 )
 
-for script in "${scripts[@]}"; do
+for script_app in "${scripts_apps[@]}"; do
   script="${script_app%%:*}"
   app="${script_app##*:}"
   if command -v $app &> /dev/null; then
@@ -61,7 +62,7 @@ else
 fi
 
 # Format script_path:terminal_name
-script_apps=(
+scripts_apps=(
   "terminal/docker:docker"
   "desktop/app-chrome:google-chrome"
   "desktop/optional/app-1password:1password"
@@ -71,7 +72,7 @@ script_apps=(
 
 if [ -n "$XDG_CURRENT_DESKTOP" ]; then
   echo "Install desktop apps..."
-  for script_app in "${script_apps[@]}"; do
+  for script_app in "${scripts_apps[@]}"; do
     script="${script_app%%:*}"
     app="${script_app##*:}"
     if command -v $app &> /dev/null; then
