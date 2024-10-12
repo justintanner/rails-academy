@@ -20,13 +20,13 @@ Get your computer ready for rails development.
 
 Learn how to build a rails app from scratch.
 
-#### [:green_book: Start Here](docs/START.md)
+#### [:green_book: 101 - Command Line Essentials](https://github.com/justintanner/ra-101)
 
-#### [:green_book: Build a marketing website (CSS, HTML)]()
+#### [:green_book: 102 - Deploy Hello World](https://github.com/justintanner/ra-102)
 
-#### [:green_book: Accept Payments (Stripe)]()
+#### [:green_book: 103 - Style a marketing page](https://github.com/justintanner/ra-103))
 
-#### [:green_book: Add Authentication (Email)]()
+#### [:green_book: 104 - Add authentication and email](https://github.com/justintanner/ra-104))
 
 ## Achieve Mastery
 
