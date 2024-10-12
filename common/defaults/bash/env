@@ -27,7 +27,7 @@ if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
     fi
 
     IN_SKOOL_BRANCH=$([[ "$VCS_STATUS_LOCAL_BRANCH" == "$RA_SKOOL" ]])
-    IN_RA_LESSON=$([[ "$PWD" ]])
+    IN_RA_LESSON=$(pwd)
     PS1+="${IN_SKOOL_BRANCH:-"NO-SKOOL-BRANCH"} ${VCS_STATUS_LOCAL_BRANCH} ${RA_SKOOL} ${IN_RA_LESSON:-"NOT IN LESSON"}"
     if [[ $VCS_STATUS_HAS_UNSTAGED && $IN_SKOOL_REPO == 1 ]]; then
       PS1+=" \[\e[31m\]On the wrong branch?\[\e[0m\]"
