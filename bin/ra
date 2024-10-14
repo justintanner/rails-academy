@@ -48,9 +48,9 @@ function update_config() {
     source "$CONFIG_FILE"
 }
 
-function verify_skool_username() {
+function register_skool_name() {
   local username="$1"
-  response=$(curl -s -o /dev/null -w "%{http_code}" "https://api.rails.academy/query?skool=$username")
+  response=$(curl -s -o /dev/null -w "%{http_code}" "https://rails.academy/query?sources=skool_name&skool_name.skool_name=$username")
   if [ "$response" -eq 200 ]; then
     update_config "RA_SKOOL" "$username"
     echo "Successfully registered $username"
@@ -91,9 +91,7 @@ function skool() {
         exit 1
     fi
 
-    # For now just storing the username in the env.
-    update_config "RA_SKOOL" "$username"
-    #verify_skool_username "$1"
+    register_skool_name "$username"
     echo "Successfully registered $username"
 }
 
