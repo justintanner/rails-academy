@@ -7,6 +7,8 @@ export RAILS_ACADEMY_PATH=~/.local/share/rails-academy
 export PATH="./bin:~/.local/bin:~/.local/share/rails-academy/bin:$PATH"
 set +h
 
+export RA_GITHUB_CLIENT_ID=Iv23linS6mCHdMvXrpKX
+
 if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
   source ~/.local/share/gitstatus/gitstatus.plugin.sh
 

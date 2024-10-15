@@ -30,6 +30,95 @@ function please_reinstall_message() {
   exit 1
 }
 
+function help {
+  echo "usage: app_cli <login | help>"
+}
+
+function parse_response {
+  if [[ $1 == *"200"* || $1 == *"201"* ]]; then
+    echo "$2"
+  else
+    echo "Error: $1"
+    echo "$2"
+    exit 1
+  fi
+}
+
+function request_device_code {
+  response=$(curl -s -X POST "https://github.com/login/device/code" \
+    -H "Accept: application/json" \
+    -d "client_id=$RA_GITHUB_CLIENT_ID")
+  echo "$response"
+}
+
+function request_token {
+  response=$(curl -s -X POST "https://github.com/login/oauth/access_token" \
+    -H "Accept: application/json" \
+    -d "client_id=$RA_GITHUB_CLIENT_ID" \
+    -d "device_code=$1" \
+    -d "grant_type=urn:ietf:params:oauth:grant-type:device_code")
+  echo "$response"
+}
+
+function poll_for_token {
+  while true; do
+    response=$(request_token "$1")
+    error=$(echo "$response" | jq -r '.error')
+    access_token=$(echo "$response" | jq -r '.access_token')
+
+    if [[ $error == "authorization_pending" ]]; then
+      sleep "$2"
+      continue
+    elif [[ $error == "slow_down" ]]; then
+      sleep $(($2 + 5))
+      continue
+    elif [[ $error == "expired_token" ]]; then
+      echo "The device code has expired. Please run 'login' again."
+      exit 1
+    elif [[ $error == "access_denied" ]]; then
+      echo "Login cancelled by user."
+      exit 1
+    elif [[ -n $access_token && $access_token != "null" ]]; then
+      echo "$access_token" > ~/.local/config/rails-academy/.token
+      chmod 600 ~/.local/config/rails-academy/.token
+      break
+    fi
+  done
+}
+
+function login {
+  if ! command -v jq &> /dev/null; then
+    echo "Error: jq is not installed."
+    echo "Please install jq and try again."
+    exit 1
+  fi
+
+  if [ -z "$RA_GITHUB_CLIENT_ID" ]; then
+    echo "Error: RA_GITHUB_CLIENT_ID is not set."
+    echo "Please set RA_GITHUB_CLIENT_ID in your ~/.config/rails-academy/variables file."
+    exit 1
+  fi
+
+  if [ -z "$RA_SKOOL" ]; then
+    echo "Error: RA_SKOOL is not set."
+    echo "Please run 'ra skool @username' to set it."
+    exit 1
+  fi
+
+  response=$(request_device_code)
+  verification_uri=$(echo "$response" | jq -r '.verification_uri')
+  user_code=$(echo "$response" | jq -r '.user_code')
+  device_code=$(echo "$response" | jq -r '.device_code')
+  interval=$(echo "$response" | jq -r '.interval')
+
+  echo "Please visit: $verification_uri"
+  echo "and enter code: $user_code"
+
+  poll_for_token "$device_code" "$interval"
+
+  echo "Successfully authenticated!"
+}
+
 function update_config() {
     local variable="$1"
     local value="$2"
@@ -92,7 +181,6 @@ function skool() {
     fi
 
     register_skool_name "$username"
-    echo "Successfully registered $username"
 }
 
 function details() {
@@ -109,6 +197,9 @@ if [ $# -eq 0 ]; then
 fi
 
 case $1 in
+    login)
+        login
+        ;;
     details)
         details
         ;;
