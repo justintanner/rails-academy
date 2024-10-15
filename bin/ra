@@ -120,6 +120,31 @@ function login {
   echo "Successfully authenticated!"
 }
 
+function github_details() {
+  uri="https://api.github.com/user"
+
+  if [[ ! -f ~/.local/config/rails-academy/.token ]]; then
+    echo "You are not authorized. Run the 'login' command."
+    exit 1
+  fi
+
+  token=$(cat ~/.local/config/rails-academy/.token)
+
+  response=$(curl -s -X GET "$uri" \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $token")
+
+  login=$(echo "$response" | jq -r '.login')
+
+  if [[ $login == "null" ]]; then
+    echo "Error: Unable to retrieve GitHub username. Try running:"
+    echo "ra login"
+    exit 1
+  else
+    echo "Your GitHub username is: $login"
+  fi
+}
+
 function update_config() {
     local variable="$1"
     local value="$2"
@@ -188,6 +213,7 @@ function details() {
     echo "Rails Academy Details:"
     echo "  Path:           $RAILS_ACADEMY_PATH"
     echo "  Skool Username: ${RA_SKOOL:-Not Set! Run 'ra skool @username' to set it}"
+    github_details
     echo -e "\n"
     verify
 }
