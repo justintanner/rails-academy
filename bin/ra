@@ -113,10 +113,13 @@ function login {
   interval=$(echo "$response" | jq -r '.interval')
 
   if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "$user_code" | pbcopy
     open "$verification_uri"
   elif grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    echo "$user_code" | clip.exe
     wslview "$verification_uri"
   else
+    echo "$user_code" | xclip -selection clipboard
     xdg-open "$verification_uri"
   fi
 
