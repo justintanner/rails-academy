@@ -79,6 +79,7 @@ function poll_for_token {
       echo "Login cancelled by user."
       exit 1
     elif [[ -n $access_token && $access_token != "null" ]]; then
+      mkdir -p ~/.local/config/rails-academy
       echo "$access_token" > ~/.local/config/rails-academy/.token
       chmod 600 ~/.local/config/rails-academy/.token
       break
