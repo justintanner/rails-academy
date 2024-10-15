@@ -112,8 +112,8 @@ function login {
   device_code=$(echo "$response" | jq -r '.device_code')
   interval=$(echo "$response" | jq -r '.interval')
 
-  echo "Please visit: $verification_uri"
-  echo "and enter code: $user_code"
+  echo -e"\nPlease click or visit: $verification_uri\n"
+  echo "Code: $user_code"
 
   poll_for_token "$device_code" "$interval"
 
