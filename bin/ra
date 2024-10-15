@@ -120,7 +120,7 @@ function login {
   echo "Successfully authenticated!"
 }
 
-function github_details() {
+function github_username() {
   uri="https://api.github.com/user"
 
   if [[ ! -f ~/.local/config/rails-academy/.token ]]; then
@@ -137,11 +137,9 @@ function github_details() {
   login=$(echo "$response" | jq -r '.login')
 
   if [[ $login == "null" ]]; then
-    echo "Error: Unable to retrieve GitHub username. Try running:"
-    echo "ra login"
-    exit 1
+    echo "unavailable (trying ra login)"
   else
-    echo "Your GitHub username is: $login"
+    echo $login
   fi
 }
 
@@ -213,7 +211,7 @@ function details() {
     echo "Rails Academy Details:"
     echo "  Path:           $RAILS_ACADEMY_PATH"
     echo "  Skool Username: ${RA_SKOOL:-Not Set! Run 'ra skool @username' to set it}"
-    github_details
+    echo "  GitHub Username: ${github_username}
     echo -e "\n"
     verify
 }
