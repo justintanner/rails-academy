@@ -112,8 +112,17 @@ function login {
   device_code=$(echo "$response" | jq -r '.device_code')
   interval=$(echo "$response" | jq -r '.interval')
 
-  echo -e"\nPlease click or visit: $verification_uri\n"
-  echo "Code: $user_code"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    open "$verification_uri"
+  elif grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    wslview "$verification_uri"
+  else
+    xdg-open "$verification_uri"
+  fi
+
+  echo -e "Please authenticate with GitHub to continue.\n"
+  echo -e "Visit: $verification_uri\n"
+  echo -e " Code: $user_code\n"
 
   poll_for_token "$device_code" "$interval"
 
