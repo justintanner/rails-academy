@@ -2,6 +2,9 @@ alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 # fd is covered by the homebrew package fd, no alias needed, unsetting omkaub alias
 unalias fd
 
+# Batcat is already on bat
+unalias bat
+
 # If for some reason zoxide is not installed, then unset the cd alias
 if ! command -v z &> /dev/null; then
   unalias cd
