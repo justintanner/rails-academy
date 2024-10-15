@@ -211,7 +211,7 @@ function details() {
     echo "Rails Academy Details:"
     echo "  Path:           $RAILS_ACADEMY_PATH"
     echo "  Skool Username: ${RA_SKOOL:-Not Set! Run 'ra skool @username' to set it}"
-    echo "  GitHub Username: ${github_username}
+    echo "  GitHub Username: $(github_username)"
     echo -e "\n"
     verify
 }
