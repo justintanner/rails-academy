@@ -55,6 +55,7 @@ function request_token {
   response=$(curl -s -X POST "https://github.com/login/oauth/access_token" \
     -H "Accept: application/json" \
     -d "client_id=$RA_GITHUB_CLIENT_ID" \
+    -d "redirect_uri=https://rails.academy/github_callback" \
     -d "device_code=$1" \
     -d "grant_type=urn:ietf:params:oauth:grant-type:device_code")
   echo "$response"
