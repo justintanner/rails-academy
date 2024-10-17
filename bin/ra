@@ -79,6 +79,8 @@ function poll_for_token {
       echo "Login cancelled by user."
       exit 1
     elif [[ -n $access_token && $access_token != "null" ]]; then
+      ## Pretty print the response json
+      echo "$response" | jq
       mkdir -p ~/.local/config/rails-academy
       echo "$access_token" > ~/.local/config/rails-academy/.token
       chmod 600 ~/.local/config/rails-academy/.token
@@ -223,7 +225,7 @@ function details() {
     echo "Rails Academy Details:"
     echo "         Platform: $(uname -s)"
     echo "   Skool Username: ${RA_SKOOL:-Not Set! Run 'ra skool @username' to set it}"
-    echo "  GitHub Username: $(github_username)"
+    echo "  GitHub Username: @@"$(github_username)"
     echo -e "\n"
     verify
 }
