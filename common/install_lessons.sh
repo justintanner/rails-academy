@@ -1,15 +1,15 @@
 if [ -d /mnt/c/Users ]; then
-  echo "Symlinking ralessons to the Windows home dir...."
+  echo "Symlinking lessons to the Windows home dir...."
   windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
-  mkdir -p /mnt/c/Users/$windows_username/ralessons
-  ln -sf /mnt/c/Users/$windows_username/ralessons ~/ralessons
+  mkdir -p /mnt/c/Users/$windows_username/lessons
+  ln -sf /mnt/c/Users/$windows_username/lessons ~/lessons
 else
-  mkdir -p ~/ralessons
+  mkdir -p ~/lessons
 fi
 
-if [ -d ~/ralessons/ra-101 ]; then
+if [ -d ~/lessons/ra-101 ]; then
   echo "RA-101 already exists. Skipping..."
 else
-  git clone https://github.com/justintanner/ra-101 ~/ralessons/ra-101
+  git clone https://github.com/justintanner/ra-101 ~/lessons/ra-101
 fi
 
