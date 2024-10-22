@@ -2,8 +2,31 @@
 
 echo -e "Installing Rails Academy on a Mac...\n"
 
+echo "Select installation mode:"
+echo "  - Press Enter to install everything"
+echo "  - Type 'c' for custom install (for computer programmers)"
+read -rp "Enter option [Enter/c]: " install_mode
+
+install_everything() {
+  [[ -z "$install_mode" ]]
+}
+
+prompt_install() {
+  local description="$1"
+  local command="$2"
+  read -rp "Install ${description}? [Y/n]: " choice
+  if [[ "$choice" =~ ^[Yy]$ || "$choice" == "" ]]; then
+    eval "$command"
+  fi
+}
+
+if install_everything; then
+  echo "Installing everything..."
+else
+  echo "Custom installation..."
+fi
+
 if ! command -v brew &> /dev/null; then
-  # Homebrew might not be in path yet try to inject it.
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -16,7 +39,7 @@ else
   set -h
 fi
 
-echo "Updating updating Homebrew package..."
+echo "Updating Homebrew..."
 brew update
 
 if command -v git &> /dev/null; then

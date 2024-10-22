@@ -1,5 +1,0 @@
-# Loads environment variables from 1Password into the current env
-# Usage: source ~/.bash_env
-
-# Example key:
-# export OPENAI_API_KEY="$(op read op://Local/Env/OPENAI_API_KEY)"
