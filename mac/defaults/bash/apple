@@ -13,11 +13,6 @@ fi
 # Tels mac terminal to supress the convert to zsh warning message.
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-if command -v fzf &> /dev/null; then
- echo "Activating FZF (part2)"
- eval "$(fzf --bash)"
-fi
-
 # Add homebrew to the path
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin"
 
