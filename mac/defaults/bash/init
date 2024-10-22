@@ -1,5 +1,5 @@
 echo "really!"
-eval "$(mise activate bash)"
+eval "$(fzf --bash)"
 if command -v mise &> /dev/null; then
   echo "Activating Mise"
   eval "$(mise activate bash)"
