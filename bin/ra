@@ -7,6 +7,8 @@ function show_help() {
     echo ""
     echo "Commands:"
     echo "  details             Show details about current Rails Academy config."
+    echo "  light               Switch to the light color theme. (papercolor_light)"
+    echo "  dark                Switch to the dark color theme. (papercolor_dark)"
     echo "  themes              List all available terminal color themes."
     echo "  theme [theme-name]  Switch your terminal color theme."
     echo "  update              Update Rails Academy to the latest version."
@@ -58,6 +60,14 @@ function themes() {
     ls -1 ~/.local/share/alacritty-theme/themes | sed -E 's/\.toml$//'
 }
 
+function light() {
+    theme "papercolor_light"
+}
+
+function dark() {
+    theme "papercolor_dark"
+}
+
 function verify() {
     apps=("git" "gh" "mise" "kamal" "rails" "ruby" "docker" "grep")
 
@@ -96,6 +106,12 @@ fi
 case $1 in
     details)
         details
+        ;;
+    light)
+        light
+        ;;
+    dark)
+        dark
         ;;
     themes)
         themes
