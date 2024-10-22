@@ -50,12 +50,12 @@ function theme() {
     fi
 
     # Modify ~/.alacritty.toml's import line to include the new theme file
-    sed -i '' "s|import = \[.*|import = \[ \"$theme_file\]|" ~/.alacritty.toml
+    sed -i -E "s|^import = \[\".*\"\]|import = [\"$theme_file\"]|" ~/.alacritty.toml
 }
 
 function themes() {
     echo "Available themes:"
-    ls ~/.local/share/alacritty-theme/themes
+    ls -1 ~/.local/share/alacritty-theme/themes | sed -E 's/\.toml$//'
 }
 
 function verify() {
@@ -76,7 +76,7 @@ function verify() {
 }
 
 function current_theme() {
-    grep 'import' ~/.alacritty.toml | cut -d '/' -f 6 | cut -d '.' -f 1
+    grep 'import' ~/.alacritty.toml | sed -E 's|import = \[".*/(.*)\.toml"\]|\1|'
 }
 
 function details() {
