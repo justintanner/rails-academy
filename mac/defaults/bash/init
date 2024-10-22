@@ -1,6 +1,6 @@
 # Output if mise, zoxide, and fzf are installed
 echo "Checking installed components..."
-
+echo "Current PATH: $PATH"
 if command -v mise &> /dev/null; then
   echo "Mise found. Attempting activation..."
   eval "$(mise activate bash)" 2>/tmp/mise_error.log
