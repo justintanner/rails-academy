@@ -2,9 +2,9 @@
 
 echo -e "Installing Rails Academy on a Mac...\n"
 
-echo "Select installation mode:"
-echo "  - Press Enter to install everything"
-echo "  - Type 'c' for custom install (for computer programmers)"
+echo    "Select installation mode:"
+echo    "  - Press Enter to install everything"
+echo -e "  - Type 'c' for custom install (for computer programmers)\n"
 read -rp "Enter option [Enter/c]: " install_mode
 
 install_everything() {
@@ -45,8 +45,7 @@ brew update
 if command -v git &> /dev/null; then
   echo "Git is installed."
 else
-  echo "Git not installed. Installing..."
-  brew install git
+  prompt_install "Git not installed. Installing..." eval "$(brew install git)"
 fi
 
 echo "Cloning Rails Academy..."
