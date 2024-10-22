@@ -1,38 +1,11 @@
-# Output if mise, zoxide, and fzf are installed
-echo "Checking installed components..."
-echo "Current PATH: $PATH"
 if command -v mise &> /dev/null; then
-  echo "Mise found. Attempting activation..."
-  eval "$(mise activate bash)" 2>/tmp/mise_error.log
-  if [ $? -eq 0 ]; then
-    echo "Mise activated successfully."
-  else
-    echo "Failed to activate Mise. Check /tmp/mise_error.log for details."
-  fi
-else
-  echo "Mise not found."
+  eval "$(mise activate bash)"
 fi
 
 if command -v zoxide &> /dev/null; then
-  echo "Zoxide found. Attempting activation..."
-  eval "$(zoxide init bash)" 2>/tmp/zoxide_error.log
-  if [ $? -eq 0 ]; then
-    echo "Zoxide activated successfully."
-  else
-    echo "Failed to activate Zoxide. Check /tmp/zoxide_error.log for details."
-  fi
-else
-  echo "Zoxide not found."
+  eval "$(zoxide init bash)"
 fi
 
 if command -v fzf &> /dev/null; then
-  echo "FZF found. Attempting activation..."
-  eval "$(fzf --completion --key-bindings --history)" 2>/tmp/fzf_error.log
-  if [ $? -eq 0 ]; then
-    echo "FZF activated successfully."
-  else
-    echo "Failed to activate FZF. Check /tmp/fzf_error.log for details."
-  fi
-else
-  echo "FZF not found."
+  eval "$(fzf --bash)"
 fi
