@@ -7,6 +7,7 @@ export PATH="./bin:~/.local/bin:~/.local/share/rails-academy/bin:$PATH"
 export RAILS_ACADEMY_PATH=~/.local/share/rails-academy
 export RAILS_ACADEMY_VERSION=$(cat $RAILS_ACADEMY_PATH/VERSION)
 
+# Using the gitstatus prompt if available
 if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
   source ~/.local/share/gitstatus/gitstatus.plugin.sh
 
@@ -30,9 +31,4 @@ if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
 
   gitstatus_stop && gitstatus_start
   PROMPT_COMMAND=my_set_prompt
-fi
-
-# Not sure why a second mise activation is needed on both Mac and Windows WSL.
-if command -v mise &> /dev/null; then
-  eval "$(mise activate bash)"
 fi
