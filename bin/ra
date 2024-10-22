@@ -75,11 +75,15 @@ function verify() {
     fi
 }
 
+function current_theme() {
+    grep 'import' ~/.alacritty.toml | cut -d '/' -f 6 | cut -d '.' -f 1
+}
+
 function details() {
     echo "Rails Academy Details:"
     echo "    Version: ${RAILS_ACADEMY_VERSION:-Unknown}"
     echo "   Platform: $(uname -s)"
-    echo "Color Theme: $(grep 'import' ~/.alacritty.toml | cut -d '"' -f 2)"
+    echo "Color Theme: $(current_theme)"
     echo -e "\n"
     verify
 }
