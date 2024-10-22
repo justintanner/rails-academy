@@ -42,10 +42,10 @@ function theme() {
         exit 1
     fi
 
-    theme_file="~/.local/share/alacritty-theme/themes/$1.toml"
+   theme_file="$(eval echo ~/.local/share/alacritty-theme/themes/$1.toml)"
 
     if [ ! -f "$theme_file" ]; then
-        echo "Error: Theme '$1' not found. $theme_file"
+        echo "Error: Theme '$1' not found."
         exit 1
     fi
 
