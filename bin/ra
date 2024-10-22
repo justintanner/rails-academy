@@ -45,7 +45,7 @@ function theme() {
     theme_file="~/.local/share/alacritty-theme/themes/$1.toml"
 
     if [ ! -f "$theme_file" ]; then
-        echo "Error: Theme '$1' not found."
+        echo "Error: Theme '$1' not found. $theme_file"
         exit 1
     fi
 
