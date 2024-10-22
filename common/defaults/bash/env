@@ -20,9 +20,9 @@ if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
       else
         PS1+="@${VCS_STATUS_COMMIT//\\/\\\\}]\[\e[0m\]"       # escape backslash
       fi
-      (( VCS_STATUS_HAS_STAGED    )) && PS1+=' (staged)'
-      (( VCS_STATUS_HAS_UNSTAGED  )) && PS1+=' (unstaged)'
-      (( VCS_STATUS_HAS_UNTRACKED )) && PS1+=' (untracked)'
+      (( VCS_STATUS_HAS_STAGED    )) && PS1+=' \[\e[90m\](staged changes)\[\e[0m\]'
+      (( VCS_STATUS_HAS_UNSTAGED  )) && PS1+=' \[\e[90m\](unstaged changes)\[\e[0m\]'
+      (( VCS_STATUS_HAS_UNTRACKED )) && PS1+=' \[\e[90m\](untracked changes)\[\e[0m\]'
     fi
     PS1+='\n\$ '
     shopt -u promptvars  # disable expansion of '$(...)' and the like
