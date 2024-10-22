@@ -42,10 +42,13 @@ fi
 echo "Updating Homebrew..."
 brew update
 
-if command -v git &> /dev/null; then
-  echo "Git is installed."
-else
-  prompt_install "Git not installed. Installing..." eval "$(brew install git)"
+if install_everything || prompt_install "Git" "brew install git"; then
+  if command -v git &> /dev/null; then
+    echo "Git is installed."
+  else
+    echo "Git not installed. Installing..."
+    brew install git
+  fi
 fi
 
 echo "Cloning Rails Academy..."
@@ -61,7 +64,6 @@ cd - || exit 1
 OMAKUB_SUB_PATH=~/.local/share/rails-academy/vendor/omakub
 RA_PATH=~/.local/share/rails-academy
 
-echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
 if xcode-select -p &> /dev/null; then
@@ -75,17 +77,26 @@ echo "Setting git defaults..."
 source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
 
 echo "Installing multiple Homebrew packages..."
-brew install \
-  fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr \
-  ruby-build bash-completion imagemagick vips libpq mysql-client sqlite3 1password-cli \
+brew_packages=(
+  fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr
+  ruby-build bash-completion imagemagick vips libpq mysql-client sqlite3 1password-cli
   font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver
+)
 
-if command -v terraform &> /dev/null; then
-  good "Terraform is installed."
-else
-  echo "Installing Terraform..."
-  brew tap hashicorp/tap
-  brew install hashicorp/tap/terraform
+for package in "${brew_packages[@]}"; do
+  if install_everything || prompt_install "${package}" "brew install ${package}"; then
+    echo "${package} installed."
+  fi
+done
+
+if install_everything || prompt_install "Terraform" "brew install hashicorp/tap/terraform"; then
+  if command -v terraform &> /dev/null; then
+    good "Terraform is installed."
+  else
+    echo "Installing Terraform..."
+    brew tap hashicorp/tap
+    brew install hashicorp/tap/terraform
+  fi
 fi
 
 # Format: "cask:App Name" (App Name matches the name in /Applications)
@@ -101,12 +112,14 @@ apps=(
 for app_pair in "${apps[@]}"; do
   app="${app_pair%%:*}"
   app_name="${app_pair##*:}"
-  if [ -e "/Applications/${app_name}.app" ]; then
-    good "${app_name} is installed."
-  else
-    echo "${app_name} is not installed. Installing..."
-    brew install --cask "${app}"
-    xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
+  if install_everything || prompt_install "${app_name}" "brew install --cask ${app}"; then
+    if [ -e "/Applications/${app_name}.app" ]; then
+      good "${app_name} is installed."
+    else
+      echo "${app_name} is not installed. Installing..."
+      brew install --cask "${app}"
+      xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
+    fi
   fi
 done
 
