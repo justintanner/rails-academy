@@ -16,17 +16,14 @@ if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
     if gitstatus_query && [[ "$VCS_STATUS_RESULT" == ok-sync ]]; then
       PS1+=" \[\e[33m\]["  # Start yellow color for status
       if [[ -n "$VCS_STATUS_LOCAL_BRANCH" ]]; then
-        PS1+="${VCS_STATUS_LOCAL_BRANCH//\\/\\\\}"  # escape backslash
+        PS1+="${VCS_STATUS_LOCAL_BRANCH//\\/\\\\}]\[\e[0m\]"  # escape backslash
       else
-        PS1+="@${VCS_STATUS_COMMIT//\\/\\\\}"       # escape backslash
+        PS1+="@${VCS_STATUS_COMMIT//\\/\\\\}]\[\e[0m\]"       # escape backslash
       fi
-      (( VCS_STATUS_HAS_STAGED    )) && PS1+='+'
-      (( VCS_STATUS_HAS_UNSTAGED  )) && PS1+='!'
-      (( VCS_STATUS_HAS_UNTRACKED )) && PS1+='?'
-      PS1+="]\[\e[0m\]"  # End yellow color
+      (( VCS_STATUS_HAS_STAGED    )) && PS1+=' (staged changes)'
+      (( VCS_STATUS_HAS_UNSTAGED  )) && PS1+=' (unstaged changes)'
+      (( VCS_STATUS_HAS_UNTRACKED )) && PS1+=' (untracked changed)'
     fi
-
-    PS1+='\n\$ '
     shopt -u promptvars  # disable expansion of '$(...)' and the like
   }
 
