@@ -1,11 +1,14 @@
 if command -v mise &> /dev/null; then
+  echo "Activating Mise"
   eval "$(mise activate bash)"
 fi
 
 if command -v zoxide &> /dev/null; then
+  echo "Activating Zoxide"
   eval "$(zoxide init bash)"
 fi
 
 if command -v fzf &> /dev/null; then
+ echo "Activating FZF"
  eval "$(fzf --bash)"
 fi
