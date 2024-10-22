@@ -7,6 +7,8 @@ function show_help() {
     echo ""
     echo "Commands:"
     echo "  details             Show details about current Rails Academy config."
+    echo "  themes              List all available terminal color themes."
+    echo "  theme [theme-name]  Switch your terminal color theme."
     echo "  update              Update Rails Academy to the latest version."
     echo "  verify              Verify your setup."
 }
@@ -34,6 +36,28 @@ function help {
   echo "usage: app_cli <login | help>"
 }
 
+function theme() {
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a theme name."
+        exit 1
+    fi
+
+    theme_file="~/.local/share/alacritty-theme/themes/$1.toml"
+
+    if [ ! -f "$theme_file" ]; then
+        echo "Error: Theme '$1' not found."
+        exit 1
+    fi
+
+    # Modify ~/.alacritty.toml's import line to include the new theme file
+    sed -i '' "s|import = \[.*|import = \[ \"$theme_file\]|" ~/.alacritty.toml
+}
+
+function themes() {
+    echo "Available themes:"
+    ls ~/.local/share/alacritty-theme/themes
+}
+
 function verify() {
     apps=("git" "gh" "mise" "kamal" "rails" "ruby" "docker" "grep")
 
@@ -53,8 +77,9 @@ function verify() {
 
 function details() {
     echo "Rails Academy Details:"
-    echo "  Version: ${RAILS_ACADEMY_VERSION:-Unknown}"
-    echo " Platform: $(uname -s)"
+    echo "    Version: ${RAILS_ACADEMY_VERSION:-Unknown}"
+    echo "   Platform: $(uname -s)"
+    echo "Color Theme: $(grep 'import' ~/.alacritty.toml | cut -d '"' -f 2)"
     echo -e "\n"
     verify
 }
@@ -67,6 +92,12 @@ fi
 case $1 in
     details)
         details
+        ;;
+    themes)
+        themes
+        ;;
+    theme)
+        theme $2
         ;;
     upgrade)
         update
