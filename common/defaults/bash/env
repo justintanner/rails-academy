@@ -4,6 +4,9 @@ export MISE_ENV_FILE=.env
 # Add rails academy to the path
 export PATH="./bin:~/.local/bin:~/.local/share/rails-academy/bin:$PATH"
 
+export RAILS_ACADEMY_PATH=~/.local/share/rails-academy
+export RAILS_ACADEMY_VERSION=$(cat $RAILS_ACADEMY_PATH/VERSION)
+
 if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
   source ~/.local/share/gitstatus/gitstatus.plugin.sh
 
