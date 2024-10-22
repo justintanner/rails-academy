@@ -6,7 +6,7 @@ source "$RA_PATH/mac/defaults/bash/shell"
 source "$OMAKUB_SUB_PATH/defaults/bash/aliases"
 source "$OMAKUB_SUB_PATH/defaults/bash/prompt"
 
-source "$RA_CONFIG_PATH/common/variables"
+source "$RA_CONFIG_PATH/variables"
 source "$RA_PATH/mac/defaults/bash/apple"
 source "$RA_PATH/common/defaults/bash/env"
 
