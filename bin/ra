@@ -53,7 +53,7 @@ function verify() {
 
 function details() {
     echo "Rails Academy Details:"
-    echo "  Version: ${RAILS_ACADEMY_VERISON:-Unknown}"
+    echo "  Version: ${RAILS_ACADEMY_VERSION:-Unknown}"
     echo " Platform: $(uname -s)"
     echo -e "\n"
     verify
