@@ -13,11 +13,8 @@ install_everything() {
 
 prompt_install() {
   local description="$1"
-  local command="$2"
   read -rp "Install ${description}? [Y/n]: " choice
-  if [[ "$choice" =~ ^[Yy]$ || "$choice" == "" ]]; then
-    eval "$command"
-  fi
+  [[ "$choice" =~ ^[Yy]$ || "$choice" == "" ]]
 }
 
 if install_everything; then
@@ -39,16 +36,18 @@ else
   set -h
 fi
 
-echo "Updating Homebrew..."
-brew update
+if install_everything || prompt_install "Update Homebrew"; then
+  echo "Updating Homebrew..."
+  brew update
+else
+  echo "Skipping Homebrew update."
+fi
 
-if install_everything || prompt_install "Git" "brew install git"; then
-  if command -v git &> /dev/null; then
-    echo "Git is installed."
-  else
-    echo "Git not installed. Installing..."
-    brew install git
-  fi
+if install_everything || prompt_install "Git"; then
+  echo "Installing Git..."
+  brew install git
+else
+  echo "Skipping Git."
 fi
 
 echo "Cloning Rails Academy..."
@@ -76,7 +75,6 @@ fi
 echo "Setting git defaults..."
 source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
 
-echo "Installing multiple Homebrew packages..."
 brew_packages=(
   fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr
   ruby-build bash-completion imagemagick vips libpq mysql-client sqlite3 1password-cli
@@ -84,19 +82,20 @@ brew_packages=(
 )
 
 for package in "${brew_packages[@]}"; do
-  if install_everything || prompt_install "${package}" "brew install ${package}"; then
-    echo "${package} installed."
+  if install_everything || prompt_install "${package}"; then
+    echo "Installing ${package}..."
+    brew install "${package}"
+  else
+    echo "Skipping ${package}."
   fi
 done
 
-if install_everything || prompt_install "Terraform" "brew install hashicorp/tap/terraform"; then
-  if command -v terraform &> /dev/null; then
-    good "Terraform is installed."
-  else
-    echo "Installing Terraform..."
-    brew tap hashicorp/tap
-    brew install hashicorp/tap/terraform
-  fi
+if install_everything || prompt_install "Terraform"; then
+  echo "Installing Terraform..."
+  brew tap hashicorp/tap
+  brew install hashicorp/tap/terraform
+else
+  echo "Skipping Terraform."
 fi
 
 # Format: "cask:App Name" (App Name matches the name in /Applications)
@@ -105,6 +104,7 @@ apps=(
   "alacritty:Alacritty"
   "1password:1Password"
   "rubymine:RubyMine"
+  "vscode:Visual Studio Code"
   "google-chrome:Google Chrome"
   "zoom:zoom.us"
 )
@@ -112,14 +112,17 @@ apps=(
 for app_pair in "${apps[@]}"; do
   app="${app_pair%%:*}"
   app_name="${app_pair##*:}"
-  if install_everything || prompt_install "${app_name}" "brew install --cask ${app}"; then
+
+  if install_everything || prompt_install "${app_name}"; then
     if [ -e "/Applications/${app_name}.app" ]; then
-      good "${app_name} is installed."
+      echo "${app_name} is already installed."
     else
-      echo "${app_name} is not installed. Installing..."
+      echo "Installing ${app_name}..."
       brew install --cask "${app}"
       xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
     fi
+  else
+    echo "Skipping ${app_name}."
   fi
 done
 
@@ -146,21 +149,25 @@ source "$RA_PATH/common/install/terminal/gitstatus.sh"
 
 echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/mac/.alacritty.toml ~/.alacritty.toml
-install_only_if_missing $RA_PATH/common/.op_load_env ~/.op_load_env
 install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
-install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
-install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
-install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
-install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
+
+if install_everything || prompt_install "Modify (and backup existing) bash config files"; then
+  install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
+  install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
+  install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
+  install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
+fi
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
 
 echo -e "\nInstalling the first Rails Academy lesson..."
 source "$RA_PATH/common/install_lessons.sh"
 
-echo -e "\nSetting bash as the default terminal..."
-chsh -s /opt/homebrew/bin/bash
-defaults write com.apple.Terminal Shell -string "/opt/homebrew/bin/bash"
+if install_everything || prompt_install "Set bash as the default terminal"; then
+  echo "Setting bash as the default terminal..."
+  chsh -s /opt/homebrew/bin/bash
+  defaults write com.apple.Terminal Shell -string "/opt/homebrew/bin/bash"
+fi
 
 echo "Setting fonts in Terminal..."
 osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
