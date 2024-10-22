@@ -7,7 +7,6 @@ export RAILS_ACADEMY_VERSION="1.0"
 
 # Add rails academy to the path
 export PATH="./bin:~/.local/bin:~/.local/share/rails-academy/bin:$PATH"
-set +h
 
 if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
   source ~/.local/share/gitstatus/gitstatus.plugin.sh

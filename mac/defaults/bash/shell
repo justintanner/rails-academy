@@ -10,8 +10,6 @@ HISTFILESIZE="${HISTSIZE}"
 # Set complete path
 if [ -d ~/.local/share/omakub ]; then
   export PATH="./bin:~/.local/bin:~/.local/share/omakub/bin:$PATH"
-  set +h
-
   export OMAKUB_PATH="/home/$USER/.local/share/omakub"
 fi
 
