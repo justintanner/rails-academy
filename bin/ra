@@ -44,6 +44,7 @@ function theme() {
         exit 1
     fi
 
+   # eval is avoiding using $HOME because some platform doesn't support it.
    theme_file="$(eval echo ~/.local/share/alacritty-theme/themes/$1.toml)"
 
     if [ ! -f "$theme_file" ]; then
