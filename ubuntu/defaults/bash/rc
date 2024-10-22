@@ -4,9 +4,9 @@ RA_CONFIG_PATH=~/.config/rails-academy
 
 source "$RA_PATH/defaults/bash/shell"
 source "$RA_CONFIG_PATH/variables"
+source "$RA_PATH/defaults/bash/prompt"
 
 source "$OMAKUB_SUB_PATH/defaults/bash/aliases"
-source "$OMAKUB_SUB_PATH/defaults/bash/prompt"
 source "$OMAKUB_SUB_PATH/defaults/bash/init"
 
 
