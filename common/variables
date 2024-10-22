@@ -2,4 +2,4 @@ echo "Variables running"
 export RA_COLOR_MODE="light"
 export RAILS_ACADEMY_VERSION="0.0.1"
 export RAILS_ACADEMY_PATH=~/.local/share/rails-academy
-set +h
+
