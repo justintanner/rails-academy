@@ -187,11 +187,11 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
 
 wsl --set-default-version 2
 
-$wslInstalledList = wsl --list
-if ($wslInstalledList -notmatch 'Ubuntu') {
+$wslInstalledList = wsl --list | Out-String
+if ($wslInstalledList -notmatch '.*Ubuntu-24.04.*') {
     Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
     wsl --install -d Ubuntu-24.04
-    wsl --set-version Ubuntu-24.04
+    wsl --set-version Ubuntu-24.04 2
 } else {
     Write-Host "Ubuntu is already installed."
 }
