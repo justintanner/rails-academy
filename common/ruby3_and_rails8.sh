@@ -6,3 +6,6 @@ mise x ruby -- gem install rails --no-document -v ">= 8.0.0rc1"
 
 echo "Installing kamal..."
 mise x ruby -- gem install kamal --no-document
+
+echo "Installing rubocop..."
+mise x ruby -- gem install rubocop --no-document
