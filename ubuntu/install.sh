@@ -164,7 +164,7 @@ fi
 source "$RA_PATH/common/install/terminal/gitstatus.sh"
 
 echo -e "\nInstalling config files..."
-install_only_if_missing $RA_PATH/ubuntu/.alacritty.toml ~/.alacritty.toml
+install_only_if_missing $RA_PATH/common/alacritty-light.toml ~/.alacritty.toml
 install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
 
 if install_everything || prompt_install "Modify (and backup existing) bash config files"; then
