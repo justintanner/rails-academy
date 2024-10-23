@@ -97,7 +97,7 @@ function current_theme() {
 function details() {
     echo "Rails Academy Details:"
     echo "    Version: ${RAILS_ACADEMY_VERSION:-Unknown}"
-    echo "   Platform: $(uname -s)"
+    echo "   Platform: $(uname -s | sed 's/_NT-.*$/_WSL/')"
     echo "Color Theme: $(current_theme)"
     echo -e "\n"
     verify
