@@ -49,7 +49,7 @@ function theme() {
         WINDOWS_ALACRITTY_PATH="/mnt/c/Users/$windows_username/AppData/Roaming/alacritty"
         ALACRITTY_CONFIG_FILE="$WINDOWS_ALACRITTY_PATH/alacritty.yml"
         mkdir -p $WINDOWS_ALACRITTY_PATH
-        cp ~/.local/rails-academy/common/themes/$1.toml $WINDOWS_ALACRITTY_PATH
+        cp ~/.local/shared/rails-academy/common/themes/$1.toml $WINDOWS_ALACRITTY_PATH
         theme_file="$WINDOWS_ALACRITTY_PATH/$1.toml"
     else
         # eval is avoiding using $HOME because some platform doesn't support it.
