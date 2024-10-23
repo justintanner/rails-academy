@@ -48,7 +48,7 @@ function theme() {
         cp ~/.local/share/rails-academy/common/themes/$1.toml $WSL_ALACRITTY_PATH
         theme_file="$WINDOWS_ALACRITTY_PATH//$1.toml"
     else
-        theme_file=eval"~/.local/share/rails-academy/common/themes/$1.toml"
+        theme_file="~/.local/share/rails-academy/common/themes/$1.toml"
     fi
 
     if [ ! -f $ALACRITTY_CONFIG_FILE ]; then
