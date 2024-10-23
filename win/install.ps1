@@ -13,44 +13,6 @@ function Write-Bad {
     }
 }
 
-$restartRequired = $false
-
-if (!(Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') {
-    Write-Host "WSL is not enabled. Enabling WSL..."
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
-    Write-Good "WSL is enabled."
-    $restartRequired = $true
-} else {
-    Write-Good "WSL is already enabled."
-}
-
-if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).State -eq 'Enabled') {
-    Write-Host "Virtual Machine Platform is not enabled. Enabling..."
-    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-    Write-Good "Virtual Machine Platform is enabled."
-    $restartRequired = $true
-} else {
-    Write-Good "Virtual Machine Platform is already enabled."
-}
-
-wsl --set-default-version 2
-
-$wslInstalledList = wsl --list
-if ($wslInstalledList -notmatch 'Ubuntu') {
-    Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
-    wsl --install -d Ubuntu-24.04
-    wsl --set-version Ubuntu-24.04
-    $restartRequired = $true
-} else {
-    Write-Host "Ubuntu is already installed."
-}
-
-if ($restartRequired) {
-    Write-Host "A restart is required to continue the installation. Please restart your computer and run the script again."
-    Start-Sleep -Seconds 10
-    Restart-Computer -Force
-    exit
-}
 
 if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     Write-Host "Chocolatey is not installed. Installing Chocolatey..."
@@ -136,14 +98,6 @@ else {
     Write-Good "Google Chrome is already installed."
 }
 
-if (-not (Is-ProgramInstalled -programName "Docker")) {
-    Write-Output "Install Docker.."
-    choco install -y docker-desktop
-}
-else {
-    Write-Good "Docker is already installed."
-}
-
 if (-not (Is-ProgramInstalled -programName "Visual Studio Code")) {
     Write-Output "Install Visual Studio Code.."
     choco install -y vscode
@@ -214,6 +168,44 @@ if (!(Test-Path $alacrittyConfigPath)) {
 } else {
     Write-Good "Alacritty configuration is already set."
 }
+
+if (!(Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') {
+    Write-Host "WSL is not enabled. Enabling WSL..."
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
+    Write-Good "WSL is enabled."
+} else {
+    Write-Good "WSL is already enabled."
+}
+
+if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).State -eq 'Enabled') {
+    Write-Host "Virtual Machine Platform is not enabled. Enabling..."
+    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+    Write-Good "Virtual Machine Platform is enabled."
+} else {
+    Write-Good "Virtual Machine Platform is already enabled."
+}
+
+wsl --set-default-version 2
+
+$wslInstalledList = wsl --list
+if ($wslInstalledList -notmatch 'Ubuntu') {
+    Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
+    wsl --install -d Ubuntu-24.04
+    wsl --set-version Ubuntu-24.04
+} else {
+    Write-Host "Ubuntu is already installed."
+}
+
+if (-not (Is-ProgramInstalled -programName "Docker")) {
+    Write-Output "Install Docker.."
+    choco install -y docker-desktop
+}
+else {
+    Write-Good "Docker is already installed."
+}
+
 Write-Good "Rails Academy (part one) successfully installed."
-Write-Host "\r\nRestart your computer to continue."
+Write-Host "\r\nRestart your computer..."
+Start-Sleep -Seconds 10
+Restart-Computer -Force
 exit
