@@ -27,7 +27,8 @@ else
 fi
 
 echo "Updating package lists..."
-sudo apt update -y
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -y
 
 if install_everything || prompt_install "Git"; then
   if command -v git &> /dev/null; then
