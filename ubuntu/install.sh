@@ -63,7 +63,7 @@ echo "Install terminal apps and libraries..."
 source "$OMAKUB_SUB_PATH/install/terminal/apps-terminal.sh"
 source "$OMAKUB_SUB_PATH/install/terminal/libraries.sh"
 
-if UBUNTU_DESKTOP && (install_everything || prompt_install "Fastfetch"); then
+if [ "$UBUNTU_DESKTOP" = true ] && (install_everything || prompt_install "Fastfetch"); then
   if command -v fastfetch &> /dev/null; then
     source "$OMAKUB_SUB_PATH/install/terminal/app-fastfetch.sh"
   else
@@ -71,8 +71,8 @@ if UBUNTU_DESKTOP && (install_everything || prompt_install "Fastfetch"); then
   fi
 fi
 
-if UBUNTU_DESTKOP && (install_everything || prompt_install "Visual Studio Code"); then
-  if command -v fastfetch &> /dev/null; then
+if [ "$UBUNTU_DESKTOP" = true ] && (install_everything || prompt_install "Visual Studio Code"); then
+  if command -v code &> /dev/null; then
     source "$OMAKUB_SUB_PATH/install/terminal/app-vscode.sh"
   else
     echo "Not installing VS Code on WSL Linux..."
@@ -122,7 +122,7 @@ desktops=(
   "desktop/optional/app-zoom:zoom"
 )
 
-if UBUNTU_DESKTOP; then
+if [ "$UBUNTU_DESKTOP" = true ]; then
   echo "Installing desktop apps..."
   for desktop in "${desktops[@]}"; do
     script="${desktop%%:*}"
@@ -163,7 +163,6 @@ fi
 source "$RA_PATH/common/install/terminal/gitstatus.sh"
 source "$RA_PATH/common/install/terminal/alacritty-theme.sh"
 
-echo -e "\nInstalling config files..."
 echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/ubuntu/.alacritty.toml ~/.alacritty.toml
 install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
