@@ -43,7 +43,7 @@ function theme() {
         windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
         WSL_ALACRITTY_PATH="/mnt/c/Users/$windows_username/AppData/Roaming/alacritty"
         WINDOWS_ALACRITTY_PATH="C://Users//$windows_username//AppData//Roaming//alacritty"
-        ALACRITTY_CONFIG_FILE="$WSL_ALACRITTY_PATH//alacritty.toml"
+        ALACRITTY_CONFIG_FILE="$WSL_ALACRITTY_PATH/alacritty.toml"
         mkdir -p $WSL_ALACRITTY_PATH
         cp ~/.local/share/rails-academy/common/themes/$1.toml $WSL_ALACRITTY_PATH
         theme_file="$WINDOWS_ALACRITTY_PATH//$1.toml"
@@ -53,7 +53,7 @@ function theme() {
 
     # Modify ~/.alacritty.toml's import line to include the new theme file
     echo "Switching to the $1 theme..."
-    sed -i '' '1s/.*/import = \[\"$theme_file\"\]/' $ALACRITTY_CONFIG_FILE
+    sed -i '' '1s/.*/import = \["'"$theme_file"\"'\]/' "$ALACRITTY_CONFIG_FILE"
 }
 
 function light() {
