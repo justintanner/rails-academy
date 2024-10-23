@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-# Check if script is running in an interactive shell
-if [[ ! -t 0 ]]; then
-  echo "This script must be run interactively. Use 'bash -i' to run in interactive mode."
-  exit 1
-fi
-
-
 echo -e "Installing Rails Academy on a Mac...\n"
 
 echo    "Select installation mode:"
