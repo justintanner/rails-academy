@@ -37,11 +37,6 @@ function help {
 }
 
 function theme() {
-    if [ -z "$1" ]; then
-        echo "Error: Please provide a theme name."
-        exit 1
-    fi
-
     ALACRITTY_CONFIG_FILE=~/.alacritty.toml
 
     if [ -d /mnt/c/Users ]; then
