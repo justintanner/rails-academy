@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-UBUNTU_DESKTOP=false
-if [ -n "$XDG_CURRENT_DESKTOP" ]; then
-  UBUNTU_DESKTOP=true
-fi
+UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
 
 echo -e "Installing Rails Academy on Ubuntu...\n"
 read -n 1 -s -r -p "Press any key to continue..."
