@@ -47,7 +47,7 @@ function theme() {
     fi
 
     echo "Switching to the $1 theme..."
-    cp ~/.local/share/rails-academy/common/themes/alacritty-$1.toml $ALACRITTY_CONFIG_FILE
+    cp ~/.local/share/rails-academy/common/alacritty-$1.toml $ALACRITTY_CONFIG_FILE
 }
 
 function light() {
@@ -102,12 +102,6 @@ case $1 in
         ;;
     dark)
         dark
-        ;;
-    themes)
-        themes
-        ;;
-    theme)
-        theme $2
         ;;
     upgrade)
         update
