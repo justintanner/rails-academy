@@ -37,7 +37,7 @@ function help {
 }
 
 function theme() {
-    ALACRITTY_CONFIG_FILE="$HOME/.alacritty.toml"
+    ALACRITTY_CONFIG_FILE="~/.alacritty.toml"
 
     if [ -d /mnt/c/Users ]; then
         windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
@@ -48,7 +48,7 @@ function theme() {
         cp ~/.local/share/rails-academy/common/themes/$1.toml $WSL_ALACRITTY_PATH
         theme_file="$WINDOWS_ALACRITTY_PATH//$1.toml"
     else
-        theme_file="$HOME/.local/share/rails-academy/common/themes/$1.toml"
+        theme_file=eval"~/.local/share/rails-academy/common/themes/$1.toml"
     fi
 
     # Modify ~/.alacritty.toml's import line to include the new theme file
