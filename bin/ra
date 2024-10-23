@@ -61,13 +61,8 @@ function theme() {
         exit 1
     fi
 
-    if grep -q '^import = \[\".*\"\]' $ALACRITTY_CONFIG_FILE; then
-        # Modify ~/.alacritty.toml's import line to include the new theme file
-        sed -i -E "s|^import = \[\".*\"\]|import = [\"$theme_file\"]|" $ALACRITTY_CONFIG_FILE
-    else
-        # Add the import line to the top of the file
-        echo -e "import = [\"$theme_file\"]\n$(cat $ALACRITTY_CONFIG_FILE)" > $ALACRITTY_CONFIG_FILE
-    fi
+    # Modify ~/.alacritty.toml's import line to include the new theme file
+    sed -i -E "s|^import = \[\".*\"\]|import = [\"$theme_file\"]|" $ALACRITTY_CONFIG_FILE
 }
 
 function light() {

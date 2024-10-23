@@ -132,7 +132,11 @@ if ($wslInstalledList -notmatch 'Ubuntu') {
     Write-Host "Ubuntu is already installed."
 }
 
+$alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
+$alacrittyThemeConfigPath = "$env:APPDATA\Roaming\alacritty\light.toml"
+
 $alacrittyConfig = @"
+import = ["$alacrittyThemeConfigPath"]
 [shell]
 program = "wsl"
 args = ["--cd", "~"]
