@@ -56,7 +56,7 @@ function theme() {
         exit 1
     fi
 
-    echo "Switching to the $1 theme..."
+    echo "Switching to the $1 theme...$ALACRITTY_CONFIG_FILE"
     sed -i '' "1s|.*|$(printf 'import = ["%s"]' "$theme_file")|" $ALACRITTY_CONFIG_FILE
 }
 
