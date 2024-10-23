@@ -35,6 +35,3 @@ Get your computer ready for rails development.
 #### [:open_book: Get in the App Store (Strada)]()
 
 #### [:open_book: Scale (Kamal)]()
-
-
-

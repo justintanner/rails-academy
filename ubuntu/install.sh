@@ -1,16 +1,46 @@
 #!/usr/bin/env bash
 set -e
 
+UBUNTU_DESKTOP=false
+if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+  UBUNTU_DESKTOP=true
+fi
+
 echo -e "Installing Rails Academy on Ubuntu...\n"
+
+echo    "Select installation mode:"
+echo    "  - Press Enter to install everything"
+echo -e "  - Type 'c' for custom install (for computer programmers)\n"
+read -rp "Enter option [Enter/c]: " install_mode
+
+install_everything() {
+  [[ -z "$install_mode" ]]
+}
+
+prompt_install() {
+  local description="$1"
+  read -rp "Install ${description}? [Y/n]: " choice
+  [[ "$choice" =~ ^[Yy]$ || "$choice" == "" ]]
+}
+
+if install_everything; then
+  echo "Installing everything..."
+else
+  echo "Custom installation..."
+fi
 
 echo "Updating package lists..."
 sudo apt update -y
 
-if command -v git &> /dev/null; then
-  echo "Git is installed."
+if install_everything || prompt_install "Git"; then
+  if command -v git &> /dev/null; then
+    echo "Git is already installed."
+  else
+    echo "Git not installed. Installing..."
+    sudo apt install -y git
+  fi
 else
-  echo "Git not installed. Installing..."
-  apt install -y git
+  echo "Skipping Git."
 fi
 
 echo "Cloning Rails Academy..."
@@ -33,12 +63,20 @@ echo "Install terminal apps and libraries..."
 source "$OMAKUB_SUB_PATH/install/terminal/apps-terminal.sh"
 source "$OMAKUB_SUB_PATH/install/terminal/libraries.sh"
 
-if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+if UBUNTU_DESKTOP && (install_everything || prompt_install "Fastfetch"); then
   if command -v fastfetch &> /dev/null; then
     source "$OMAKUB_SUB_PATH/install/terminal/app-fastfetch.sh"
+  else
+    echo "Not installing fastfetch on WSL Linux..."
   fi
-else
-  echo "Not installing fastfetch on WSL Linux..."
+fi
+
+if UBUNTU_DESTKOP && (install_everything || prompt_install "Visual Studio Code"); then
+  if command -v fastfetch &> /dev/null; then
+    source "$OMAKUB_SUB_PATH/install/terminal/app-vscode.sh"
+  else
+    echo "Not installing VS Code on WSL Linux..."
+  fi
 fi
 
 # Format script_path:terminal_name
@@ -52,23 +90,30 @@ terminals=(
 for terminal in "${terminals[@]}"; do
   script="${terminal%%:*}"
   app="${terminal##*:}"
-  if command -v $app &> /dev/null; then
-    good "$app is installed."
+  if install_everything || prompt_install "${app}"; then
+    if command -v $app &> /dev/null; then
+      good "$app is installed."
+    else
+      echo "Installing $app..."
+      source "$OMAKUB_SUB_PATH/install/$script.sh"
+    fi
   else
-    echo "Installing $app..."
-    source "$OMAKUB_SUB_PATH/install/$script.sh"
+    echo "Skipping ${app}."
   fi
 done
 
-# Don't want to rerun mise installs
 if command -v mise &> /dev/null; then
   good "Mise is installed."
 else
-  echo "Installing Mise..."
-  source "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
+  if install_everything || prompt_install "Mise"; then
+    echo "Installing Mise..."
+    source "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
+  else
+    echo "Skipping Mise."
+  fi
 fi
 
-# Format script_path:terminal_name
+# Format OMAKHUB script_path:terminal_name
 desktops=(
   "terminal/docker:docker"
   "desktop/app-chrome:google-chrome"
@@ -77,42 +122,58 @@ desktops=(
   "desktop/optional/app-zoom:zoom"
 )
 
-if [ -n "$XDG_CURRENT_DESKTOP" ]; then
-  echo "Install desktop apps..."
+if UBUNTU_DESKTOP; then
+  echo "Installing desktop apps..."
   for desktop in "${desktops[@]}"; do
     script="${desktop%%:*}"
     app="${desktop##*:}"
-    if command -v $app &> /dev/null; then
-      good "$app is installed."
+    if install_everything || prompt_install "${app}"; then
+      if command -v $app &> /dev/null; then
+        good "$app is installed."
+      else
+        echo "Installing $app..."
+        source "$OMAKUB_SUB_PATH/install/$script.sh"
+      fi
     else
-      echo "Installing $app..."
-      source "$OMAKUB_SUB_PATH/install/$script.sh"
+      echo "Skipping ${app}."
     fi
   done
-
-  echo "Installing alacritty..."
-  sudo apt-get install -y alacritty
 else
   echo "Skipping desktop apps..."
+fi
+
+if install_everything || prompt_install "Alacritty"; then
+  echo "Installing Alacritty..."
+  sudo apt-get install -y alacritty
+else
+  echo "Skipping Alacritty."
 fi
 
 if command -v terraform &> /dev/null; then
   good "Terraform is installed."
 else
-  echo "Installing Terraform..."
-  source "$RA_PATH/ubuntu/install/terminal/terraform.sh"
+  if install_everything || prompt_install "Terraform"; then
+    echo "Installing Terraform..."
+    source "$RA_PATH/ubuntu/install/terminal/terraform.sh"
+  else
+    echo "Skipping Terraform."
+  fi
 fi
 
 source "$RA_PATH/common/install/terminal/gitstatus.sh"
 source "$RA_PATH/common/install/terminal/alacritty-theme.sh"
 
 echo -e "\nInstalling config files..."
+echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/ubuntu/.alacritty.toml ~/.alacritty.toml
 install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
-install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
-install_and_backup_old_file $RA_PATH/ubuntu/.bashrc ~/.bashrc
-install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
-install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
+
+if install_everything || prompt_install "Modify (and backup existing) bash config files"; then
+  install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
+  install_and_backup_old_file $RA_PATH/ubuntu/.bashrc ~/.bashrc
+  install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
+  install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
+fi
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
 
