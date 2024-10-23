@@ -48,8 +48,7 @@ function theme() {
         cp ~/.local/share/rails-academy/common/themes/$1.toml $WSL_ALACRITTY_PATH
         theme_file="$WINDOWS_ALACRITTY_PATH//$1.toml"
     else
-        # eval is avoiding using $HOME because some platform doesn't support it.
-        theme_file="$(eval echo ~/.local/share/rails-academy/common/themes/$1.toml)"
+        theme_file="$HOME/.local/share/rails-academy/common/themes/$1.toml"
     fi
 
     # Modify ~/.alacritty.toml's import line to include the new theme file
