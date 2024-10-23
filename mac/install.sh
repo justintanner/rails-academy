@@ -60,7 +60,6 @@ if [[ $RAILS_ACADEMY_REF != "master" ]]; then
 fi
 cd - || exit 1
 
-OMAKUB_SUB_PATH=~/.local/share/rails-academy/vendor/omakub
 RA_PATH=~/.local/share/rails-academy
 
 source "$RA_PATH/common/install_helpers.sh"
@@ -73,7 +72,7 @@ else
 fi
 
 echo "Setting git defaults..."
-source "$OMAKUB_SUB_PATH/install/terminal/set-git.sh"
+source "$RA_PATH/common/install/terminal/set-git.sh"
 
 brew_packages=(
   fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr
@@ -155,7 +154,7 @@ if install_everything || prompt_install "Modify (and backup existing) bash confi
   install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
   install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
   install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
-  install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
+  install_and_backup_old_file /defaults/bash/inputrc ~/.inputrc
 fi
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"

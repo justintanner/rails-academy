@@ -54,19 +54,18 @@ if [[ $RAILS_ACADEMY_REF != "master" ]]; then
 fi
 cd - || exit 1
 
-OMAKUB_SUB_PATH=~/.local/share/rails-academy/vendor/omakub
 RA_PATH=~/.local/share/rails-academy
 
 echo "Loading bash helpers..."
 source "$RA_PATH/common/install_helpers.sh"
 
 echo "Install terminal apps and libraries..."
-source "$OMAKUB_SUB_PATH/install/terminal/apps-terminal.sh"
-source "$OMAKUB_SUB_PATH/install/terminal/libraries.sh"
+source "$RA_PATH/ubuntu/install/terminal/apps-terminal.sh"
+source "$RA_PATH/ubuntu/install/terminal/libraries.sh"
 
 if [ "$UBUNTU_DESKTOP" = true ] && (install_everything || prompt_install "Fastfetch"); then
   if command -v fastfetch &> /dev/null; then
-    source "$OMAKUB_SUB_PATH/install/terminal/app-fastfetch.sh"
+    source "$RA_PATH/ubuntu/install/terminal/app-fastfetch.sh"
   else
     echo "Not installing fastfetch on WSL Linux..."
   fi
@@ -74,7 +73,7 @@ fi
 
 if [ "$UBUNTU_DESKTOP" = true ] && (install_everything || prompt_install "Visual Studio Code"); then
   if command -v code &> /dev/null; then
-    source "$OMAKUB_SUB_PATH/install/terminal/app-vscode.sh"
+    source "$RA_PATH/ubuntu/install/terminal/app-vscode.sh"
   else
     echo "Not installing VS Code on WSL Linux..."
   fi
@@ -96,7 +95,7 @@ for terminal in "${terminals[@]}"; do
       good "$app is installed."
     else
       echo "Installing $app..."
-      source "$OMAKUB_SUB_PATH/install/$script.sh"
+      source "$RA_PATH/ubuntu/install/$script.sh"
     fi
   else
     echo "Skipping ${app}."
@@ -108,13 +107,13 @@ if command -v mise &> /dev/null; then
 else
   if install_everything || prompt_install "Mise"; then
     echo "Installing Mise..."
-    source "$OMAKUB_SUB_PATH/install/terminal/mise.sh"
+    source "$RA_PATH/install/terminal/mise.sh"
   else
     echo "Skipping Mise."
   fi
 fi
 
-# Format OMAKHUB script_path:terminal_name
+# Format script_path:terminal_name
 desktops=(
   "terminal/docker:docker"
   "desktop/app-chrome:google-chrome"
@@ -133,7 +132,7 @@ if [ "$UBUNTU_DESKTOP" = true ]; then
         good "$app is installed."
       else
         echo "Installing $app..."
-        source "$OMAKUB_SUB_PATH/install/$script.sh"
+        source "$RA_PATH/ubuntu/install/$script.sh"
       fi
     else
       echo "Skipping ${app}."
@@ -171,7 +170,7 @@ if install_everything || prompt_install "Modify (and backup existing) bash confi
   install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
   install_and_backup_old_file $RA_PATH/ubuntu/.bashrc ~/.bashrc
   install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
-  install_and_backup_old_file $OMAKUB_SUB_PATH/defaults/bash/inputrc ~/.inputrc
+  install_and_backup_old_file $RA_PATH/common/defaults/bash/inputrc ~/.inputrc
 fi
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
