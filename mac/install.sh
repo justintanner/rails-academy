@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Check if running interactively
+if [[ ! -t 0 ]]; then
+  exec bash -i "$0" "$@"
+fi
+
 echo -e "Installing Rails Academy on a Mac...\n"
 
 echo    "Select installation mode:"
@@ -154,7 +159,7 @@ if install_everything || prompt_install "Modify (and backup existing) bash confi
   install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
   install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
   install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
-  install_and_backup_old_file /defaults/bash/inputrc ~/.inputrc
+  install_and_backup_old_file $RA_PATH/commmon/defaults/bash/inputrc ~/.inputrc
 fi
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
