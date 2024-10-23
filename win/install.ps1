@@ -71,11 +71,6 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global pull.rebase true
 
-if (-not (Is-ProgramInstalled -programName "alacritty")) {
-    Write-Output "Install alacritty.."
-    choco install alacritty -y
-}
-
 if (-not (Is-ProgramInstalled -programName "1password")) {
     Write-Output "Install 1password.."
     choco install 1password -y
@@ -103,7 +98,15 @@ if (-not (Is-ProgramInstalled -programName "Visual Studio Code")) {
     choco install -y vscode
 }
 else {
-    Write-Good "Docker is already installed."
+    Write-Good "VS Code is already installed."
+}
+
+if (-not (Is-ProgramInstalled -programName "Alacritty")) {
+    Write-Output "Install Alacritty.."
+    choco install -y alacritty
+}
+else {
+    Write-Good "Alacritty is already installed."
 }
 
 $alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
@@ -188,10 +191,10 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
 wsl --set-default-version 2
 
 $wslInstalledList = wsl --list | Out-String
-if ($wslInstalledList -notmatch '.*Ubuntu-24.04.*') {
+if ($wslInstalledList -notmatch '.*Ubuntu.*') {
     Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
     wsl --install -d Ubuntu-24.04
-    wsl --set-version Ubuntu-24.04 2
+    # wsl --set-version Ubuntu-24.04 2
 } else {
     Write-Host "Ubuntu is already installed."
 }
@@ -205,7 +208,4 @@ else {
 }
 
 Write-Good "Rails Academy (part one) successfully installed."
-Write-Host "\r\nRestart your computer..."
-Start-Sleep -Seconds 10
-Restart-Computer -Force
-exit
+Write-Host "\r\nPlease Restart your computer..."
