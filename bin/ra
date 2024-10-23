@@ -37,17 +37,16 @@ function help {
 }
 
 function theme() {
-    ALACRITTY_CONFIG_FILE=~/.alacritty.toml
-
+    echo "Switching to the $1 theme..."
     if [ -d /mnt/c/Users ]; then
         windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
         WSL_ALACRITTY_PATH=/mnt/c/Users/$windows_username/AppData/Roaming/alacritty
-        ALACRITTY_CONFIG_FILE=$WSL_ALACRITTY_PATH/alacritty.toml
         mkdir -p $WSL_ALACRITTY_PATH
-    fi
 
-    echo "Switching to the $1 theme..."
-    cp ~/.local/share/rails-academy/common/alacritty-$1.toml $ALACRITTY_CONFIG_FILE
+        cp ~/.local/share/rails-academy/win/alacritty-$1.toml $WSL_ALACRITTY_PATH/alacritty.toml
+    else
+      cp ~/.local/share/rails-academy/common/alacritty-$1.toml ~/.alacritty.toml
+    fi
 }
 
 function light() {
