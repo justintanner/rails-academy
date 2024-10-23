@@ -52,11 +52,6 @@ function theme() {
         theme_file="$(eval echo ~/.local/share/rails-academy/common/themes/$1.toml)"
     fi
 
-    if [ ! -f "$theme_file" ]; then
-        echo "Error: Theme '$1' not found."
-        exit 1
-    fi
-
     # Modify ~/.alacritty.toml's import line to include the new theme file
     echo "Switching to the $1 theme... ALACRITTY_CONFIG_FILE: $ALACRITTY_CONFIG_FILE, theme_file: $theme_file"
     sed -i "s|import = \[\".*\"\]|import = \[\"$theme_file\"\]|" $ALACRITTY_CONFIG_FILE
