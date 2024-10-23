@@ -16,7 +16,7 @@ Get your computer ready for rails development.
 
 #### [:arrow_right: Windows](win/README.md)
 
-## Three steps to deploying a rails app
+## First steps
 
 #### [:green_book: 101 - Command Line Essentials](https://github.com/justintanner/ra-101)
 
@@ -24,9 +24,9 @@ Get your computer ready for rails development.
 
 #### [:green_book: 103 - Deploying a rails app](https://github.com/justintanner/ra-103)
 
-## Build a homepage
+## Coming soon
 
-#### [:open_book: Make it look pretty (Animations and effects)]()
+#### [:open_book: 101 - Make it look pretty (Animations and effects)]()
 
 #### [:open_book: Make it interactive (Stimulus)]()
 
