@@ -7,6 +7,7 @@ if [ -n "$XDG_CURRENT_DESKTOP" ]; then
 fi
 
 echo -e "Installing Rails Academy on Ubuntu...\n"
+read -n 1 -s -r -p "Press any key to continue..."
 
 echo    "Select installation mode:"
 echo    "  - Press Enter to install everything"
