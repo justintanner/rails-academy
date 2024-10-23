@@ -5,8 +5,8 @@ color_prompt=yes
 # Simple fallback prompt
 PS1='$ '
 
-# Using the gitstatus prompt if available
-if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ]; then
+# Using the gitstatus prompt if available, and bash is at 4 or greater
+if [ -f ~/.local/share/gitstatus/gitstatus.plugin.sh ] && [ "${BASH_VERSINFO:-0}" -ge 4 ]; then
   source ~/.local/share/gitstatus/gitstatus.plugin.sh
 
   function my_set_prompt() {
