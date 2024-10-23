@@ -162,7 +162,6 @@ else
 fi
 
 source "$RA_PATH/common/install/terminal/gitstatus.sh"
-source "$RA_PATH/common/install/terminal/alacritty-theme.sh"
 
 echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/ubuntu/.alacritty.toml ~/.alacritty.toml

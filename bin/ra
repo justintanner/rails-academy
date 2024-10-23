@@ -7,10 +7,8 @@ function show_help() {
     echo ""
     echo "Commands:"
     echo "  details             Show details about current Rails Academy config."
-    echo "  light               Switch to the light color theme. (papercolor_light)"
-    echo "  dark                Switch to the dark color theme. (papercolor_dark)"
-    echo "  themes              List all available terminal color themes."
-    echo "  theme [theme-name]  Switch your terminal color theme."
+    echo "  light               Switch to the light color theme."
+    echo "  dark                Switch to the dark color theme."
     echo "  update              Update Rails Academy to the latest version."
     echo "  verify              Verify your setup."
 }
@@ -44,8 +42,14 @@ function theme() {
         exit 1
     fi
 
-   # eval is avoiding using $HOME because some platform doesn't support it.
-   theme_file="$(eval echo ~/.local/share/alacritty-theme/themes/$1.toml)"
+    if [ -d /mnt/c/Users ]; then
+        windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
+        mkdir -p /mnt/c/Users/$windows_username/AppData/Roaming/alacritty
+        theme_file="/mnt/c/Users/$windows_username/AppData/Roaming/alacritty/$1.toml"
+    else
+        # eval is avoiding using $HOME because some platform doesn't support it.
+        theme_file="$(eval echo ~/.local/share/rails-academy/common/themes/$1.toml)"
+    fi
 
     if [ ! -f "$theme_file" ]; then
         echo "Error: Theme '$1' not found."
@@ -56,17 +60,12 @@ function theme() {
     sed -i -E "s|^import = \[\".*\"\]|import = [\"$theme_file\"]|" ~/.alacritty.toml
 }
 
-function themes() {
-    echo "Available themes:"
-    ls -1 ~/.local/share/alacritty-theme/themes | sed -E 's/\.toml$//'
-}
-
 function light() {
-    theme "papercolor_light"
+    theme "light"
 }
 
 function dark() {
-    theme "papercolor_dark"
+    theme "dark"
 }
 
 function verify() {
