@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 set -e
 
 UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
@@ -43,13 +42,12 @@ fi
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
-git clone --recurse-submodules https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
-cd ~/.local/share/rails-academy || exit 1
+git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
+cd ~/.local/share/rails-academy
 if [[ $RAILS_ACADEMY_REF != "master" ]]; then
   git checkout "${RAILS_ACADEMY_REF:-stable}"
-  git submodule update --init --recursive
 fi
-cd - || exit 1
+cd -
 
 RA_PATH=~/.local/share/rails-academy
 
