@@ -65,7 +65,7 @@ function theme() {
         # Modify ~/.alacritty.toml's import line to include the new theme file
         sed -i -E "s|^import = \[\".*\"\]|import = [\"$theme_file\"]|" $ALACRITTY_CONFIG_FILE
     else
-        echo "import = [\"$theme_file\"]" >> $ALACRITTY_CONFIG_FILE
+        echo "import = [\"$theme_file\"]\n" >> $ALACRITTY_CONFIG_FILE
     fi
 }
 
