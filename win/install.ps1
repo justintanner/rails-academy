@@ -33,11 +33,6 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
     Write-Good "Virtual Machine Platform is already enabled."
 }
 
-if ($restartRequired) {
-    Write-Host "A restart is required to continue the installation. Please restart your computer and run the script again."
-    exit
-}
-
 wsl --set-default-version 2
 
 $wslInstalledList = wsl --list
@@ -45,8 +40,16 @@ if ($wslInstalledList -notmatch 'Ubuntu') {
     Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
     wsl --install -d Ubuntu-24.04
     wsl --set-version Ubuntu-24.04
+    $restartRequired = $true
 } else {
     Write-Host "Ubuntu is already installed."
+}
+
+if ($restartRequired) {
+    Write-Host "A restart is required to continue the installation. Please restart your computer and run the script again."
+    Start-Sleep -Seconds 10
+    Restart-Computer -Force
+    exit
 }
 
 if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
