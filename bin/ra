@@ -47,7 +47,7 @@ function theme() {
     if [ -d /mnt/c/Users ]; then
         windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
         WINDOWS_ALACRITTY_PATH="/mnt/c/Users/$windows_username/AppData/Roaming/alacritty"
-        ALACRITTY_CONFIG_FILE="$WINDOWS_ALACRITTY_PATH/alacritty.yml"
+        ALACRITTY_CONFIG_FILE="$WINDOWS_ALACRITTY_PATH/alacritty.toml"
         mkdir -p $WINDOWS_ALACRITTY_PATH
         cp ~/.local/share/rails-academy/common/themes/$1.toml $WINDOWS_ALACRITTY_PATH
         theme_file="$WINDOWS_ALACRITTY_PATH/$1.toml"

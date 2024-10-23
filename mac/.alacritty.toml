@@ -1,4 +1,4 @@
-import = ["~/.local/share/alacritty-theme/themes/papercolor_light.toml"]
+import = ["~/.local/share/rails-academy/common/themes/light.toml"]
 
 [window.padding]
 x = 4
