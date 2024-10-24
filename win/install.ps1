@@ -71,42 +71,42 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global pull.rebase true
 
-if (-not (Is-ProgramInstalled -programName "1password")) {
+if (Is-ProgramInstalled -programName "1password") {
+    Write-Good "1Password is already installed."
+} else {
     Write-Output "Install 1password.."
     choco install 1password -y
-} else {
-    Write-Good "1Password is already installed."
 }
 
-if (-not (Is-ProgramInstalled -programName "RubyMine")) {
+if (Is-ProgramInstalled -programName "RubyMine") {
+    Write-Good "RubyMine is already installed."
+} else {
     Write-Output "Install rubymine.."
     choco install rubymine -y
-} else {
-    Write-Good "RubyMine is already installed."
 }
 
-if (-not (Is-ProgramInstalled -programName "Google Chrome")) {
+if (Is-ProgramInstalled -programName "Google Chrome") {
+    Write-Good "Google Chrome is already installed."
+}
+else {
     Write-Output "Install Google Chrome.."
     choco install googlechrome -y
 }
-else {
-    Write-Good "Google Chrome is already installed."
-}
 
-if (-not (Is-ProgramInstalled -programName "Visual Studio Code")) {
+if (Is-ProgramInstalled -programName "Visual Studio Code") {
+    Write-Good "VS Code is already installed."
+}
+else {
     Write-Output "Install Visual Studio Code.."
     choco install -y vscode
 }
-else {
-    Write-Good "VS Code is already installed."
-}
 
-if (-not (Is-ProgramInstalled -programName "Alacritty")) {
+if (Is-ProgramInstalled -programName "Alacritty") {
+    Write-Good "Alacritty is already installed."
+}
+else {
     Write-Output "Install Alacritty.."
     choco install -y alacritty
-}
-else {
-    Write-Good "Alacritty is already installed."
 }
 
 $alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
@@ -200,12 +200,12 @@ if ($wslInstalled -Match '.*Ubuntu-24.*') {
     wsl --set-version Ubuntu-24.04 2
 }
 
-if (-not (Is-ProgramInstalled -programName "Docker")) {
-    Write-Output "Install Docker.."
-    choco install -y docker-desktop
+if (Is-ProgramInstalled -programName "Docker") {
+    Write-Good "Docker is already installed."
 }
 else {
-    Write-Good "Docker is already installed."
+    Write-Output "Install Docker.."
+    choco install -y docker-desktop
 }
 
 Write-Good "Rails Academy (part one) successfully installed."
