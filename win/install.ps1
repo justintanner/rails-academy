@@ -164,13 +164,11 @@ white   = '#005f87'
 "@
 
 $alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
+New-Item -ItemType Directory -Force -Path "$env:APPDATA\Roaming\alacritty"
+Set-Content -Path $alacrittyConfigPath -Value $alacrittyConfig
 
-if (Test-Path $alacrittyConfigPath) {
-    Write-Good "Alacritty configuration is already set."
-} else {
-    New-Item -ItemType Directory -Force -Path "$env:APPDATA\Roaming\alacritty"
-    Set-Content -Path $alacrittyConfigPath -Value $alacrittyConfig
-    Write-Good "Alacritty configuration is set."
+if (!(Test-Path $alacrittyConfigPath)) {
+    Write-Bad "Failed to create Alacritty config file at $alacrittyConfigPath"
 }
 
 if ((Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') {
