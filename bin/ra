@@ -2,6 +2,8 @@
 
 # ra - A CLI tool for Rails Academy
 
+UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
+
 function show_help() {
     echo "Usage: ra [command] [arguments]"
     echo ""
@@ -44,8 +46,10 @@ function theme() {
         mkdir -p $WSL_ALACRITTY_PATH
 
         cp ~/.local/share/rails-academy/win/alacritty-$1.toml $WSL_ALACRITTY_PATH/alacritty.toml
+    elif [ "$UBUNTU_DESKTOP" = true ]; then
+        cp ~/.local/share/rails-academy/ubuntu/alacritty-$1.yml ~/.config/alacritty/alacritty.yml
     else
-      cp ~/.local/share/rails-academy/common/alacritty-$1.toml ~/.alacritty.toml
+        cp ~/.local/share/rails-academy/mac/alacritty-$1.toml ~/.alacritty.toml
     fi
 }
 
