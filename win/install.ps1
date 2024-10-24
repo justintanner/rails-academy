@@ -163,13 +163,19 @@ cyan    = '#005faf'
 white   = '#005f87'
 "@
 
-$alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
-New-Item -ItemType Directory -Force -Path "$env:APPDATA\Roaming\alacritty"
-Set-Content -Path $alacrittyConfigPath -Value $alacrittyConfig
+$alacrittyConfigDir = Join-Path -Path $env:APPDATA -ChildPath 'alacritty'
+$alacrittyConfigPath = Join-Path -Path $alacrittyConfigDir -ChildPath 'alacritty.toml'
 
-if (!(Test-Path $alacrittyConfigPath)) {
-    Write-Bad "Failed to create Alacritty config file at $alacrittyConfigPath"
+if (!(Test-Path -Path $alacrittyConfigDir)) {
+    New-Item -ItemType Directory -Force -Path $alacrittyConfigDir
+    Write-Host "Directory created: $alacrittyConfigDir"
+} else {
+    Write-Host "Directory already exists: $alacrittyConfigDir"
 }
+
+# Write the configuration file
+Set-Content -Path $alacrittyConfigPath -Value $alacrittyConfig
+Write-Host "Configuration written to: $alacrittyConfigPath"
 
 if ((Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') {
     Write-Good "WSL is already enabled."
