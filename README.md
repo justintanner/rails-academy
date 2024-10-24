@@ -12,9 +12,9 @@ Get your computer ready for rails development.
 
 #### [:arrow_right: Mac](mac/README.md)
 
-#### [:arrow_right: Ubuntu](ubuntu/README.md)
-
 #### [:arrow_right: Windows](win/README.md)
+
+#### [:arrow_right: Ubuntu](ubuntu/README.md)
 
 ## First steps
 
@@ -26,7 +26,7 @@ Get your computer ready for rails development.
 
 ## Coming soon
 
-#### [:open_book: 101 - Make it look pretty (Animations and effects)]()
+#### [:open_book: Make it look pretty (Animations and effects)]()
 
 #### [:open_book: Make it interactive (Stimulus)]()
 
