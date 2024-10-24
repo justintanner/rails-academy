@@ -1,5 +1,3 @@
-set -e
-
 UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
 
 echo -e "Installing Rails Academy on Ubuntu...\n"

@@ -1,5 +1,3 @@
-set -e
-
 echo -e "Installing Rails Academy on a Mac...\n"
 
 echo    "Select installation mode:"

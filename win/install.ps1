@@ -124,7 +124,7 @@ startup_mode = "Maximized"
 save_to_clipboard = true
 
 [font]
-size = 12
+size = 11
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
