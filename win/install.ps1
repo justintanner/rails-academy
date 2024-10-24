@@ -71,21 +71,21 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global pull.rebase true
 
-if (Is-ProgramInstalled -programName "1password") {
+if (Is-ProgramInstalled "1password") {
     Write-Good "1Password is already installed."
 } else {
     Write-Output "Install 1password.."
     choco install 1password -y
 }
 
-if (Is-ProgramInstalled -programName "RubyMine") {
+if (Is-ProgramInstalled "RubyMine") {
     Write-Good "RubyMine is already installed."
 } else {
     Write-Output "Install rubymine.."
     choco install rubymine -y
 }
 
-if (Is-ProgramInstalled -programName "Google Chrome") {
+if (Is-ProgramInstalled "Google Chrome") {
     Write-Good "Google Chrome is already installed."
 }
 else {
@@ -93,7 +93,7 @@ else {
     choco install googlechrome -y
 }
 
-if (Is-ProgramInstalled -programName "Visual Studio Code") {
+if (Is-ProgramInstalled "Visual Studio Code") {
     Write-Good "VS Code is already installed."
 }
 else {
@@ -101,7 +101,7 @@ else {
     choco install -y vscode
 }
 
-if (Is-ProgramInstalled -programName "Alacritty") {
+if (Is-ProgramInstalled "Alacritty") {
     Write-Good "Alacritty is already installed."
 }
 else {
@@ -190,8 +190,8 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
 
 # By default wsl --list produces non-ascii characters breaking pattern matching below.
 $env:WSL_UTF8=1
-
 $wslInstalled = wsl --list
+
 if ($wslInstalled -Match '.*Ubuntu-24.*') {
     Write-Host "Ubuntu 24 is already installed."
 } else {
@@ -200,7 +200,7 @@ if ($wslInstalled -Match '.*Ubuntu-24.*') {
     wsl --set-version Ubuntu-24.04 2
 }
 
-if (Is-ProgramInstalled -programName "Docker") {
+if (Is-ProgramInstalled "Docker") {
     Write-Good "Docker is already installed."
 }
 else {

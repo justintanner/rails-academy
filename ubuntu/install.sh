@@ -27,19 +27,8 @@ else
 fi
 
 echo "Updating package lists..."
-export DEBIAN_FRONTEND=noninteractive
-sudo apt-get update -y
-
-if install_everything || prompt_install "Git"; then
-  if command -v git &> /dev/null; then
-    echo "Git is already installed."
-  else
-    echo "Git not installed. Installing..."
-    sudo apt install -y git
-  fi
-else
-  echo "Skipping Git."
-fi
+sudo apt-get update >/dev/null
+sudo apt-get install -y git >/dev/null
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
