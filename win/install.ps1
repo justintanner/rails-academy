@@ -188,15 +188,16 @@ if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).St
     Write-Good "Virtual Machine Platform is already enabled."
 }
 
-wsl --set-default-version 2
+# By default wsl --list produces non-ascii characters breaking pattern matching below.
+$env:WSL_UTF8=1
 
-$wslInstalledList = wsl --list | Out-String
-if ($wslInstalledList -notmatch '.*Ubuntu.*') {
-    Write-Host "Ubuntu is not installed. Installing Ubuntu 24.04..."
-    wsl --install -d Ubuntu-24.04
-    # wsl --set-version Ubuntu-24.04 2
+$wslInstalled = wsl --list
+if ($wslInstalled -Match '.*Ubuntu-24.*') {
+    Write-Host "Ubuntu 24 is already installed."
 } else {
-    Write-Host "Ubuntu is already installed."
+    Write-Host "Ubuntu 24 is not installed. Installing Ubuntu 24.04..."
+    wsl --install -d Ubuntu-24.04
+    wsl --set-version Ubuntu-24.04 2
 }
 
 if (-not (Is-ProgramInstalled -programName "Docker")) {
