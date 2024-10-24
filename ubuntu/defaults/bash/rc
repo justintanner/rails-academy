@@ -4,5 +4,5 @@ RA_CONFIG_PATH=~/.config/rails-academy
 source "$RA_PATH/ubuntu/defaults/bash/shell"
 source "$RA_PATH/ubuntu/defaults/bash/aliases"
 source "$RA_PATH/common/defaults/bash/prompt"
-source "$RA_PATH/defaults/bash/init"
+source "$RA_PATH/ubuntu/defaults/bash/init"
 source "$RA_CONFIG_PATH/variables"
