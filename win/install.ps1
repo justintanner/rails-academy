@@ -98,6 +98,10 @@ args = ["--cd", "~"]
 option_as_alt = "OnlyLeft"
 startup_mode = "Maximized"
 
+[[mouse.bindings]]
+mouse = "Right"
+action = "Paste"
+
 [selection]
 save_to_clipboard = true
 

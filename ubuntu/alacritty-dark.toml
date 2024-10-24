@@ -2,19 +2,19 @@
 x = 4
 y = 0
 
-[shell]
-program = "/opt/homebrew/bin/bash"
-args = ["-l"]
-
 [window]
 option_as_alt = "OnlyLeft"
 startup_mode = "Maximized"
+
+[[mouse.bindings]]
+mouse = "Right"
+action = "Paste"
 
 [selection]
 save_to_clipboard = true
 
 [font]
-size = 14
+size = 13
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
