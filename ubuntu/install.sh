@@ -92,7 +92,7 @@ if command -v mise &> /dev/null; then
 else
   if install_everything || prompt_install "Mise"; then
     echo "Installing Mise..."
-    source "$RA_PATH/install/terminal/mise.sh"
+    source "$RA_PATH/ubuntu/install/terminal/mise.sh"
   else
     echo "Skipping Mise."
   fi
