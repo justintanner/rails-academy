@@ -8,4 +8,3 @@ else
   echo "Unsupported OS: $OSTYPE"
   exit 0
 fi
-cp

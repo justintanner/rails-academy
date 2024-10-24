@@ -3,7 +3,7 @@ set -e
 UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
 
 echo -e "Installing Rails Academy on Ubuntu...\n"
-read -n 1 -s -r -p "Press any key to continue..."
+read -p "Press any key to continue..."
 
 echo    "Select installation mode:"
 echo    "  - Press Enter to install everything"
