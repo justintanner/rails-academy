@@ -1,26 +1,5 @@
 echo -e "Installing Rails Academy on a Mac...\n"
 
-echo    "Select installation mode:"
-echo    "  - Press Enter to install everything"
-echo -e "  - Type 'c' for custom install (for computer programmers)\n"
-read -rp "Enter option [Enter/c]: " install_mode
-
-install_everything() {
-  [[ -z "$install_mode" ]]
-}
-
-prompt_install() {
-  local description="$1"
-  read -rp "Install ${description}? [Y/n]: " choice
-  [[ "$choice" =~ ^[Yy]$ || "$choice" == "" ]]
-}
-
-if install_everything; then
-  echo "Installing everything..."
-else
-  echo "Custom installation..."
-fi
-
 if ! command -v brew &> /dev/null; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
@@ -34,19 +13,11 @@ else
   set -h
 fi
 
-if install_everything || prompt_install "Update Homebrew"; then
-  echo "Updating Homebrew..."
-  brew update
-else
-  echo "Skipping Homebrew update."
-fi
+echo "Updating Homebrew..."
+brew update
 
-if install_everything || prompt_install "Git"; then
-  echo "Installing Git..."
-  brew install git
-else
-  echo "Skipping Git."
-fi
+echo "Installing Git..."
+brew install git
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
@@ -77,23 +48,14 @@ brew_packages=(
 )
 
 for package in "${brew_packages[@]}"; do
-  if install_everything || prompt_install "${package}"; then
-    echo "Installing ${package}..."
-    brew install "${package}"
-  else
-    echo "Skipping ${package}."
-  fi
+  echo "Installing ${package}..."
+  brew install --quiet "${package}"
 done
 
-if install_everything || prompt_install "Terraform"; then
-  echo "Installing Terraform..."
-  brew tap hashicorp/tap
-  brew install hashicorp/tap/terraform
-else
-  echo "Skipping Terraform."
-fi
+echo "Installing Terraform..."
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraformx
 
-# Format: "cask:App Name" (App Name matches the name in /Applications)
 apps=(
   "docker:Docker"
   "alacritty:Alacritty"
@@ -108,22 +70,16 @@ for app_pair in "${apps[@]}"; do
   app="${app_pair%%:*}"
   app_name="${app_pair##*:}"
 
-  if install_everything || prompt_install "${app_name}"; then
-    if [ -e "/Applications/${app_name}.app" ]; then
-      echo "${app_name} is already installed."
-    else
-      echo "Installing ${app_name}..."
-      brew install --cask "${app}"
-      xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
-    fi
+  if [ ! -e "/Applications/${app_name}.app" ]; then
+    echo "Installing ${app_name}..."
+    brew install --cask "${app}"
+    xattr -dr com.apple.quarantine "/Applications/${app_name}.app"
   else
-    echo "Skipping ${app_name}."
+    echo "${app_name} is already installed."
   fi
 done
 
-if command -v mise &> /dev/null; then
-  good "Mise is installed."
-else
+if ! command -v mise &> /dev/null; then
   echo "Installing Mise..."
   source "$RA_PATH/mac/bash/deps"
   curl https://mise.run | sh
@@ -131,9 +87,7 @@ else
   mise activate
 fi
 
-if [ -f /usr/local/bin/rubymine ]; then
-  good "Rubymine shell script installed."
-else
+if [ ! -f /usr/local/bin/rubymine ]; then
   echo "Installing \"rubymine\" shell script..."
   sudo cp ~/.local/share/rails-academy/mac/rubymine /usr/local/bin/rubymine
   sudo chmod +x /usr/local/bin/rubymine
@@ -146,23 +100,19 @@ echo -e "\nInstalling config files..."
 install_only_if_missing $RA_PATH/common/alacritty-light.toml ~/.alacritty.toml
 install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
 
-if install_everything || prompt_install "Modify (and backup existing) bash config files"; then
-  install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
-  install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
-  install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
-  install_and_backup_old_file $RA_PATH/commmon/defaults/bash/inputrc ~/.inputrc
-fi
+install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
+install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
+install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
+install_and_backup_old_file $RA_PATH/commmon/defaults/bash/inputrc ~/.inputrc
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
 
 echo -e "\nInstalling the first Rails Academy lesson..."
 source "$RA_PATH/common/install_lessons.sh"
 
-if install_everything || prompt_install "Set bash as the default terminal"; then
-  echo "Setting bash as the default terminal..."
-  chsh -s /opt/homebrew/bin/bash
-  defaults write com.apple.Terminal Shell -string "/opt/homebrew/bin/bash"
-fi
+echo "Setting bash as the default terminal..."
+chsh -s /opt/homebrew/bin/bash
+defaults write com.apple.Terminal Shell -string "/opt/homebrew/bin/bash"
 
 echo "Setting fonts in Terminal..."
 osascript -e 'tell application "Terminal" to set font name of settings set "Basic" to "JetBrainsMonoNF-Regular"'
