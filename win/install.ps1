@@ -164,7 +164,7 @@ white   = '#005f87'
 "@
 
 $alacrittyPath = Join-Path -Path $env:APPDATA -ChildPath 'Roaming\alacritty'
-$alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
+$alacrittyConfigPath = "$env:APPDATA\alacritty\alacritty.toml"
 
 if (Test-Path $alacrittyConfigPath) {
     Write-Good "Alacritty configuration is already set."
