@@ -106,7 +106,7 @@ install_and_backup_old_file $RA_PATH/common/defaults/bash/inputrc ~/.inputrc
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
 
-echo -e "\nInstalling the first Rails Academy lesson..."
+echo -e "\nInstalling Rails Academy lessons..."
 source "$RA_PATH/common/install_lessons.sh"
 
 echo -e "\n"
