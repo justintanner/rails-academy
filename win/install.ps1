@@ -34,30 +34,30 @@ function Is-ProgramInstalled {
         "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
     )
 
-    Write-Output "Checking for program: $programName"
+    Write-Host "Checking for program: $programName"
 
     foreach ($path in $registryPaths) {
-        Write-Output "Searching in registry path: $path"
+        Write-Host "Searching in registry path: $path"
         try {
             $installedPrograms = Get-ItemProperty -Path $path -ErrorAction SilentlyContinue | Select-Object -ExpandProperty DisplayName -ErrorAction SilentlyContinue
-            Write-Output "Found installed programs in path: $path"
+            Write-Host "Found installed programs in path: $path"
 
             foreach ($program in $installedPrograms) {
-                Write-Output "Installed program found: $program"
+                Write-Host "Installed program found: $program"
             }
 
             foreach ($program in $installedPrograms) {
                 if ($program -match "(?i)$programName") {
-                    Write-Output "Match found for: $programName in $program"
+                    Write-Host "Match found for: $programName in $program"
                     return $true
                 }
             }
         }
         catch {
-            Write-Output "Failed to read from path: $path"
+            Write-Host "Failed to read from path: $path"
         }
     }
-    Write-Output "No match found for: $programName"
+    Write-Host "No match found for: $programName"
     return $false
 }
 
