@@ -65,7 +65,6 @@ if [ "$UBUNTU_DESKTOP" = true ]; then
   desktops=(
     "terminal/docker:docker"
     "desktop/app-chrome:google-chrome"
-    "desktop/optional/app-1password:1password"
     "desktop/optional/app-rubymine:rubymine"
     "desktop/optional/app-zoom:zoom"
   )

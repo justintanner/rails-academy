@@ -61,36 +61,14 @@ function Is-ProgramInstalled {
     return $false
 }
 
-Write-Output "Install utils.."
-choco install git wget nerd-fonts-jetbrainsmono -y
-
-Write-Good "Setting git defaults..."
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global pull.rebase true
-
-if (Is-ProgramInstalled "1password") {
-    Write-Good "1Password is already installed."
-} else {
-    Write-Output "Install 1password.."
-    choco install 1password -y
-}
+Write-Output "Install nerd fonts.."
+choco install nerd-fonts-jetbrainsmono -y
 
 if (Is-ProgramInstalled "RubyMine") {
     Write-Good "RubyMine is already installed."
 } else {
     Write-Output "Install rubymine.."
     choco install rubymine -y
-}
-
-if (Is-ProgramInstalled "Google Chrome") {
-    Write-Good "Google Chrome is already installed."
-}
-else {
-    Write-Output "Install Google Chrome.."
-    choco install googlechrome -y
 }
 
 if (Is-ProgramInstalled "Visual Studio Code") {

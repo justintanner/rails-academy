@@ -59,10 +59,8 @@ brew install hashicorp/tap/terraformx
 apps=(
   "docker:Docker"
   "alacritty:Alacritty"
-  "1password:1Password"
   "rubymine:RubyMine"
   "vscode:Visual Studio Code"
-  "google-chrome:Google Chrome"
   "zoom:zoom.us"
 )
 
