@@ -166,28 +166,28 @@ white   = '#005f87'
 $alacrittyPath = Join-Path -Path $env:APPDATA -ChildPath 'Roaming\alacritty'
 $alacrittyConfigPath = "$env:APPDATA\Roaming\alacritty\alacritty.toml"
 
-if (!(Test-Path $alacrittyConfigPath)) {
+if (Test-Path $alacrittyConfigPath) {
+    Write-Good "Alacritty configuration is already set."
+} else {
     New-Item -ItemType Directory -Force -Path $alacrittyPath
     Set-Content -Path $alacrittyConfigPath -Value $alacrittyConfig
     Write-Good "Alacritty configuration is set."
-} else {
-    Write-Good "Alacritty configuration is already set."
 }
 
-if (!(Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') {
+if ((Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') {
+    Write-Good "WSL is already enabled."
+} else {
     Write-Host "WSL is not enabled. Enabling WSL..."
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
     Write-Good "WSL is enabled."
-} else {
-    Write-Good "WSL is already enabled."
 }
 
-if (!(Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).State -eq 'Enabled') {
+if ((Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).State -eq 'Enabled') {
+    Write-Good "Virtual Machine Platform is already enabled."
+} else {
     Write-Host "Virtual Machine Platform is not enabled. Enabling..."
     Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
     Write-Good "Virtual Machine Platform is enabled."
-} else {
-    Write-Good "Virtual Machine Platform is already enabled."
 }
 
 # By default wsl --list produces non-ascii characters breaking pattern matching below.
@@ -204,8 +204,7 @@ if ($wslInstalled -Match '.*Ubuntu-24.*') {
 
 if (Is-ProgramInstalled "Docker") {
     Write-Good "Docker is already installed."
-}
-else {
+} else {
     Write-Output "Install Docker.."
     choco install -y docker-desktop
 }
