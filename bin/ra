@@ -85,15 +85,14 @@ function theme() {
         exit 1
     fi
 
-    # Remove the old theme content from the file
-    if [[ "$(platform)" = "mac" ]]; then
-        sed -i '' -e '/# THEME_START/,/# THEME_END/d' "$config_file"
-    else
-        sed -i -e '/# THEME_START/,/# THEME_END/d' "$config_file"
-    fi
+    # Extract everything before # THEME_START
+    pre_theme_content=$(sed -n '/# THEME_START/q;p' "$config_file")
 
-    # Append the new theme content to the end of the file
-    echo "$theme_content" >> "$config_file"
+    # Combine the pre-theme content with the new theme content
+    new_content="${pre_theme_content}\n${theme_content}\n"
+
+    # Override the config file with the new content
+    echo -e "$new_content" > "$config_file"
 }
 
 function font() {
