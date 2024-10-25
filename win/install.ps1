@@ -105,12 +105,15 @@ action = "Paste"
 [selection]
 save_to_clipboard = true
 
-[font]
-size = 11
-
 [font.normal]
 family = "JetBrainsMono Nerd Font"
 
+### START FONT ###
+[font]
+size = 11
+### END FONT ###
+
+### START THEME ###
 # Colors (PaperColor - Light)
 
 # Default colors
@@ -143,6 +146,7 @@ blue    = '#d75f00'
 magenta = '#d75f00'
 cyan    = '#005faf'
 white   = '#005f87'
+### END THEME ###
 "@
 
 $alacrittyConfigDir = Join-Path -Path $env:APPDATA -ChildPath 'alacritty'

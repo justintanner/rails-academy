@@ -1,24 +1,3 @@
-[window.padding]
-x = 4
-y = 0
-
-[window]
-option_as_alt = "OnlyLeft"
-startup_mode = "Maximized"
-
-[[mouse.bindings]]
-mouse = "Right"
-action = "Paste"
-
-[selection]
-save_to_clipboard = true
-
-[font]
-size = 13
-
-[font.normal]
-family = "JetBrainsMono Nerd Font"
-
 # Colors (PaperColor - Light)
 
 # Default colors

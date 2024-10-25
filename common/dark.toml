@@ -1,24 +1,3 @@
-[shell]
-program = "wsl"
-args = ["--cd", "~"]
-osc52 = "CopyPaste"
-
-[window]
-option_as_alt = "OnlyLeft"
-startup_mode = "Maximized"
-
-[[mouse.bindings]]
-mouse = "Right"
-action = "Paste"
-
-[selection]
-save_to_clipboard = true
-
-[font]
-size = 11
-
-[font.normal]
-family = "JetBrainsMono Nerd Font"
 # Colors (PaperColor - Dark)
 
 # Default colors

@@ -3,6 +3,7 @@
 # ra - A CLI tool for Rails Academy
 
 UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
+WSL=$([[ -d /mnt/c/Users ]] && echo true || echo false)
 
 function show_help() {
     echo "Usage: ra [command] [arguments]"
@@ -11,6 +12,7 @@ function show_help() {
     echo "  details             Show details about current Rails Academy config."
     echo "  light               Switch to the light color theme."
     echo "  dark                Switch to the dark color theme."
+    echo "  font [10-99]        Change the terminal font size."
     echo "  update              Update Rails Academy to the latest version."
     echo "  verify              Verify your setup."
 }
@@ -34,22 +36,78 @@ function please_reinstall_message() {
   exit 1
 }
 
-function help {
+function help() {
   echo "usage: app_cli <login | help>"
 }
 
-function theme() {
-    echo "Switching to the $1 theme..."
-    if [ -d /mnt/c/Users ]; then
+function current_alacritty_config() {
+    config_file=~/.alacritty.toml
+
+    if [ "$WSL" = true ]; then
         windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
         WSL_ALACRITTY_PATH=/mnt/c/Users/$windows_username/AppData/Roaming/alacritty
         mkdir -p $WSL_ALACRITTY_PATH
 
-        cp ~/.local/share/rails-academy/win/alacritty-$1.toml $WSL_ALACRITTY_PATH/alacritty.toml
+        config_file=$WSL_ALACRITTY_PATH/alacritty.toml
+    fi
+
+    if [ -f "$config_file" ]; then
+        original_config_path=$RAILS_ACADEMY_PATH/$(platform)/alacritty.toml
+        cp $original_config_path $config_file
+    fi
+
+     echo $config_file
+}
+
+function theme() {
+    theme=$1
+    config_file=$(current_alacritty_config)
+    theme_content=$(<"$RAILS_ACADEMY_PATH/common/$theme.toml")
+
+    # Use sed to replace the block in the config file
+    sed -i "/### START THEME ###/,/### END THEME ###/c\\
+    ### START THEME ###\\
+    $theme_content\\
+    ### END THEME ###
+    " "$config_file"
+
+    echo "Switched to $theme theme."
+}
+
+function font() {
+    font_size=$1
+    config_file=$(current_alacritty_config)
+
+    if [ -z "$font_size" ]; then
+        echo "Error: Font size is required."
+        echo "Usage: ra font [10-99]"
+        exit 1
+    fi
+
+    if [ "$font_size" -lt 10 ] || [ "$font_size" -gt 99 ]; then
+        echo "Error: Font size must be between 10 and 99."
+        exit 1
+    fi
+
+    font_content="[font]\nsize = $font_size\n"
+
+    # Use sed to replace the block in the config file
+    sed -i "/### START FONT ###/,/### END FONT ###/c\\
+    ### START FONT ###\\
+    $font_content\\
+    ### END FONT ###
+    " "$config_file"
+
+    echo "Switched to $font_size font size."
+}
+
+function platform() {
+    if [ "$WSL" = true ]; then
+        echo "win"
     elif [ "$UBUNTU_DESKTOP" = true ]; then
-        cp ~/.local/share/rails-academy/ubuntu/alacritty-$1.yml ~/.config/alacritty/alacritty.yml
+        echo "ubuntu"
     else
-        cp ~/.local/share/rails-academy/mac/alacritty-$1.toml ~/.alacritty.toml
+        echo "mac"
     fi
 }
 
@@ -85,8 +143,7 @@ function current_theme() {
 function details() {
     echo "Rails Academy Details:"
     echo "    Version: ${RAILS_ACADEMY_VERSION:-Unknown}"
-    echo "   Platform: $(uname -s | sed 's/_NT-.*$/_WSL/')"
-    echo "Color Theme: $(current_theme)"
+    echo "   Platform: $(platform)"
     echo -e "\n"
     verify
 }
@@ -105,6 +162,9 @@ case $1 in
         ;;
     dark)
         dark
+        ;;
+    font)
+        font $2
         ;;
     upgrade)
         update
