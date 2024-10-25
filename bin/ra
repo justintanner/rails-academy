@@ -95,7 +95,7 @@ function font() {
         exit 1
     fi
 
-    sed -i -E "s/^( *size: *).*/\1$font_size/" "$config_file"
+    sed -i "s/^ *size: *[0-9]*/size: $font_size/" "$config_file"
 
     echo "Switched to $font_size font size."
 }
