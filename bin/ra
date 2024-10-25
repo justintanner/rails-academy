@@ -64,6 +64,9 @@ function theme() {
     config_file=$(current_alacritty_config)
     theme_content=$(<"$RAILS_ACADEMY_PATH/common/$theme.toml")
 
+    # Escape special characters in theme_content
+    theme_content=$(echo "$theme_content" | sed 's/[&/\]/\\&/g')
+
     # Use sed to replace the block in the config file
     sed -i '' "/### START THEME ###/,/### END THEME ###/c\\
 ### START THEME ###\\
@@ -89,7 +92,10 @@ function font() {
         exit 1
     fi
 
-    font_content="[font]\nsize = $font_size\n"
+    font_content="[font]\\nsize = $font_size\\n"
+
+    # Escape special characters in font_content
+    font_content=$(echo "$font_content" | sed 's/[&/\]/\\&/g')
 
     # Use sed to replace the block in the config file
     sed -i '' "/### START FONT ###/,/### END FONT ###/c\\
