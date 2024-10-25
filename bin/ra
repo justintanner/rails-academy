@@ -70,18 +70,15 @@ function theme() {
         exit 1
     fi
 
-    # Use sed to replace the theme content in the config file
+    # Remove the old theme content from the file
     if [[ "$(platform)" = "mac" ]]; then
-        # Remove old theme content between THEME_START and THEME_END
-        sed -i '' -e '/# THEME_START/,/# THEME_END/{/# THEME_START/!{/# THEME_END/!d}}' "$config_file"
-        # Insert new theme content after THEME_START
-        sed -i '' -e "/# THEME_START/r /dev/stdin" "$config_file" <<< "$theme_content"
+        sed -i '' -e '/# THEME_START/,/# THEME_END/d' "$config_file"
     else
-        # Remove old theme content between THEME_START and THEME_END
-        sed -i -e '/# THEME_START/,/# THEME_END/{/# THEME_START/!{/# THEME_END/!d}}' "$config_file"
-        # Insert new theme content after THEME_START
-        sed -i -e "/# THEME_START/r /dev/stdin" "$config_file" <<< "$theme_content"
+        sed -i -e '/# THEME_START/,/# THEME_END/d' "$config_file"
     fi
+
+    # Append the new theme content to the end of the file
+    echo "$theme_content" >> "$config_file"
 }
 
 function font() {
