@@ -64,15 +64,18 @@ function theme() {
     config_file=$(current_alacritty_config)
     theme_content=$(<"$RAILS_ACADEMY_PATH/common/$theme.toml")
 
-    # Escape special characters in theme_content
-    theme_content=$(echo "$theme_content" | sed 's/[&/\]/\\&/g')
+    # Escape backslashes and ampersands in theme_content
+    theme_content=$(echo "$theme_content" | sed 's/[\/&]/\\&/g')
 
-    # Use sed to replace the block in the config file
-    sed -i '' "/### START THEME ###/,/### END THEME ###/c\\
-### START THEME ###\\
-$theme_content\\
-### END THEME ###
-" "$config_file"
+    # Use a temporary file to handle the replacement safely
+    tmp_file=$(mktemp)
+
+    # Use awk for multi-line replacement
+    awk -v theme="$theme_content" '
+        /### START THEME ###/ { print; print theme; in_theme=1; next }
+        /### END THEME ###/ { print; in_theme=0; next }
+        !in_theme
+    ' "$config_file" > "$tmp_file" && mv "$tmp_file" "$config_file"
 
     echo "Switched to $theme theme."
 }
@@ -92,17 +95,20 @@ function font() {
         exit 1
     fi
 
-    font_content="[font]\\nsize = $font_size\\n"
+    font_content="[font]\nsize = $font_size"
 
-    # Escape special characters in font_content
-    font_content=$(echo "$font_content" | sed 's/[&/\]/\\&/g')
+    # Escape backslashes and ampersands in font_content
+    font_content=$(echo "$font_content" | sed 's/[\/&]/\\&/g')
 
-    # Use sed to replace the block in the config file
-    sed -i '' "/### START FONT ###/,/### END FONT ###/c\\
-### START FONT ###\\
-$font_content\\
-### END FONT ###
-" "$config_file"
+    # Use a temporary file to handle the replacement safely
+    tmp_file=$(mktemp)
+
+    # Use awk for multi-line replacement
+    awk -v font="$font_content" '
+        /### START FONT ###/ { print; print font; in_font=1; next }
+        /### END FONT ###/ { print; in_font=0; next }
+        !in_font
+    ' "$config_file" > "$tmp_file" && mv "$tmp_file" "$config_file"
 
     echo "Switched to $font_size font size."
 }
