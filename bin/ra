@@ -58,7 +58,7 @@ function current_alacritty_config() {
         WSL_ALACRITTY_PATH="/mnt/c/Users/$windows_username/AppData/Roaming/alacritty"
         # mkdir -p "$WSL_ALACRITTY_PATH/"
 
-        config_file=$WSL_ALACRITTY_PATH/alacritty.toml
+        config_file="$WSL_ALACRITTY_PATH/alacritty.toml"
     fi
 
     if [ ! -f "$config_file" ]; then
