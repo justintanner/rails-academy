@@ -22,7 +22,7 @@ function show_help() {
     echo "  details             Show details about current Rails Academy config."
     echo "  light               Switch to the light color theme."
     echo "  dark                Switch to the dark color theme."
-    echo "  font [10-99]        Change the terminal font size."
+    echo "  font [8-99]        Change the terminal font size."
     echo "  update              Update Rails Academy to the latest version."
     echo "  verify              Verify your setup."
 }
@@ -101,11 +101,11 @@ function font() {
 
     if [ -z "$font_size" ]; then
         echo "Error: Font size is required."
-        echo "Usage: ra font [10-99]"
+        echo "Usage: ra font [8-99]"
         exit 1
     fi
 
-    if [ "$font_size" -lt 10 ] || [ "$font_size" -gt 99 ]; then
+    if [ "$font_size" -lt 8 ] || [ "$font_size" -gt 99 ]; then
         echo "Error: Font size must be between 10 and 99."
         exit 1
     fi
