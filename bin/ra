@@ -95,20 +95,7 @@ function font() {
         exit 1
     fi
 
-    font_content="[font]\nsize = $font_size"
-
-    # Escape backslashes and ampersands in font_content
-    font_content=$(echo "$font_content" | sed 's/[\/&]/\\&/g')
-
-    # Use a temporary file to handle the replacement safely
-    tmp_file=$(mktemp)
-
-    # Use awk for multi-line replacement
-    awk -v font="$font_content" '
-        /### START FONT ###/ { print; print font; in_font=1; next }
-        /### END FONT ###/ { print; in_font=0; next }
-        !in_font
-    ' "$config_file" > "$tmp_file" && mv "$tmp_file" "$config_file"
+    sed -i -E "s/^( *size: *).*/\1$font_size/" "$config_file"
 
     echo "Switched to $font_size font size."
 }

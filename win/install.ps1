@@ -108,10 +108,8 @@ save_to_clipboard = true
 [font.normal]
 family = "JetBrainsMono Nerd Font"
 
-### START FONT ###
 [font]
 size = 11
-### END FONT ###
 
 ### START THEME ###
 # Colors (PaperColor - Light)
