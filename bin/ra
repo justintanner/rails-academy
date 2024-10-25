@@ -65,11 +65,11 @@ function theme() {
     theme_content=$(<"$RAILS_ACADEMY_PATH/common/$theme.toml")
 
     # Use sed to replace the block in the config file
-    sed -i "/### START THEME ###/,/### END THEME ###/c\\
-    ### START THEME ###\\
-    $theme_content\\
-    ### END THEME ###
-    " "$config_file"
+    sed -i '' "/### START THEME ###/,/### END THEME ###/c\\
+### START THEME ###\\
+$theme_content\\
+### END THEME ###
+" "$config_file"
 
     echo "Switched to $theme theme."
 }
@@ -92,11 +92,11 @@ function font() {
     font_content="[font]\nsize = $font_size\n"
 
     # Use sed to replace the block in the config file
-    sed -i "/### START FONT ###/,/### END FONT ###/c\\
-    ### START FONT ###\\
-    $font_content\\
-    ### END FONT ###
-    " "$config_file"
+    sed -i '' "/### START FONT ###/,/### END FONT ###/c\\
+### START FONT ###\\
+$font_content\\
+### END FONT ###
+" "$config_file"
 
     echo "Switched to $font_size font size."
 }
