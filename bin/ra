@@ -95,7 +95,11 @@ function font() {
         exit 1
     fi
 
-    sed -i "s/^ *size: *[0-9]*/size: $font_size/" "$config_file"
+    if [[ "$(platform)" = "mac" ]]; then
+      sed -i '' "s/^ *size: *[0-9]*/size: $font_size/" "$config_file"
+    else
+      sed -i "s/^ *size: *[0-9]*/size: $font_size/" "$config_file"
+    fi
 
     echo "Switched to $font_size font size."
 }
