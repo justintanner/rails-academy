@@ -1,3 +1,4 @@
+# THEME_START
 # Colors (PaperColor - Light)
 
 # Default colors
@@ -30,3 +31,4 @@ blue    = '#d75f00'
 magenta = '#d75f00'
 cyan    = '#005faf'
 white   = '#005f87'
+# THEME_END

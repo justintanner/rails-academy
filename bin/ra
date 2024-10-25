@@ -82,8 +82,6 @@ function theme() {
         # Insert new theme content after THEME_START
         sed -i -e "/# THEME_START/r /dev/stdin" "$config_file" <<< "$theme_content"
     fi
-
-    echo "Switched to $theme theme."
 }
 
 function font() {
@@ -102,12 +100,10 @@ function font() {
     fi
 
     if [[ "$(platform)" = "mac" ]]; then
-      sed -i '' -e "s/size.*=.*[0-9]+/size = $font_size/" "$config_file"
+      sed -i '' -e "s/size.*=.*[0-9]/size = $font_size/" "$config_file"
     else
-      sed -i -e "s/size.*=.*[0-9]+/size = $font_size/" "$config_file"
+      sed -i -e "s/size.*=.*[0-9]/size = $font_size/" "$config_file"
     fi
-
-    echo "Switched to $font_size font size."
 }
 
 function platform() {
