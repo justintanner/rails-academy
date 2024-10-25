@@ -55,8 +55,8 @@ function current_alacritty_config() {
 
     if [ "$WSL" = true ]; then
         windows_username=$(echo $PATH | grep -oP '/mnt/c/Users/\K[^/]+')
-        WSL_ALACRITTY_PATH=/mnt/c/Users/$windows_username/AppData/Roaming/alacritty
-        mkdir -p "$WSL_ALACRITTY_PATH/"
+        WSL_ALACRITTY_PATH="/mnt/c/Users/$windows_username/AppData/Roaming/alacritty"
+        # mkdir -p "$WSL_ALACRITTY_PATH/"
 
         config_file=$WSL_ALACRITTY_PATH/alacritty.toml
     fi
