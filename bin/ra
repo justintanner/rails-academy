@@ -5,6 +5,16 @@
 UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
 WSL=$([[ -d /mnt/c/Users ]] && echo true || echo false)
 
+function platform() {
+    if [ "$WSL" = true ]; then
+        echo "win"
+    elif [ "$UBUNTU_DESKTOP" = true ]; then
+        echo "ubuntu"
+    else
+        echo "mac"
+    fi
+}
+
 function show_help() {
     echo "Usage: ra [command] [arguments]"
     echo ""
@@ -52,7 +62,7 @@ function current_alacritty_config() {
     fi
 
     if [ ! -f "$config_file" ]; then
-        echo "Config file is empty. Copying default config to $config_file"
+        echo "Config file is empty, rebuilding..."
         original_config_path=$RAILS_ACADEMY_PATH/$(platform)/alacritty.toml
         cp $original_config_path $config_file
     fi
@@ -101,16 +111,6 @@ function font() {
       sed -i '' -e "s/size.*=.*[0-9]/size = $font_size/" "$config_file"
     else
       sed -i -e "s/size.*=.*[0-9]/size = $font_size/" "$config_file"
-    fi
-}
-
-function platform() {
-    if [ "$WSL" = true ]; then
-        echo "win"
-    elif [ "$UBUNTU_DESKTOP" = true ]; then
-        echo "ubuntu"
-    else
-        echo "mac"
     fi
 }
 
