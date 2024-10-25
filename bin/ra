@@ -67,7 +67,7 @@ function current_alacritty_config() {
         cp "$original_config_path" "$config_file"
     fi
 
-     echo "$config_file"
+    echo "$config_file"
 }
 
 function theme() {
@@ -77,6 +77,11 @@ function theme() {
 
     if [ -z "$theme" ]; then
         echo "Error: Theme is required."
+        exit 1
+    fi
+
+    if [ ! -f "$config_file" ]; then
+        echo "Error: Alacritty config file not found."
         exit 1
     fi
 
