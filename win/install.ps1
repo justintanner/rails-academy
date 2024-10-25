@@ -111,7 +111,7 @@ family = "JetBrainsMono Nerd Font"
 [font]
 size = 11
 
-### START THEME ###
+# THEME_START
 # Colors (PaperColor - Light)
 
 # Default colors
@@ -144,7 +144,7 @@ blue    = '#d75f00'
 magenta = '#d75f00'
 cyan    = '#005faf'
 white   = '#005f87'
-### END THEME ###
+# THEME_END
 "@
 
 $alacrittyConfigDir = Join-Path -Path $env:APPDATA -ChildPath 'alacritty'

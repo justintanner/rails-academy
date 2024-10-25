@@ -64,18 +64,24 @@ function theme() {
     config_file=$(current_alacritty_config)
     theme_content=$(<"$RAILS_ACADEMY_PATH/common/$theme.toml")
 
-    # Escape backslashes and ampersands in theme_content
-    theme_content=$(echo "$theme_content" | sed 's/[\/&]/\\&/g')
+    if [ -z "$theme" ]; then
+        echo "Error: Theme is required."
+        echo "Usage: ra theme [light|dark]"
+        exit 1
+    fi
 
-    # Use a temporary file to handle the replacement safely
-    tmp_file=$(mktemp)
-
-    # Use awk for multi-line replacement
-    awk -v theme="$theme_content" '
-        /### START THEME ###/ { print; print theme; in_theme=1; next }
-        /### END THEME ###/ { print; in_theme=0; next }
-        !in_theme
-    ' "$config_file" > "$tmp_file" && mv "$tmp_file" "$config_file"
+    # Use sed to replace the theme content in the config file
+    if [[ "$(platform)" = "mac" ]]; then
+        # Remove old theme content between THEME_START and THEME_END
+        sed -i '' -e '/# THEME_START/,/# THEME_END/{/# THEME_START/!{/# THEME_END/!d}}' "$config_file"
+        # Insert new theme content after THEME_START
+        sed -i '' -e "/# THEME_START/r /dev/stdin" "$config_file" <<< "$theme_content"
+    else
+        # Remove old theme content between THEME_START and THEME_END
+        sed -i -e '/# THEME_START/,/# THEME_END/{/# THEME_START/!{/# THEME_END/!d}}' "$config_file"
+        # Insert new theme content after THEME_START
+        sed -i -e "/# THEME_START/r /dev/stdin" "$config_file" <<< "$theme_content"
+    fi
 
     echo "Switched to $theme theme."
 }
@@ -96,9 +102,9 @@ function font() {
     fi
 
     if [[ "$(platform)" = "mac" ]]; then
-      sed -i '' "s/^ *size: *[0-9]*/size: $font_size/" "$config_file"
+      sed -i '' -e "s/size.*=.*[0-9]+/size = $font_size/" "$config_file"
     else
-      sed -i "s/^ *size: *[0-9]*/size: $font_size/" "$config_file"
+      sed -i -e "s/size.*=.*[0-9]+/size = $font_size/" "$config_file"
     fi
 
     echo "Switched to $font_size font size."
@@ -137,10 +143,6 @@ function verify() {
         echo "Please launch Docker and try again."
         exit 1
     fi
-}
-
-function current_theme() {
-    grep 'import' ~/.alacritty.toml | sed -E 's|import = \[".*/(.*)\.toml"\]|\1|'
 }
 
 function details() {
