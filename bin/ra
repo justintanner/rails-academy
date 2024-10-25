@@ -51,9 +51,9 @@ function current_alacritty_config() {
         config_file=$WSL_ALACRITTY_PATH/alacritty.toml
     fi
 
-    if [ -f "$config_file" ]; then
-        original_config_path=$RAILS_ACADEMY_PATH/$(platform)/alacritty.toml
+    if [ ! -f "$config_file" ]; then
         echo "Config file is empty. Copying default config to $config_file"
+        original_config_path=$RAILS_ACADEMY_PATH/$(platform)/alacritty.toml
         cp $original_config_path $config_file
     fi
 
