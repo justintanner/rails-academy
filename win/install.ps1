@@ -197,4 +197,4 @@ if (Is-ProgramInstalled "Docker") {
 }
 
 Write-Good "Rails Academy (part one) successfully installed."
-Write-Host "\r\nPlease Restart your computer..."
+Write-Host "Please Restart your computer..."
