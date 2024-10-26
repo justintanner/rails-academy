@@ -1,4 +1,4 @@
-[terminal.shell]
+[shell]
 program = "wsl"
 args = ["--cd", "~"]
 
