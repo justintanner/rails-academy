@@ -1,7 +1,6 @@
-[shell]
+[terminal]
 program = "wsl"
 args = ["--cd", "~"]
-osc52 = "CopyPaste"
 
 [window]
 option_as_alt = "OnlyLeft"
