@@ -101,7 +101,7 @@ install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variab
 install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
 install_and_backup_old_file $RA_PATH/mac/.bashrc ~/.bashrc
 install_and_backup_old_file $RA_PATH/common/.zshrc ~/.zshrc
-install_and_backup_old_file $RA_PATH/commmon/defaults/bash/inputrc ~/.inputrc
+install_and_backup_old_file $RA_PATH/common/defaults/bash/inputrc ~/.inputrc
 
 source "$RA_PATH/common/ruby3_and_rails8.sh"
 
