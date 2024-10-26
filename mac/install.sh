@@ -61,7 +61,6 @@ apps=(
   "alacritty:Alacritty"
   "rubymine:RubyMine"
   "vscode:Visual Studio Code"
-  "zoom:zoom.us"
 )
 
 for app_pair in "${apps[@]}"; do
