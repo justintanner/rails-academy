@@ -58,7 +58,6 @@ brew install hashicorp/tap/terraformx
 
 apps=(
   "docker:Docker"
-  "alacritty:Alacritty"
   "rubymine:RubyMine"
   "vscode:Visual Studio Code"
 )
@@ -75,6 +74,10 @@ for app_pair in "${apps[@]}"; do
     echo "${app_name} is already installed."
   fi
 done
+
+echo "Installing / Updating Alacritty..."
+brew install --cask alacritty
+xattr -dr com.apple.quarantine "/Applications/Alacritty.app"
 
 if ! command -v mise &> /dev/null; then
   echo "Installing Mise..."
