@@ -44,7 +44,7 @@ source "$RA_PATH/common/install/terminal/set-git.sh"
 brew_packages=(
   fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr
   ruby-build bash-completion imagemagick vips libpq mysql-client sqlite3
-  font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver
+  font-hack-nerd-font font-jetbrains-mono-nerd-font
 )
 
 for package in "${brew_packages[@]}"; do
