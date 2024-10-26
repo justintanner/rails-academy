@@ -27,7 +27,7 @@ Then copy and paste this command to install Rails Academy:
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/justintanner/rails-academy/stable/win/install.ps1'))
 ```
 
-#### 4. Restart your PC
+### 4. Restart your PC
 
 After restarting **Ubuntu** and **Docker** should open automatically.
 
