@@ -1,36 +1,36 @@
 # How to setup a Mac for Rails
 
-## Xcode
+### 1. Install Xcode
 
 We need [Xcode](https://developer.apple.com/xcode/) to help install Homebrew.
 
-1. Open the App Store from your Applications folder
-2. Search for Xcode
-3. Click the Get button to install Xcode
-4. Open Xcode from your Applications folder
-5. Accept the license agreement
+- Open the App Store from your Applications folder
+- Search for Xcode
+- Click the Get button to install Xcode
+- Open Xcode from your Applications folder
+- Accept the license agreement
 
-## Install XCode Command Line Tools
+### 2. Install XCode Command Line Tools
 
-1. Open Terminal from your Applications folder
-2. Copy and paste the following into the Terminal window
+- Open Terminal from your Applications folder
+- Copy and paste the following into the Terminal window
 
 ```bash
 xcode-select --install
 ```
 
-3. Follow the prompts to install the command line tools
+Follow the prompts to install the command line tools
 
-## Homebrew
+### 3. Homebrew
 
-1. Open Terminal from your Applications folder
-2. Copy and paste the following into the Terminal window
+- Open Terminal from your Applications folder
+- Copy and paste the following into the Terminal window
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-## Rails Academy
+### 4. Install Rails Academy
 
 In the same Terminal window copy and paste into the following, and press Enter:
 
@@ -40,7 +40,7 @@ curl -fsSL https://rails.academy/install | bash
 
 **NOTE: You will be prompted multiple times to enter your mac password.**
 
-## Docker
+### 5. Docker
 
 Almost there, one more thing. 
 
