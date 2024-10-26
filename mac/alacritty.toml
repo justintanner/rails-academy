@@ -2,7 +2,7 @@
 x = 4
 y = 0
 
-[shell]
+[terminal.shell]
 program = "/opt/homebrew/bin/bash"
 args = ["-l"]
 
