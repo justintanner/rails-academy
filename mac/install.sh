@@ -43,13 +43,13 @@ source "$RA_PATH/common/install/terminal/set-git.sh"
 
 brew_packages=(
   fzf ripgrep bash bat eza zoxide btop httpd fastfetch fd gh tldr
-  ruby-build bash-completion imagemagick vips libpq mysql-client sqlite3 1password-cli
+  ruby-build bash-completion imagemagick vips libpq mysql-client sqlite3
   font-hack-nerd-font font-jetbrains-mono-nerd-font chromedriver
 )
 
 for package in "${brew_packages[@]}"; do
   echo "Installing ${package}..."
-  brew install --quiet "${package}"
+  brew install "${package}"
 done
 
 echo "Installing Terraform..."
@@ -94,7 +94,8 @@ echo "Installing gitstatus..."
 source "$RA_PATH/common/install/terminal/gitstatus.sh"
 
 echo -e "\nInstalling config files..."
-install_only_if_missing $RA_PATH/mac/alacritty-light.toml ~/.alacritty.toml
+install_and_backup_old_file $RA_PATH/mac/alacritty.toml ~/.alacritty.toml
+
 install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
 
 install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
