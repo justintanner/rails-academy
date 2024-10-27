@@ -95,8 +95,9 @@ source "$RA_PATH/common/install/terminal/gitstatus.sh"
 
 echo -e "\nInstalling config files..."
 if [ "$UBUNTU_DESKTOP" = true ]; then
-  install_only_if_missing $RA_PATH/ubuntu/alacritty-light.toml ~/.alacritty.toml
+  install_and_backup_old_file $RA_PATH/ubuntu/alacritty.toml ~/.alacritty.toml
 fi
+
 install_only_if_missing $RA_PATH/common/variables ~/.config/rails-academy/variables
 
 install_and_backup_old_file $RA_PATH/common/.bash_profile ~/.bash_profile
