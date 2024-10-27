@@ -2,4 +2,4 @@ WSL=$([[ -d /mnt/c/Users ]] && echo true || echo false)
 
 if [ "$WSL" = true ]; then
     alias rubymine='RUBYMINE_DIR="/mnt/c/Program Files (x86)/JetBrains"; RUBYMINE_PATH=$(find "$RUBYMINE_DIR" -maxdepth 1 -type d -name "RubyMine*" | head -n 1); [ -n "$RUBYMINE_PATH" ] && RUBYMINE_WINDOWS_PATH=$(wslpath -w "$RUBYMINE_PATH/bin/rubymine64.exe") && cmd.exe /C start "" "$RUBYMINE_WINDOWS_PATH"'
-end
+fi
