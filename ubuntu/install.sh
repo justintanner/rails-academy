@@ -1,4 +1,5 @@
 UBUNTU_DESKTOP=$([[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]] && echo true || echo false)
+WSL=$([[ -d /mnt/c/Users ]] && echo true || echo false)
 
 echo -e "Installing Rails Academy on Ubuntu...\n"
 
@@ -107,6 +108,12 @@ source "$RA_PATH/common/ruby3_and_rails8.sh"
 
 echo -e "\nInstalling Rails Academy lessons..."
 source "$RA_PATH/common/install_lessons.sh"
+
+if [ "$WSL" = true ]; then
+  echo "Connecting VS Code to WSL..."
+  # Install WSL to VS Code extension
+  code
+fi
 
 echo -e "\n"
 good "Successfully installed Rails Academy!\n"
