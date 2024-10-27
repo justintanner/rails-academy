@@ -66,7 +66,7 @@ if [ "$UBUNTU_DESKTOP" = true ]; then
   desktops=(
     "terminal/docker:docker"
     "desktop/optional/app-rubymine:rubymine"
-    "defaults/app-vscode:code"
+    "desktop/app-vscode:code"
   )
 
   echo "Installing desktop apps..."
