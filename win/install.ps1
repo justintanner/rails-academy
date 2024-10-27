@@ -61,8 +61,8 @@ function Is-ProgramInstalled {
     return $false
 }
 
-Write-Output "Install nerd fonts.."
-choco install nerd-fonts-jetbrainsmono -y
+Write-Output "Install nerd fonts and git.."
+choco install nerd-fonts-jetbrainsmono git -y
 
 if (Is-ProgramInstalled "RubyMine") {
     Write-Good "RubyMine is already installed."
