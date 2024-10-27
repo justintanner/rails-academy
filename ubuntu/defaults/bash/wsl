@@ -1,12 +1,14 @@
 WSL=$([[ -d /mnt/c/Users ]] && echo true || echo false)
 
 if [ "$WSL" = true ]; then
-  rubymine() {
-    RUBYMINE_PATH=$(find /mnt/c/Program\ Files\ \(x86\)/JetBrains -maxdepth 1 -type d -name RubyMine* | head -n 1)
-    if [ -n "$RUBYMINE_PATH" ]; then
-      cmd.exe /C "start \"\" \"$RUBYMINE_PATH\\bin\\rubymine64.exe\" $@"
-    else
-      echo "RubyMine not found."
-    fi
- }
+alias rubymine='
+  RUBYMINE_DIR="/mnt/c/Program Files (x86)/JetBrains";
+  RUBYMINE_PATH=$(find "$RUBYMINE_DIR" -maxdepth 1 -type d -name "RubyMine*" | head -n 1);
+  if [ -n "$RUBYMINE_PATH" ]; then
+    RUBYMINE_WINDOWS_PATH=$(wslpath -w "$RUBYMINE_PATH/bin/rubymine64.exe");
+    cmd.exe /C start "" "$RUBYMINE_WINDOWS_PATH";
+  else
+    echo "RubyMine not found.";
+  fi
+'
 end
