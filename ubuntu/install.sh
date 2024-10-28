@@ -81,6 +81,9 @@ if [ "$UBUNTU_DESKTOP" = true ]; then
       good "$app is installed."
     fi
   done
+
+  echo "Installing fonts..."
+  source "$RA_PATH/ubuntu/install/terminal/fonts.sh"
 else
   echo "Skipping desktop apps..."
 fi
