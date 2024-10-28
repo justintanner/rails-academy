@@ -117,6 +117,30 @@ function font() {
     fi
 }
 
+function padding() {
+    x=$1
+    y=$2
+    config_file=$(current_alacritty_config)
+
+    if [ -z "$x" ]; then
+        echo "Error: x is required."
+        exit 1
+    fi
+
+    if [ -z "$y" ]; then
+        echo "Error: y is required."
+        exit 1
+    fi
+
+    if [[ "$(platform)" = "mac" ]]; then
+      sed -i '' -e "s/x.*=.*[0-9]/x = $x/" "$config_file"
+      sed -i '' -e "s/y.*=.*[0-9]/y = $y/" "$config_file"
+    else
+      sed -i -e "s/x.*=.*[0-9]/size = $x/" "$config_file"
+      sed -i -e "s/y.*=.*[0-9]/size = $y/" "$config_file"
+    fi
+}
+
 function light() {
     theme "light"
 }
@@ -167,6 +191,9 @@ case $1 in
         ;;
     font)
         font $2
+        ;;
+    padding)
+        padding $2 $3
         ;;
     upgrade)
         update
