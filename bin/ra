@@ -111,9 +111,9 @@ function font() {
     fi
 
     if [[ "$(platform)" = "mac" ]]; then
-      sed -i '' -e "s/^size[ \t]*=[ \t]*[0-9]+/size = $font_size/" "$config_file"
+      sed -i '' -e "s/^size[ \t]*=[ \t]*[0-9]\+/size = $font_size/" "$config_file"
     else
-      sed -i -e "s/^size[ \t]*=[ \t]*[0-9]+/size = $font_size/" "$config_file"
+      sed -i -e "s/^size[ \t]*=[ \t]*[0-9]\+/size = $font_size/" "$config_file"
     fi
 }
 
@@ -133,11 +133,11 @@ function padding() {
     fi
 
   if [[ "$(platform)" = "mac" ]]; then
-    sed -i '' -e "s/^x[ \t]*=[ \t]*[0-9]+/x = $x/" "$config_file"
-    sed -i '' -e "s/^y[ \t]*=[ \t]*[0-9]+/y = $y/" "$config_file"
+    sed -i '' -e "s/^x[ \t]*=[ \t]*[0-9]\+/x = $x/" "$config_file"
+    sed -i '' -e "s/^y[ \t]*=[ \t]*[0-9]\+/y = $y/" "$config_file"
   else
-    sed -i -e "s/^x[ \t]*=[ \t]*[0-9]+/size = $x/" "$config_file"
-    sed -i -e "s/^y[ \t]*=[ \t]*[0-9]+/size = $y/" "$config_file"
+    sed -i -e "s/^x[ \t]*=[ \t]*[0-9]\+/size = $x/" "$config_file"
+    sed -i -e "s/^y[ \t]*=[ \t]*[0-9]\+/size = $y/" "$config_file"
   fi
 }
 
