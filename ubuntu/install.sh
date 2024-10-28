@@ -9,9 +9,10 @@ sudo apt-get install -y git >/dev/null
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
+mkdir -p ~/.local/share/rails-academy
 git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
 cd ~/.local/share/rails-academy
-if [[ $RAILS_ACADEMY_REF != "master" ]]; then
+if [[ $RAILS_ACADEMY_REF != "main" ]]; then
   git checkout "${RAILS_ACADEMY_REF:-stable}"
 fi
 cd -
@@ -119,4 +120,4 @@ fi
 
 echo -e "\n"
 good "Successfully installed Rails Academy!\n"
-echo "Please restart your terminal to apply the changes."
+echo "Please restart your Terminal to apply all changes."

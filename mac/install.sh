@@ -21,9 +21,10 @@ brew install git
 
 echo "Cloning Rails Academy..."
 rm -rf ~/.local/share/rails-academy
+mkdir -p ~/.local/share/rails-academy
 git clone https://github.com/justintanner/rails-academy.git ~/.local/share/rails-academy >/dev/null
 cd ~/.local/share/rails-academy
-if [[ $RAILS_ACADEMY_REF != "master" ]]; then
+if [[ $RAILS_ACADEMY_REF != "main" ]]; then
   git checkout "${RAILS_ACADEMY_REF:-stable}"
 fi
 cd -
@@ -121,4 +122,4 @@ osascript -e 'tell application "Terminal" to set font size of settings set "Basi
 
 echo -e "\n"
 good "Successfully installed Rails Academy!\n"
-echo "Please restart your terminal."
+echo "Please restart your Terminal to apply all changes."
